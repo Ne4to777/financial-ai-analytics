@@ -876,6 +876,47 @@
                 order: -1;
             }
             
+            /* COMPACT AI Insight Card for mobile */
+            .hero-visual > div {
+                padding: 1.25rem !important;
+                max-height: 420px;
+                overflow: hidden;
+                position: relative;
+            }
+            
+            /* Add fade gradient at bottom */
+            .hero-visual > div::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 60px;
+                background: linear-gradient(to bottom, transparent, white);
+                pointer-events: none;
+            }
+            
+            /* Reduce chart height */
+            .hero-visual svg[viewBox*="300"] {
+                max-height: 140px;
+            }
+            
+            /* Show only first 2 recommendations */
+            .hero-visual ol li:nth-child(n+3) {
+                display: none;
+            }
+            
+            /* Compact table */
+            .hero-visual table {
+                font-size: 0.75rem;
+            }
+            
+            /* Compact footer stats */
+            .hero-visual > div > div:last-child {
+                font-size: 0.6875rem;
+                padding: 0.75rem 1.25rem;
+            }
+            
             .hero-content h1 {
                 font-size: clamp(2rem, 8vw, 2.5rem);
                 line-height: 1.2;
@@ -1092,13 +1133,26 @@
                 height: 48px;
             }
             
-            /* AI Insight Card - adjust for mobile */
+            /* AI Insight Card - COMPACT for mobile */
             .hero-visual > div {
-                padding: 1.25rem !important;
+                padding: 1rem !important;
+                max-height: 360px;
+                overflow: hidden;
             }
             
+            /* Hide less important parts */
             .hero-visual table {
-                font-size: 0.75rem;
+                font-size: 0.6875rem;
+            }
+            
+            /* Compact chart */
+            .hero-visual svg[viewBox] {
+                max-height: 120px;
+            }
+            
+            /* Compact recommendations - show only 2 */
+            .hero-visual ol li:nth-child(n+3) {
+                display: none;
             }
             
             /* Social proof stars - make smaller */
@@ -1134,6 +1188,91 @@
             .btn-secondary {
                 font-size: 0.875rem !important;
                 padding: 0.75rem 1.25rem !important;
+            }
+        }
+        
+        /* Hamburger Menu Styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .mobile-menu.active {
+            max-height: 400px;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            font-weight: 500;
+            font-size: 0.9375rem;
+            transition: background 0.2s;
+        }
+        
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+        
+        .mobile-menu a:hover {
+            background: var(--bg-alt);
+        }
+        
+        .mobile-menu a:active {
+            background: #e5e7eb;
+        }
+        
+        /* Show hamburger only on mobile */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .mobile-menu {
+                display: block;
             }
         }
         
@@ -1279,6 +1418,17 @@
                     <span class="logo-subtitle">Analytics</span>
                 </div>
             </a>
+            <button class="hamburger" id="hamburger" aria-label="Меню" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#features" onclick="closeMobileMenu()">Возможности</a>
+            <a href="#how-it-works" onclick="closeMobileMenu()">Как работает</a>
+            <a href="#pricing" onclick="closeMobileMenu()">Тарифы</a>
+            <a href="#upload-page" onclick="closeMobileMenu()">Загрузить файл</a>
         </div>
     </nav>
     
@@ -2609,6 +2759,41 @@
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
+        });
+    </script>
+    
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        function toggleMobileMenu() {
+            const hamburger = document.getElementById('hamburger');
+            const menu = document.getElementById('mobileMenu');
+            hamburger.classList.toggle('active');
+            menu.classList.toggle('active');
+        }
+        
+        function closeMobileMenu() {
+            const hamburger = document.getElementById('hamburger');
+            const menu = document.getElementById('mobileMenu');
+            hamburger.classList.remove('active');
+            menu.classList.remove('active');
+        }
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const hamburger = document.getElementById('hamburger');
+            const menu = document.getElementById('mobileMenu');
+            const nav = document.getElementById('nav');
+            
+            if (!nav.contains(event.target) && menu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+        
+        // Close menu on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeMobileMenu();
+            }
         });
     </script>
 </body>
