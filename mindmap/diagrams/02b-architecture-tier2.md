@@ -34,7 +34,7 @@ graph TB
     api -->|"Business<br/>logic"| services
     
     subgraph services ["⚙️ Backend Services"]
-        direction TB
+        direction LR
         
         auth["<b>AuthService</b><br/>JWT токены<br/>Email/Password<br/>OAuth providers"]
         file["<b>FileService</b><br/>Загрузка в S3<br/>Virus scan<br/>Парсинг CSV/Excel"]
@@ -60,7 +60,7 @@ graph TB
     end
     
     subgraph storage ["💾 Data Storage"]
-        direction TB
+        direction LR
         db["<b>PostgreSQL</b><br/>users, reports, analysis<br/>Auto-backups (6h)<br/>Point-in-time recovery"]
         replicas["<b>Read Replicas (1-2)</b><br/>Отчеты + аналитика<br/>Load balancing"]
         cache["<b>Redis Cache</b><br/>Session store<br/>Metrics cache<br/>TTL 15 min"]

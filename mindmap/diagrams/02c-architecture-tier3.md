@@ -41,7 +41,7 @@ graph TB
     gateway -->|"Business<br/>logic"| services
     
     subgraph services ["⚙️ Backend Services (Microservices)"]
-        direction TB
+        direction LR
         
         auth["<b>AuthService</b><br/>JWT + SSO<br/>Session mgmt<br/>MFA validation"]
         workspace["<b>WorkspaceService</b><br/>Multi-tenant<br/>Team management<br/>Billing per workspace"]
@@ -85,7 +85,7 @@ graph TB
     end
     
     subgraph storage ["💾 Data Storage (Multi-AZ + Geo-distributed)"]
-        direction TB
+        direction LR
         db["<b>PostgreSQL Primary</b><br/>Multi-AZ<br/>Auto-failover < 30s<br/>Connection pooling"]
         replicas["<b>Read Replicas (2-3)</b><br/>Geo-distributed<br/>Analytics queries<br/>Load balancing"]
         redisCluster["<b>Redis Cluster</b><br/>3+ nodes<br/>High availability<br/>Sentinel"]
