@@ -1373,15 +1373,16 @@
         }
         
         .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(7px, 7px);
+            transform: rotate(45deg) translate(5px, 5px);
         }
         
         .hamburger.active span:nth-child(2) {
             opacity: 0;
+            transform: translateX(20px);
         }
         
         .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
+            transform: rotate(-45deg) translate(5px, -5px);
         }
         
         .mobile-menu {
@@ -1585,10 +1586,9 @@
             </button>
         </div>
         <div class="mobile-menu" id="mobileMenu">
-            <a href="#features" onclick="closeMobileMenu()">Возможности</a>
-            <a href="#how-it-works" onclick="closeMobileMenu()">Как работает</a>
             <a href="#pricing" onclick="closeMobileMenu()">Тарифы</a>
-            <a href="#upload-page" onclick="closeMobileMenu()">Загрузить файл</a>
+            <a href="#start" onclick="closeMobileMenu()">Начать</a>
+            <a href="#upload-page" onclick="closeMobileMenu()">Загрузить</a>
         </div>
     </nav>
     
