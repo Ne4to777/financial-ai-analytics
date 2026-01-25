@@ -820,6 +820,11 @@
     </style>
 </head>
 <body>
+    <!-- Page Indicator -->
+    <div id="pageIndicator" style="position: fixed; top: 80px; right: 20px; z-index: 999; background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); opacity: 0.9; transition: all 0.2s ease; cursor: default;">
+        📄 Landing Page
+    </div>
+    
     <nav id="nav">
         <div class="nav-container">
             <a href="#" class="logo" onclick="showPage('landing'); return false;">
@@ -1525,8 +1530,16 @@
     <!-- END RESULTS PAGE -->
     
     <script>
+        // Debug indicator
+        console.log('🚀 Single Page App loaded');
+        console.log('📄 Total sections on this page:', document.querySelectorAll('.page-section').length);
+        console.log('Available pages: landing, upload, results');
+        console.log('Try: testPageSwitch() to see automatic switching');
+        
         // Page Management
         function showPage(pageId) {
+            console.log('Switching to page:', pageId);
+            
             // Hide all pages
             document.querySelectorAll('.page-section').forEach(page => {
                 page.classList.remove('active');
@@ -1538,14 +1551,42 @@
                 targetPage.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 
+                // Update page indicator
+                const indicator = document.getElementById('pageIndicator');
+                const pageNames = {
+                    'landing': '📄 Landing Page',
+                    'upload': '📤 Upload Section',
+                    'results': '📊 Results Section'
+                };
+                if (indicator) {
+                    indicator.textContent = pageNames[pageId] || pageId;
+                    // Flash effect
+                    indicator.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        indicator.style.transform = 'scale(1)';
+                    }, 200);
+                }
+                
                 // Update URL without reloading
                 if (pageId !== 'landing') {
                     window.history.pushState({ page: pageId }, '', '?page=' + pageId);
                 } else {
                     window.history.pushState({ page: pageId }, '', window.location.pathname);
                 }
+                
+                console.log('Page switched successfully to:', pageId);
+            } else {
+                console.error('Page not found:', pageId + '-page');
             }
         }
+        
+        // Test function
+        window.testPageSwitch = function() {
+            console.log('Testing page switches...');
+            setTimeout(() => showPage('upload'), 1000);
+            setTimeout(() => showPage('results'), 3000);
+            setTimeout(() => showPage('landing'), 5000);
+        };
         
         // Handle browser back/forward buttons
         window.addEventListener('popstate', (event) => {
