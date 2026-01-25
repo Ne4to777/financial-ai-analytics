@@ -1149,51 +1149,40 @@
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 4rem; align-items: start;">
                 <!-- Left: Checks list -->
-                <div>
-                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; color: var(--text-primary);">
-                        Что проверяется:
+                <div style="background: white; border-radius: 16px; border: 1px solid #e5e7eb; padding: 2rem;">
+                    <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.5rem; color: var(--text-primary); letter-spacing: -0.01em;">
+                        Проверки валидации
                     </h3>
                     
-                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <div style="width: 40px; height: 40px; min-width: 40px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">✓</div>
-                            <div>
-                                <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Формат полей</strong>
-                                <span style="color: var(--text-secondary); font-size: 0.9375rem;">Даты, суммы, типы данных, обязательные колонки</span>
-                            </div>
+                    <div style="display: flex; flex-direction: column; gap: 0;">
+                        <div style="padding: 1.25rem 0; border-bottom: 1px solid #f3f4f6;">
+                            <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 0.375rem; font-size: 0.9375rem;">Формат полей</div>
+                            <div style="color: var(--text-secondary); font-size: 0.8125rem; line-height: 1.5;">Проверка типов данных: даты (ISO-8601), числовые значения, обязательные колонки</div>
                         </div>
                         
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <div style="width: 40px; height: 40px; min-width: 40px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">✓</div>
-                            <div>
-                                <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Дубли и пустые значения</strong>
-                                <span style="color: var(--text-secondary); font-size: 0.9375rem;">Поиск дублирующихся записей и пропущенных данных</span>
-                            </div>
+                        <div style="padding: 1.25rem 0; border-bottom: 1px solid #f3f4f6;">
+                            <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 0.375rem; font-size: 0.9375rem;">Дубликаты и пропуски</div>
+                            <div style="color: var(--text-secondary); font-size: 0.8125rem; line-height: 1.5;">Поиск дублирующихся записей, обнаружение пустых и NULL значений</div>
                         </div>
                         
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <div style="width: 40px; height: 40px; min-width: 40px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">✓</div>
-                            <div>
-                                <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Логические несоответствия</strong>
-                                <span style="color: var(--text-secondary); font-size: 0.9375rem;">Отрицательные суммы, некорректные даты, аномальные значения</span>
-                            </div>
+                        <div style="padding: 1.25rem 0; border-bottom: 1px solid #f3f4f6;">
+                            <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 0.375rem; font-size: 0.9375rem;">Логическая целостность</div>
+                            <div style="color: var(--text-secondary); font-size: 0.8125rem; line-height: 1.5;">Отрицательные суммы, некорректные даты, аномальные значения (выбросы)</div>
                         </div>
                         
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <div style="width: 40px; height: 40px; min-width: 40px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">✓</div>
-                            <div>
-                                <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Неизвестные категории</strong>
-                                <span style="color: var(--text-secondary); font-size: 0.9375rem;">Услуги/товары без группы, несуществующие сотрудники</span>
-                            </div>
+                        <div style="padding: 1.25rem 0; border-bottom: 1px solid #f3f4f6;">
+                            <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 0.375rem; font-size: 0.9375rem;">Справочная целостность</div>
+                            <div style="color: var(--text-secondary); font-size: 0.8125rem; line-height: 1.5;">Несопоставленные категории, несуществующие сотрудники, orphaned records</div>
                         </div>
                         
-                        <div style="display: flex; gap: 1rem; align-items: start;">
-                            <div style="width: 40px; height: 40px; min-width: 40px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">✓</div>
-                            <div>
-                                <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Связность данных</strong>
-                                <span style="color: var(--text-secondary); font-size: 0.9375rem;">Сопоставление начислений и оплат, проверка балансов</span>
-                            </div>
+                        <div style="padding: 1.25rem 0;">
+                            <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 0.375rem; font-size: 0.9375rem;">Связность операций</div>
+                            <div style="color: var(--text-secondary); font-size: 0.8125rem; line-height: 1.5;">Сопоставление начислений и оплат, проверка балансовых уравнений</div>
                         </div>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb; font-size: 0.75rem; color: var(--text-muted);">
+                        <strong style="color: var(--text-primary);">Критерий блокировки:</strong> при обнаружении критических ошибок (некорректный формат, missing required fields) расчёт метрик не выполняется
                     </div>
                 </div>
                 
