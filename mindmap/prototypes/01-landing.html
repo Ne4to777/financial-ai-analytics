@@ -534,6 +534,53 @@
             letter-spacing: -0.02em;
             margin-bottom: 1rem;
             color: var(--text-primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        /* Anchor link icons */
+        .anchor-link {
+            opacity: 0;
+            margin-left: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.7em;
+            transition: opacity 0.2s;
+            cursor: pointer;
+        }
+        
+        .section-title:hover .anchor-link,
+        .anchor-link:hover {
+            opacity: 1;
+        }
+        
+        .anchor-link:hover {
+            color: var(--primary-dark);
+        }
+        
+        /* Success message for copied link */
+        .copy-success {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
         
         .section-subtitle {
@@ -2892,6 +2939,61 @@
                 closeMobileMenu();
             }
         });
+    </script>
+    
+    <!-- Anchor Links Script -->
+    <script>
+        // Add anchor links to all sections with IDs
+        document.addEventListener('DOMContentLoaded', function() {
+            // Find all sections with IDs
+            const sections = document.querySelectorAll('section[id], div.page-section[id]');
+            
+            sections.forEach(section => {
+                const id = section.id;
+                const title = section.querySelector('.section-title, h1, h2');
+                
+                if (title && id) {
+                    // Create anchor link
+                    const anchor = document.createElement('a');
+                    anchor.href = '#' + id;
+                    anchor.className = 'anchor-link';
+                    anchor.innerHTML = '🔗';
+                    anchor.title = 'Копировать ссылку на этот раздел';
+                    
+                    // Add click handler
+                    anchor.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        // Update URL
+                        history.pushState(null, null, '#' + id);
+                        
+                        // Copy to clipboard
+                        const url = window.location.href;
+                        navigator.clipboard.writeText(url).then(() => {
+                            showCopySuccess();
+                        });
+                        
+                        // Scroll to section
+                        section.scrollIntoView({ behavior: 'smooth' });
+                    });
+                    
+                    title.appendChild(anchor);
+                }
+            });
+        });
+        
+        // Show success message
+        function showCopySuccess() {
+            const msg = document.createElement('div');
+            msg.className = 'copy-success';
+            msg.textContent = '✓ Ссылка скопирована!';
+            document.body.appendChild(msg);
+            
+            setTimeout(() => {
+                msg.style.animation = 'slideIn 0.3s ease-out reverse';
+                setTimeout(() => msg.remove(), 300);
+            }, 2000);
+        }
     </script>
 </body>
 </html>
