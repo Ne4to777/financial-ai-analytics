@@ -833,6 +833,8 @@
             /* Navigation */
             nav {
                 padding: 0;
+                background: white;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
             }
             
             nav .nav-container {
@@ -857,13 +859,33 @@
                 font-size: 0.6875rem;
             }
             
-            /* Hero Section */
+            /* Hero Section - Modern gradient background */
             .hero {
                 padding: 3.5rem 1.25rem 3rem;
+                background: linear-gradient(180deg, 
+                    #f0f9ff 0%, 
+                    #e0f2fe 50%, 
+                    #ffffff 100%);
+                position: relative;
+            }
+            
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 300px;
+                background: radial-gradient(circle at 50% 0%, 
+                    rgba(37, 99, 235, 0.08) 0%, 
+                    transparent 70%);
+                pointer-events: none;
             }
             
             .hero-container-wrapper {
                 padding: 0;
+                position: relative;
+                z-index: 1;
             }
             
             .hero-container {
@@ -940,6 +962,15 @@
                 padding: 1rem 2rem !important;
                 width: 100%;
                 max-width: 100%;
+                border-radius: 14px;
+                font-weight: 700;
+                box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+                transition: all 0.3s ease;
+            }
+            
+            .btn-primary:active {
+                transform: translateY(1px);
+                box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
             }
             
             /* CTA benefits below button */
@@ -948,28 +979,60 @@
                 font-size: 0.8125rem !important;
             }
             
-            /* Stats */
+            /* Stats - Modern card design */
             .stats-container {
                 grid-template-columns: 1fr 1fr;
-                gap: 1.5rem;
-                padding: 2rem 1.5rem;
+                gap: 1rem;
+                padding: 2.5rem 1.25rem;
+                background: white;
+                border-radius: 24px;
+                margin: -2rem 1.25rem 0;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 
+                           0 0 0 1px rgba(0, 0, 0, 0.04);
+                position: relative;
+                z-index: 2;
             }
             
             .stat-item {
                 text-align: center;
+                padding: 1.25rem 0.75rem;
+                background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+                border-radius: 16px;
+                border: 1px solid #e5e7eb;
             }
             
             .stat-number {
-                font-size: 1.75rem;
+                font-size: 2rem;
+                font-weight: 800;
+                background: linear-gradient(135deg, var(--primary) 0%, #06b6d4 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
             }
             
             .stat-label {
                 font-size: 0.8125rem;
+                color: var(--text-secondary);
+                font-weight: 600;
+                margin-top: 0.5rem;
             }
             
-            /* Sections */
+            /* Sections spacing and background */
             section {
                 padding: 3rem 1.5rem;
+            }
+            
+            /* Add subtle backgrounds to sections */
+            #pricing {
+                background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+            }
+            
+            #upload-page {
+                background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
+            }
+            
+            #results-page {
+                background: white;
             }
             
             .section-header {
@@ -996,14 +1059,28 @@
                 display: none;
             }
             
-            /* Pricing */
+            /* Pricing - Clean modern cards */
             .pricing-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
+                padding: 0 1.25rem;
             }
             
-            .pricing-card {
-                padding: 1.75rem;
+            .pricing-grid > div {
+                padding: 2rem 1.5rem !important;
+                border-radius: 20px !important;
+                background: white !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+                border: 2px solid #e5e7eb !important;
+                transition: all 0.3s ease !important;
+                transform: none !important;
+            }
+            
+            /* Featured card subtle highlight */
+            .pricing-grid > div:nth-child(2) {
+                border-color: var(--primary) !important;
+                box-shadow: 0 6px 16px rgba(37, 99, 235, 0.12) !important;
+                position: relative !important;
             }
             
             /* Upload Section */
