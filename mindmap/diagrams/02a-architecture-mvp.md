@@ -31,12 +31,8 @@ graph TB
     end
     
     mvpPhase["↩️ <b>Roadmap: Tier 1 (MVP)</b><br/>Вернуться к полному плану"]
-    screensLink["📱 <b>Экраны MVP</b><br/>Посмотреть UI/UX экранов"]
-    
-    client ~~~ screensLink
     
     click mvpPhase "?diagram=10" "Вернуться к Roadmap"
-    click screensLink "?diagram=06a" "Перейти к экранам MVP"
     
     style client fill:#e3f2fd,stroke:#1565c0,stroke-width:3px
     style backend fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
