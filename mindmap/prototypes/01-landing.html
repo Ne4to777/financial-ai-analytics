@@ -24,12 +24,49 @@
             --bg-alt: #f8fafc;
             --border: #e2e8f0;
             --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
             --gradient-1: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
             --gradient-2: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Page Management */
+        .page-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .page-section.active {
+            display: block;
+            animation: fadeInSection 0.5s ease forwards;
+        }
+        
+        @keyframes fadeInSection {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Upload Area Styles */
+        #uploadArea:hover {
+            border-color: var(--primary) !important;
+            background: var(--bg-alt) !important;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg) !important;
         }
         
         body {
@@ -785,7 +822,7 @@
 <body>
     <nav id="nav">
         <div class="nav-container">
-            <a href="#" class="logo">
+            <a href="#" class="logo" onclick="showPage('landing'); return false;">
                 <div class="logo-icon">
                     <!-- AI + Finance Logo SVG -->
                     <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -830,10 +867,12 @@
                     <span class="logo-subtitle">Analytics</span>
                 </div>
             </a>
-            <a href="#start" class="nav-cta">Начать →</a>
+            <a href="#" class="nav-cta" onclick="showPage('landing'); return false;">Главная</a>
         </div>
     </nav>
     
+    <!-- LANDING PAGE -->
+    <div class="page-section active" id="landing-page">
     <section class="hero">
         <div class="hero-container-wrapper">
             <div class="hero-content animate-in">
@@ -847,7 +886,7 @@
                     Без регистрации, без сложных настроек.
                 </p>
                 <div class="hero-cta-group">
-                    <a href="#start" class="btn-primary">
+                    <a href="#" class="btn-primary" onclick="showPage('upload'); return false;">
                         Попробовать бесплатно
                         <span>→</span>
                     </a>
@@ -1210,7 +1249,7 @@
             <p class="cta-subtitle">
                 Загрузите свой первый отчёт и получите AI-анализ бесплатно
             </p>
-            <a href="02-upload.html" class="cta-button">
+            <a href="#" class="cta-button" onclick="showPage('upload'); return false;">
                 Начать анализ →
             </a>
             <p class="cta-note">
@@ -1253,13 +1292,338 @@
             </p>
         </div>
     </footer>
+    </div>
+    <!-- END LANDING PAGE -->
+    
+    <!-- UPLOAD PAGE -->
+    <div class="page-section" id="upload-page">
+        <div style="max-width: 900px; margin: 120px auto 60px; padding: 0 2rem;">
+            <h1 style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1rem; text-align: center; font-weight: 800;">
+                Загрузите ваши данные
+            </h1>
+            <p style="text-align: center; color: var(--text-secondary); font-size: 1.125rem; margin-bottom: 3rem;">
+                Поддерживается CSV формат, максимум 10MB
+            </p>
+            
+            <!-- Upload Area -->
+            <div id="uploadArea" style="background: white; border: 3px dashed var(--border); border-radius: 20px; padding: 5rem 2.5rem; text-align: center; transition: all 0.3s; cursor: pointer; box-shadow: var(--shadow-md);">
+                <div style="font-size: 4rem; margin-bottom: 1.5rem;">
+                    <svg width="80" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="uploadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2563eb"/>
+                                <stop offset="100%" style="stop-color:#06b6d4"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="12" y="20" width="40" height="36" rx="4" stroke="url(#uploadGrad)" stroke-width="3" fill="none"/>
+                        <path d="M32 36 L32 48" stroke="url(#uploadGrad)" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M26 42 L32 36 L38 42" stroke="url(#uploadGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <rect x="18" y="8" width="28" height="20" rx="2" fill="url(#uploadGrad)" opacity="0.2"/>
+                        <path d="M24 14 L28 18 L36 10" stroke="url(#uploadGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </div>
+                <div style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--text-primary);">
+                    Перетащите CSV файл сюда
+                </div>
+                <div style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1rem;">
+                    или
+                </div>
+                <button class="cta-button" style="display: inline-block;" onclick="document.getElementById('fileInput').click()">
+                    Выбрать файл
+                </button>
+                <input type="file" id="fileInput" accept=".csv" style="display: none;">
+            </div>
+            
+            <!-- Upload Status -->
+            <div id="uploadStatus" style="display: none; background: white; border-radius: 20px; padding: 3rem; text-align: center; margin-top: 2rem; box-shadow: var(--shadow-lg);">
+                <div style="width: 60px; height: 60px; border: 4px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1.5rem;"></div>
+                <div style="font-size: 1.25rem; color: var(--text-primary); margin-bottom: 0.75rem; font-weight: 600;">
+                    Анализируем ваши данные...
+                </div>
+                <div style="color: var(--text-secondary);">
+                    Это займет примерно 60 секунд
+                </div>
+            </div>
+            
+            <!-- Example Section -->
+            <div style="margin-top: 4rem;">
+                <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    📋 Пример правильного CSV формата
+                </div>
+                
+                <div style="background: white; border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; overflow-x: auto; box-shadow: var(--shadow-sm);">
+                    <pre style="font-family: 'Courier New', monospace; font-size: 0.875rem; color: var(--text-primary); white-space: pre; line-height: 1.8; margin: 0;"><span style="color: var(--primary); font-weight: bold;">date,category,amount,description</span>
+2024-01-15,Revenue,45000,Product sales
+2024-01-16,Marketing,-5000,Facebook ads
+2024-01-17,Salaries,-25000,Team payroll
+2024-01-18,Office,-2000,Rent payment
+2024-01-19,Revenue,52000,Service contracts
+2024-01-20,Operations,-3000,AWS infrastructure
+...</pre>
+                </div>
+                
+                <div style="background: #fef5e7; border-left: 4px solid var(--warning); padding: 1.5rem; border-radius: 12px;">
+                    <h3 style="color: #e67e22; margin-bottom: 0.75rem; font-size: 1.125rem; font-weight: 600;">
+                        ⚠️ Требования к файлу:
+                    </h3>
+                    <ul style="margin-left: 1.25rem; color: var(--text-secondary); line-height: 1.8;">
+                        <li><strong>Обязательные колонки:</strong> date, category, amount, description</li>
+                        <li><strong>Формат даты:</strong> ISO-8601 (YYYY-MM-DD) или DD/MM/YYYY</li>
+                        <li><strong>Amount:</strong> положительные для доходов, отрицательные для расходов</li>
+                        <li><strong>Размер файла:</strong> максимум 10MB (~100,000 строк)</li>
+                        <li><strong>Кодировка:</strong> UTF-8</li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button onclick="showPage('landing')" style="background: none; border: none; color: var(--primary); font-size: 1rem; cursor: pointer; text-decoration: underline; padding: 0.5rem 1rem;">
+                        ← Вернуться на главную
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END UPLOAD PAGE -->
+    
+    <!-- RESULTS PAGE -->
+    <div class="page-section" id="results-page">
+        <div style="max-width: 1200px; margin: 120px auto 60px; padding: 0 2rem;">
+            <!-- Header -->
+            <div style="background: white; padding: 2.5rem; border-radius: 20px; margin-bottom: 2rem; box-shadow: var(--shadow-md);">
+                <h1 style="font-size: 2.25rem; margin-bottom: 0.75rem; font-weight: 800;">
+                    ✅ Анализ завершен
+                </h1>
+                <div style="color: var(--text-muted); font-size: 0.875rem;">
+                    Файл: financial_data.csv • Строк: 1,247 • Обработано за: 42 секунды
+                </div>
+            </div>
+            
+            <!-- Metrics Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: var(--shadow-md); transition: all 0.3s;">
+                    <div style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Revenue</div>
+                    <div style="font-size: 2.25rem; font-weight: bold; color: var(--text-primary); margin-bottom: 0.5rem;">$145K</div>
+                    <span style="background: #d4edda; color: #155724; padding: 0.25rem 0.75rem; border-radius: 16px; font-size: 0.875rem; font-weight: 600;">+12.3% MoM</span>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: var(--shadow-md); transition: all 0.3s;">
+                    <div style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Costs</div>
+                    <div style="font-size: 2.25rem; font-weight: bold; color: var(--text-primary); margin-bottom: 0.5rem;">$124K</div>
+                    <span style="background: #f8d7da; color: #721c24; padding: 0.25rem 0.75rem; border-radius: 16px; font-size: 0.875rem; font-weight: 600;">+8.1% MoM</span>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: var(--shadow-md); transition: all 0.3s;">
+                    <div style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Profit</div>
+                    <div style="font-size: 2.25rem; font-weight: bold; color: var(--text-primary); margin-bottom: 0.5rem;">$21K</div>
+                    <span style="background: #d4edda; color: #155724; padding: 0.25rem 0.75rem; border-radius: 16px; font-size: 0.875rem; font-weight: 600;">+32.7% MoM</span>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: var(--shadow-md); transition: all 0.3s;">
+                    <div style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Burn Rate</div>
+                    <div style="font-size: 2.25rem; font-weight: bold; color: var(--text-primary); margin-bottom: 0.5rem;">$41K</div>
+                    <span style="background: #fff3cd; color: #856404; padding: 0.25rem 0.75rem; border-radius: 16px; font-size: 0.875rem; font-weight: 600;">/месяц</span>
+                </div>
+            </div>
+            
+            <!-- Risks Section -->
+            <div style="background: white; padding: 2.5rem; border-radius: 20px; margin-bottom: 2rem; box-shadow: var(--shadow-md);">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+                    <span style="font-size: 2rem;">⚠️</span>
+                    <div style="font-size: 1.75rem; font-weight: bold;">Финансовые риски (3)</div>
+                </div>
+                
+                <div style="padding: 1.5rem; border-radius: 12px; margin-bottom: 1.25rem; border-left: 4px solid #e53e3e; background: #fff5f5;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+                        <div style="font-size: 1.125rem; font-weight: 600;">Критически низкий runway</div>
+                        <span style="background: #e53e3e; color: white; padding: 0.25rem 0.75rem; border-radius: 16px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">Critical</span>
+                    </div>
+                    <div style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.75rem;">
+                        При текущем burn rate ($41K/месяц) денежные средства закончатся через 2.1 месяца. Критический порог - 3 месяца runway.
+                    </div>
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">
+                        <strong>Вероятность:</strong> 95% • <strong>Категория:</strong> Cash Flow
+                    </div>
+                </div>
+                
+                <div style="padding: 1.5rem; border-radius: 12px; margin-bottom: 1.25rem; border-left: 4px solid #ed8936; background: #fffaf0;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+                        <div style="font-size: 1.125rem; font-weight: 600;">Резкий рост маркетинговых расходов</div>
+                        <span style="background: #ed8936; color: white; padding: 0.25rem 0.75rem; border-radius: 16px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">High</span>
+                    </div>
+                    <div style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.75rem;">
+                        Маркетинговые расходы выросли на 127% в марте ($15K). Это ускоряет burn rate на 2.5 месяца и может сократить runway.
+                    </div>
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">
+                        <strong>Вероятность:</strong> 78% • <strong>Категория:</strong> Costs
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recommendations Section -->
+            <div style="background: white; padding: 2.5rem; border-radius: 20px; margin-bottom: 2rem; box-shadow: var(--shadow-md);">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+                    <span style="font-size: 2rem;">💡</span>
+                    <div style="font-size: 1.75rem; font-weight: bold;">Рекомендации (5)</div>
+                </div>
+                
+                <div style="padding: 1.5rem; background: var(--bg-alt); border-radius: 12px; margin-bottom: 1.25rem; border-left: 4px solid var(--primary);">
+                    <div style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <div style="width: 32px; height: 32px; background: var(--gradient-1); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">1</div>
+                        <div style="flex: 1;">
+                            <div style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem;">Оптимизировать маркетинговые каналы с ROI < 2x</div>
+                            <div style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.75rem;">
+                                Проанализируйте эффективность каждого канала и сократите расходы на неэффективные. Потенциальная экономия: $5-7K/месяц.
+                            </div>
+                            <div style="display: flex; gap: 1rem; flex-wrap: wrap; font-size: 0.8125rem; color: var(--text-muted);">
+                                <span><strong>Приоритет:</strong> High</span>
+                                <span><strong>Эффект:</strong> +1.5 мес runway</span>
+                                <span><strong>Срок:</strong> 2-3 weeks</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="padding: 1.5rem; background: var(--bg-alt); border-radius: 12px; margin-bottom: 1.25rem; border-left: 4px solid var(--primary);">
+                    <div style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <div style="width: 32px; height: 32px; background: var(--gradient-1); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">2</div>
+                        <div style="flex: 1;">
+                            <div style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem;">Привлечь bridge financing на $100-150K</div>
+                            <div style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.75rem;">
+                                С учетом критического runway (2.1 мес), рекомендуется привлечь мостовое финансирование для обеспечения 6-месячного runway.
+                            </div>
+                            <div style="display: flex; gap: 1rem; flex-wrap: wrap; font-size: 0.8125rem; color: var(--text-muted);">
+                                <span><strong>Приоритет:</strong> High</span>
+                                <span><strong>Эффект:</strong> +3-4 мес runway</span>
+                                <span><strong>Срок:</strong> 1-2 months</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA -->
+            <div style="background: var(--gradient-1); padding: 3.75rem 2.5rem; border-radius: 20px; text-align: center; color: white; box-shadow: var(--shadow-xl);">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem; font-weight: 700;">💾 Хотите сохранить этот анализ?</h2>
+                <p style="font-size: 1.125rem; margin-bottom: 2rem; opacity: 0.9;">
+                    Зарегистрируйтесь, чтобы получить доступ к истории отчетов и экспорту в PDF/Excel
+                </p>
+                <button onclick="showPage('upload')" class="cta-button" style="background: white; color: var(--primary);">
+                    Загрузить новый файл →
+                </button>
+                <p style="margin-top: 1.25rem; font-size: 0.875rem; opacity: 0.8;">
+                    ⚠️ Этот анализ будет удален через 24 часа
+                </p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <button onclick="showPage('landing')" style="background: none; border: none; color: var(--primary); font-size: 1rem; cursor: pointer; text-decoration: underline; padding: 0.5rem 1rem;">
+                    ← Вернуться на главную
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- END RESULTS PAGE -->
     
     <script>
+        // Page Management
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId + '-page');
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+        
+        // File Upload Handling
+        const uploadArea = document.getElementById('uploadArea');
+        const uploadStatus = document.getElementById('uploadStatus');
+        const fileInput = document.getElementById('fileInput');
+        
+        // Prevent defaults for drag & drop
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            if (uploadArea) {
+                uploadArea.addEventListener(eventName, preventDefaults, false);
+            }
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        // Drag & drop styling
+        if (uploadArea) {
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, () => {
+                    uploadArea.style.borderColor = 'var(--primary)';
+                    uploadArea.style.background = 'var(--bg-alt)';
+                }, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, () => {
+                    uploadArea.style.borderColor = 'var(--border)';
+                    uploadArea.style.background = 'white';
+                }, false);
+            });
+            
+            // Handle drop
+            uploadArea.addEventListener('drop', (e) => {
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFile(files[0]);
+                }
+            }, false);
+        }
+        
+        // File input change
+        if (fileInput) {
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    handleFile(this.files[0]);
+                }
+            });
+        }
+        
+        // Handle file upload
+        function handleFile(file) {
+            if (!file) return;
+            
+            // Validate file type
+            if (!file.name.endsWith('.csv')) {
+                alert('Пожалуйста, загрузите CSV файл');
+                return;
+            }
+            
+            // Validate file size (10MB)
+            if (file.size > 10 * 1024 * 1024) {
+                alert('Файл слишком большой. Максимум 10MB');
+                return;
+            }
+            
+            // Show upload status
+            uploadArea.style.display = 'none';
+            uploadStatus.style.display = 'block';
+            
+            // Simulate analysis (in real app this would be API call)
+            setTimeout(() => {
+                showPage('results');
+            }, 2000);
+        }
+        
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return; // Skip # only links
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const target = document.querySelector(href);
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
