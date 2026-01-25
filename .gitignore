@@ -44,6 +44,7 @@ Thumbs.db
 screenshots/
 mindmap/screenshots/
 mindmap/viewer/screenshots/
+test-*.png
 
 # Test coverage
 coverage/
