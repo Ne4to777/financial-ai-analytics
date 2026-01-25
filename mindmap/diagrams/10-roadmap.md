@@ -92,6 +92,10 @@ graph TB
         prodGoal ~~~ prod1 ~~~ prod2 ~~~ prod3
     end
     
+    click mvpGoal "?diagram=02a" "📦 Архитектура Tier 1"
+    click p2Goal "?diagram=02b" "📈 Архитектура Tier 2"
+    click p3Goal "?diagram=02c" "🚀 Архитектура Tier 3"
+    
     style tier0Phase fill:#fff9c4,stroke:#f57f17,stroke-width:3px
     style mvpPhase fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
     style phase2Phase fill:#e3f2fd,stroke:#1565c0,stroke-width:3px
@@ -895,7 +899,7 @@ RICE Assessment:
 
 ### Technical Execution ✅
 - [x] Realistic timelines (17-24 months)
-- [x] Architecture evolution plan
+- [x] Architecture evolution (Tier 1→2→3)
 - [x] Tech stack decisions & justifications
 - [x] Feature prioritization framework (RICE)
 - [x] Technical risk mitigation
