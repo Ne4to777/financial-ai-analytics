@@ -29,11 +29,10 @@ graph TB
         t2["03. База данных<br/>Схема и модели"]
         t3["08. AI процесс<br/>Как работает ИИ"]
         t4["05. Flutter<br/>Структура фронтенда"]
-        t5["06. Экраны<br/>UI/UX"]
-        t6["07. API<br/>REST эндпоинты"]
+        t5["07. API<br/>REST эндпоинты"]
         
         t1 --> t2 --> t3
-        t3 --> t4 --> t5 --> t6
+        t3 --> t4 --> t5
     end
     
     subgraph tech ["🔧 Технологии"]
@@ -61,8 +60,7 @@ graph TB
     click t2 "?diagram=03" "База данных"
     click t3 "?diagram=08" "AI процесс"
     click t4 "?diagram=05" "Flutter структура"
-    click t5 "?diagram=06" "Экраны"
-    click t6 "?diagram=07" "API"
+    click t5 "?diagram=07" "API"
     
     click tech1 "?diagram=09" "Tech Stack"
     click tech2 "?diagram=11" "Безопасность"
@@ -87,7 +85,6 @@ graph TB
     style t3 fill:#fff,stroke:#1565c0,stroke-width:2px,cursor:pointer
     style t4 fill:#fff,stroke:#1565c0,stroke-width:2px,cursor:pointer
     style t5 fill:#fff,stroke:#1565c0,stroke-width:2px,cursor:pointer
-    style t6 fill:#fff,stroke:#1565c0,stroke-width:2px,cursor:pointer
     
     style tech1 fill:#fff,stroke:#e65100,stroke-width:2px,cursor:pointer
     style tech2 fill:#fff,stroke:#e65100,stroke-width:2px,cursor:pointer
