@@ -1538,7 +1538,21 @@
             }
             
             .table-wrapper table {
-                min-width: 600px;
+                min-width: 100%;
+            }
+            
+            /* Reduce table text and padding for mobile */
+            .table-wrapper table {
+                font-size: 0.75rem !important;
+            }
+            
+            .table-wrapper table th,
+            .table-wrapper table td {
+                padding: 0.625rem 0.75rem !important;
+            }
+            
+            .table-wrapper table th {
+                font-size: 0.6875rem !important;
             }
         }
         
@@ -1549,7 +1563,21 @@
             }
             
             .table-wrapper table {
-                min-width: 500px;
+                min-width: 100%;
+            }
+            
+            /* Further reduce for small phones */
+            .table-wrapper table {
+                font-size: 0.6875rem !important;
+            }
+            
+            .table-wrapper table th,
+            .table-wrapper table td {
+                padding: 0.5rem 0.625rem !important;
+            }
+            
+            .table-wrapper table th {
+                font-size: 0.625rem !important;
             }
         }
         
