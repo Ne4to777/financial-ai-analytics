@@ -45,6 +45,15 @@ screenshots/
 mindmap/screenshots/
 mindmap/viewer/screenshots/
 test-*.png
+*.png
+!test-data/**/*.png
+
+# Development temporary files
+anchors.html
+*_IMPROVEMENTS.md
+check-*.js
+analyze-*.js
+debug-*.js
 
 # Test coverage
 coverage/
