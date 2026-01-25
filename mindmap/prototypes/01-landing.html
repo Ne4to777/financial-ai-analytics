@@ -1062,32 +1062,67 @@
             
             /* Hide Features and How It Works on mobile */
             .features,
-            #how-it-works {
-                display: none;
+            #how-it-works,
+            #how {
+                display: none !important;
             }
             
-            /* Pricing - Clean modern cards */
-            .pricing-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                padding: 0 1.25rem;
+            /* Pricing - Simplified for mobile */
+            #pricing {
+                padding: 3rem 1.25rem !important;
+                background: white !important;
             }
             
-            .pricing-grid > div {
+            #pricing .section-header {
+                margin-bottom: 2rem;
+            }
+            
+            #pricing .section-title {
+                font-size: 1.75rem !important;
+            }
+            
+            #pricing .section-subtitle {
+                font-size: 0.9375rem !important;
+            }
+            
+            /* Show only Professional plan on mobile */
+            #pricing > div > div {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: 0 !important;
+            }
+            
+            #pricing > div > div > div:first-child,
+            #pricing > div > div > div:last-child {
+                display: none !important;
+            }
+            
+            /* Professional card - clean design */
+            #pricing > div > div > div:nth-child(2) {
                 padding: 2rem 1.5rem !important;
                 border-radius: 20px !important;
                 background: white !important;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-                border: 2px solid #e5e7eb !important;
-                transition: all 0.3s ease !important;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+                border: 2px solid var(--primary) !important;
                 transform: none !important;
             }
             
-            /* Featured card subtle highlight */
-            .pricing-grid > div:nth-child(2) {
-                border-color: var(--primary) !important;
-                box-shadow: 0 6px 16px rgba(37, 99, 235, 0.12) !important;
-                position: relative !important;
+            /* Hide "Популярный" badge on mobile */
+            #pricing > div > div > div:nth-child(2) > div:first-child {
+                display: none !important;
+            }
+            
+            /* Compact pricing content */
+            #pricing h3 {
+                font-size: 1.375rem !important;
+            }
+            
+            #pricing ul {
+                gap: 0.625rem !important;
+            }
+            
+            #pricing li {
+                font-size: 0.875rem !important;
             }
             
             /* Upload Section */
