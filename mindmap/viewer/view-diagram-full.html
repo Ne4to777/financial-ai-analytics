@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial AI Analytics - Diagram Viewer</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .main-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: white;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px 10px;
+            color: #666;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+        
+        .sidebar-toggle:hover {
+            color: #333;
+        }
+        
+        .header-content {
+            flex: 1;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: white;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            flex-shrink: 0;
+            transition: margin-left 0.3s ease;
+            z-index: 10;
+        }
+        
+        .sidebar.collapsed {
+            margin-left: -280px;
+        }
+        
+        .sidebar-header {
+            padding: 15px 20px;
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        
+        .diagram-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .diagram-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.2s;
+            font-size: 0.9em;
+            color: #333;
+        }
+        
+        .diagram-item:hover {
+            background: #f8f9ff;
+            padding-left: 25px;
+        }
+        
+        .diagram-item.active {
+            background: #667eea;
+            color: white !important;
+            font-weight: 600;
+            border-left: 4px solid #5568d3;
+        }
+        
+        .diagram-item.active:hover {
+            background: #5568d3;
+            padding-left: 20px;
+            color: white !important;
+        }
+        
+        .prototype-item {
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .prototype-item:hover {
+            background: #f0f3ff !important;
+        }
+        
+        .prototype-item.active {
+            background: #667eea !important;
+            color: white !important;
+        }
+        
+        .diagram-separator {
+            height: 1px;
+            background: #ddd;
+            margin: 12px 0;
+            list-style: none;
+        }
+        
+        /* Prototype viewer button styles */
+        .proto-nav-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .proto-btn-primary:hover {
+            background: #f0f0f0 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .proto-btn-secondary:hover {
+            background: rgba(255,255,255,0.35) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .proto-nav-btn:active {
+            transform: translateY(0);
+        }
+        
+        .diagram-section-title {
+            padding: 8px 16px;
+            font-weight: 700;
+            font-size: 0.85em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: #f5f5f5;
+            list-style: none;
+            cursor: default;
+            margin-top: 8px;
+        }
+        
+        h1 {
+            color: #333;
+            margin: 0;
+            font-size: 1.3em;
+            display: inline-block;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 0.85em;
+            display: inline-block;
+            margin-left: 15px;
+        }
+        
+        .controls {
+            background: white;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            flex-shrink: 0;
+            justify-content: flex-end;
+        }
+        
+        .controls button {
+            padding: 6px 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .controls button:hover {
+            background: #5568d3;
+        }
+        
+        .zoom-controls {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        
+        .zoom-controls button {
+            width: 32px;
+            height: 32px;
+            font-size: 1.1em;
+            padding: 0;
+        }
+        
+        .zoom-level {
+            color: #666;
+            font-weight: 600;
+            min-width: 60px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        .diagram-container {
+            background: white;
+            padding: 20px;
+            overflow: hidden;
+            flex: 1;
+            position: relative;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: grab;
+        }
+        
+        .diagram-container.dragging {
+            cursor: grabbing;
+        }
+        
+        .mermaid-wrapper {
+            position: relative;
+        }
+        
+        .mermaid {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .mermaid svg {
+            display: block;
+        }
+        
+        /* Выравнивание текста в узлах по левому краю */
+        .mermaid svg .nodeLabel {
+            text-align: left !important;
+        }
+        
+        .mermaid svg .label foreignObject {
+            text-align: left !important;
+        }
+        
+        .mermaid svg .label foreignObject div {
+            text-align: left !important;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+        /* Эффект hover для кликабельных элементов */
+        .mermaid svg a:hover rect,
+        .mermaid svg a:hover polygon,
+        .mermaid svg a:hover circle,
+        .mermaid svg a:hover path {
+            filter: brightness(1.15);
+            transition: filter 0.2s ease;
+        }
+        
+        .mermaid svg a {
+            cursor: pointer;
+        }
+        
+        .mermaid svg a:hover {
+            opacity: 0.95;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1em;
+        }
+        
+        .help-toggle {
+            margin-left: auto;
+            background: #f0f0f0;
+            color: #666;
+            font-size: 0.85em;
+            padding: 4px 10px;
+        }
+        
+        .help-toggle:hover {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        .help-text {
+            display: none;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.85);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            z-index: 1000;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .help-text.show {
+            display: block;
+        }
+        
+        .help-text ul {
+            margin: 8px 0 0 0;
+            padding-left: 18px;
+        }
+        
+        .help-text li {
+            margin: 4px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 240px;
+                position: fixed;
+                height: calc(100vh - 60px);
+                top: 60px;
+                left: 0;
+                z-index: 100;
+            }
+            
+            .sidebar.collapsed {
+                margin-left: -240px;
+            }
+            
+            .controls {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+            }
+            
+            .help-text {
+                max-width: calc(100vw - 40px);
+            }
+            
+            .zoom-controls {
+                flex-shrink: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="sidebar-toggle" onclick="toggleSidebar()" title="Показать/скрыть меню">☰</button>
+            <div class="header-content">
+                <h1>📊 Financial AI Analytics</h1>
+                <span class="subtitle">Diagram Viewer</span>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    📂 Содержание
+                </div>
+                <ul class="diagram-list">
+                    <li class="diagram-section-title">📋 Диаграммы</li>
+                    <li class="diagram-item" data-diagram="01">1. Обзор продукта</li>
+                    <li class="diagram-item" data-diagram="02">2. Архитектура (полная)</li>
+                    <li class="diagram-item" data-diagram="02a" style="padding-left: 30px;">└ 2a. Tier 1: MVP</li>
+                    <li class="diagram-item" data-diagram="02b" style="padding-left: 30px;">└ 2b. Tier 2: Production</li>
+                    <li class="diagram-item" data-diagram="02c" style="padding-left: 30px;">└ 2c. Tier 3: Enterprise</li>
+                    <li class="diagram-item" data-diagram="04">3. Поток обработки данных</li>
+                    <li class="diagram-item" data-diagram="06">4. Mind Map экранов (полный)</li>
+                    <li class="diagram-item" data-diagram="06a" style="padding-left: 30px;">└ 4a. Tier 1: MVP</li>
+                    <li class="diagram-item" data-diagram="06b" style="padding-left: 30px;">└ 4b. Tier 2: Production</li>
+                    <li class="diagram-item" data-diagram="06c" style="padding-left: 30px;">└ 4c. Tier 3: Enterprise</li>
+                    <li class="diagram-item" data-diagram="08">5. AI анализ - реализация</li>
+                    <li class="diagram-item" data-diagram="09">6. Технологии и зависимости</li>
+                    <li class="diagram-item" data-diagram="10">7. Roadmap</li>
+                    <li class="diagram-separator"></li>
+                    <li class="diagram-section-title">💼 Бизнес-обоснование</li>
+                    <li class="diagram-item" data-diagram="13">8. Бизнес-ценность и ROI</li>
+                    <li class="diagram-item" data-diagram="14">9. Доказательства эффективности</li>
+                    <li class="diagram-item" data-diagram="15">10. Интеграции</li>
+                    <li class="diagram-item" data-diagram="16">11. Безопасность и комплаенс</li>
+                    <li class="diagram-item" data-diagram="17">12. Конкурентные преимущества</li>
+                    <li class="diagram-item" data-diagram="18">13. Внедрение и поддержка</li>
+                    <li class="diagram-separator"></li>
+                    <li class="diagram-section-title">🎨 Прототипы</li>
+                    <li class="diagram-item prototype-item" data-diagram="prototypes">📋 Навигация по прототипам</li>
+                    <li class="diagram-item prototype-item" data-diagram="prototype-landing" style="padding-left: 30px;">└ 🏠 Landing Page</li>
+                    <li class="diagram-item prototype-item" data-diagram="prototype-upload" style="padding-left: 30px;">└ 📤 Upload Screen</li>
+                    <li class="diagram-item prototype-item" data-diagram="prototype-analysis" style="padding-left: 30px;">└ 📊 Analysis Results</li>
+                </ul>
+            </div>
+            
+            <div style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+                <div class="controls">
+                    <div class="zoom-controls">
+                        <button onclick="zoomOut()" title="Уменьшить">−</button>
+                        <span class="zoom-level" id="zoom-level">100%</span>
+                        <button onclick="zoomIn()" title="Увеличить">+</button>
+                        <button onclick="resetZoom()" title="Сбросить масштаб">↺</button>
+                        <button onclick="fitToScreen()" title="Подогнать под экран">⛶</button>
+                    </div>
+                    
+                    <button class="help-toggle" onclick="toggleHelp()">? Помощь</button>
+                </div>
+                
+                <div class="diagram-container" id="diagram-container">
+                    <div class="loading">
+                        Выберите диаграмму ← в меню слева
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="help-text" id="help-text">
+            <strong>🔍 Управление:</strong>
+            <ul>
+                <li><strong>+/−</strong> - зум</li>
+                <li><strong>Ctrl+колесико</strong> - плавный зум</li>
+                <li><strong>Зажать и тащить</strong> - перемещение</li>
+                <li><strong>↺</strong> - сброс 100%</li>
+                <li><strong>⛶</strong> - подогнать под экран</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: { 
+                useMaxWidth: false,
+                htmlLabels: true
+            },
+            er: {
+                useMaxWidth: false
+            },
+            sequence: {
+                useMaxWidth: false
+            }
+        });
+        
+        let currentZoom = 1;
+        let isPanning = false;
+        let startX = 0;
+        let startY = 0;
+        let translateX = 0;
+        let translateY = 0;
+        
+        // Функция для загрузки диаграммы из файла
+        async function loadDiagramFromFile(filename) {
+            try {
+                // Try both absolute and relative paths
+                let response;
+                try {
+                    response = await fetch(`../diagrams/${filename}.md`);
+                } catch (e) {
+                    // Fallback to absolute path from root
+                    response = await fetch(`/diagrams/${filename}.md`);
+                }
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const text = await response.text();
+                
+                // Извлекаем код между ```mermaid и ```
+                const match = text.match(/```mermaid\n([\s\S]*?)\n```/);
+                if (match) {
+                    return match[1];
+                }
+                return null;
+            } catch (error) {
+                console.error('Error loading diagram:', error);
+                return null;
+            }
+        }
+        
+        let currentDiagramId = null;
+        
+        async function loadDiagram(diagramId) {
+            const container = document.getElementById('diagram-container');
+            
+            if (!diagramId) {
+                container.innerHTML = '<div class="loading">Выберите диаграмму ← в меню слева</div>';
+                return;
+            }
+            
+            currentDiagramId = diagramId;
+            container.innerHTML = '<div class="loading">Загрузка диаграммы...</div>';
+            
+            // Special handling for prototypes - show in iframe
+            if (diagramId === 'prototypes') {
+                showPrototypesViewer();
+                return;
+            }
+            
+            // Special handling for individual prototypes
+            if (diagramId === 'prototype-landing') {
+                showPrototypesViewer('../prototypes/01-landing.html');
+                return;
+            }
+            
+            if (diagramId === 'prototype-upload') {
+                showPrototypesViewer('../prototypes/02-upload.html');
+                return;
+            }
+            
+            if (diagramId === 'prototype-analysis') {
+                showPrototypesViewer('../prototypes/03-analysis.html');
+                return;
+            }
+            
+            // Restore container padding for regular diagrams
+            container.style.padding = '';
+            container.style.overflow = '';
+            
+            // Mapping для правильных имен файлов
+            const fileMapping = {
+                '00': '00-navigation',
+                '01': '01-project-structure',
+                '02': '02-system-architecture',
+                '02a': '02a-architecture-mvp',
+                '02b': '02b-architecture-tier2',
+                '02c': '02c-architecture-tier3',
+                '03': '03-data-model',
+                '04': '04-data-flow',
+                '05': '05-flutter-structure',
+                '06': '06-screens-mindmap',
+                '06a': '06a-screens-tier1',
+                '06b': '06b-screens-tier2',
+                '06c': '06c-screens-tier3',
+                '07': '07-api-structure',
+                '08': '08-ai-analysis-process',
+                '09': '09-tech-stack',
+                '10': '10-roadmap',
+                '11': '11-security',
+                '12': '12-performance',
+                '13': '13-business-value',
+                '14': '14-proof-points',
+                '15': '15-integrations',
+                '16': '16-security-compliance',
+                '17': '17-competitive-advantages',
+                '18': '18-implementation-support',
+                '99': '99-formatting-demo',
+                'prototypes': 'prototypes'
+            };
+            
+            const filename = fileMapping[diagramId];
+            const code = await loadDiagramFromFile(filename);
+            
+            if (!code) {
+                container.innerHTML = '<div class="loading">❌ Ошибка загрузки диаграммы</div>';
+                return;
+            }
+            
+            // Update active state in sidebar
+            document.querySelectorAll('.diagram-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.diagram === diagramId) {
+                    item.classList.add('active');
+                }
+            });
+            
+            container.innerHTML = `<div class="mermaid-wrapper"><div class="mermaid">${code}</div></div>`;
+            mermaid.run({
+                querySelector: '.mermaid'
+            }).then(() => {
+                // Reset pan and zoom
+                translateX = 0;
+                translateY = 0;
+                currentZoom = 1;
+                
+                // Auto-fit to screen after diagram loads
+                // Use longer delay to ensure SVG is fully rendered
+                setTimeout(fitToScreen, 0);
+                
+                // Enable interactive clicks in diagrams
+                setTimeout(() => {
+                    enableDiagramClicks();
+                    applyLeftAlignment();
+                }, 0);
+            }).catch(err => {
+                console.error('Mermaid render error:', err);
+                container.innerHTML = '<div class="loading">❌ Ошибка рендеринга диаграммы<br><small>' + err.message + '</small></div>';
+            });
+        }
+        
+        function zoomIn() {
+            currentZoom = Math.min(currentZoom + 0.1, 3);
+            applyZoom();
+        }
+        
+        function zoomOut() {
+            currentZoom = Math.max(currentZoom - 0.1, 0.5);
+            applyZoom();
+        }
+        
+        function resetZoom() {
+            currentZoom = 1;
+            resetPan();
+        }
+        
+        function fitToScreen() {
+            const container = document.getElementById('diagram-container');
+            const wrapper = document.querySelector('.mermaid-wrapper');
+            const svg = document.querySelector('.mermaid svg');
+            
+            if (!svg || !wrapper) {
+                console.log('SVG not found');
+                return;
+            }
+            
+            // Reset transform first to get true dimensions
+            wrapper.style.transform = 'scale(1)';
+            currentZoom = 1;
+            resetPan();
+            
+            // Wait for layout to settle
+            setTimeout(() => {
+                // Get container dimensions (with padding)
+                const containerWidth = container.clientWidth - 60;
+                const containerHeight = container.clientHeight - 60;
+                
+                // Get SVG viewBox or actual dimensions
+                const viewBox = svg.getAttribute('viewBox');
+                let svgWidth, svgHeight;
+                
+                if (viewBox) {
+                    const parts = viewBox.split(/\s+/);
+                    svgWidth = parseFloat(parts[2]);
+                    svgHeight = parseFloat(parts[3]);
+                } else {
+                    const bbox = svg.getBBox();
+                    svgWidth = bbox.width;
+                    svgHeight = bbox.height;
+                }
+                
+                if (!svgWidth || !svgHeight) {
+                    const rect = svg.getBoundingClientRect();
+                    svgWidth = rect.width;
+                    svgHeight = rect.height;
+                }
+                
+                console.log('Container:', containerWidth, 'x', containerHeight);
+                console.log('SVG:', svgWidth, 'x', svgHeight);
+                
+                if (svgWidth === 0 || svgHeight === 0) {
+                    console.log('SVG has zero dimensions');
+                    currentZoom = 1;
+                    applyZoom();
+                    return;
+                }
+                
+                // Calculate scale to fit with some margin
+                const scaleX = containerWidth / svgWidth;
+                const scaleY = containerHeight / svgHeight;
+                
+                // Use smaller scale and add 5% margin
+                currentZoom = Math.min(scaleX, scaleY) * 0.95;
+                
+                // Limit zoom range
+                currentZoom = Math.min(currentZoom, 2.0);
+                currentZoom = Math.max(currentZoom, 0.1);
+                
+                console.log('Scale X:', scaleX, 'Scale Y:', scaleY);
+                console.log('Final zoom:', currentZoom);
+                
+                applyZoom();
+            }, 100);
+        }
+        
+        function applyZoom() {
+            const wrapper = document.querySelector('.mermaid-wrapper');
+            if (wrapper) {
+                wrapper.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+            }
+            document.getElementById('zoom-level').textContent = Math.round(currentZoom * 100) + '%';
+        }
+        
+        function resetPan() {
+            translateX = 0;
+            translateY = 0;
+            applyZoom();
+        }
+        
+        function toggleHelp() {
+            const helpText = document.getElementById('help-text');
+            helpText.classList.toggle('show');
+            setTimeout(() => {
+                if (helpText.classList.contains('show')) {
+                    helpText.classList.remove('show');
+                }
+            }, 5000);
+        }
+        
+        // Event listeners
+        // URL routing support
+        function updateURL(diagramId) {
+            if (diagramId) {
+                const url = new URL(window.location);
+                url.searchParams.set('diagram', diagramId);
+                window.history.pushState({}, '', url);
+            }
+        }
+        
+        function loadDiagramFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const diagramId = urlParams.get('diagram');
+            
+            if (diagramId) {
+                loadDiagram(diagramId);
+            } else {
+                // Load first diagram by default
+                loadDiagram('01');
+            }
+        }
+        
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+            
+            // Save state to localStorage
+            const isCollapsed = sidebar.classList.contains('collapsed');
+            localStorage.setItem('sidebarCollapsed', isCollapsed);
+        }
+        
+        // Show prototypes viewer with iframe
+        function showPrototypesViewer(defaultUrl = null) {
+            const container = document.getElementById('diagram-container');
+            
+            // Remove padding from container for full-width display
+            container.style.padding = '0';
+            container.style.overflow = 'hidden';
+            
+            // Determine the correct base URL - relative from viewer directory
+            const prototypeUrls = {
+                index: '../prototypes/index.html',
+                landing: '../prototypes/01-landing.html',
+                upload: '../prototypes/02-upload.html',
+                analysis: '../prototypes/03-analysis.html'
+            };
+            
+            // Use defaultUrl if provided, otherwise use index
+            const initialUrl = defaultUrl || prototypeUrls.index;
+            
+            container.innerHTML = `
+                <div style="display: flex; flex-direction: column; width: 100%; height: 100%; background: white;">
+                    <!-- Navigation Bar -->
+                    <div style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h2 style="margin: 0 0 16px 0; font-size: 24px; display: flex; align-items: center; gap: 8px;">
+                            🎨 HTML Прототипы
+                        </h2>
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <button onclick="loadPrototype('${prototypeUrls.index}')" 
+                                    class="proto-nav-btn proto-btn-primary"
+                                    style="padding: 10px 20px; background: white; color: #667eea; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                                📋 Навигация
+                            </button>
+                            <button onclick="loadPrototype('${prototypeUrls.landing}')" 
+                                    class="proto-nav-btn proto-btn-secondary"
+                                    style="padding: 10px 20px; background: rgba(255,255,255,0.2); color: white; border: 2px solid white; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                                🏠 Landing
+                            </button>
+                            <button onclick="loadPrototype('${prototypeUrls.upload}')" 
+                                    class="proto-nav-btn proto-btn-secondary"
+                                    style="padding: 10px 20px; background: rgba(255,255,255,0.2); color: white; border: 2px solid white; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                                📤 Upload
+                            </button>
+                            <button onclick="loadPrototype('${prototypeUrls.analysis}')" 
+                                    class="proto-nav-btn proto-btn-secondary"
+                                    style="padding: 10px 20px; background: rgba(255,255,255,0.2); color: white; border: 2px solid white; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                                📊 Analysis
+                            </button>
+                            <button onclick="loadPrototype('${prototypeUrls.landing}', true)" 
+                                    class="proto-nav-btn proto-btn-secondary"
+                                    style="padding: 10px 20px; background: rgba(255,255,255,0.2); color: white; border: 2px solid white; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-left: auto;">
+                                🔗 Новая вкладка
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Iframe Container -->
+                    <div style="flex: 1; position: relative; overflow: hidden;">
+                        <iframe 
+                            id="prototype-frame" 
+                            src="${initialUrl}" 
+                            style="width: 100%; height: 100%; border: none; background: white;"
+                            title="Prototype Viewer"
+                        ></iframe>
+                    </div>
+                    
+                    <!-- Info Bar -->
+                    <div style="padding: 12px 20px; background: #f7fafc; border-top: 1px solid #e2e8f0; font-size: 14px; color: #718096; flex-shrink: 0;">
+                        💡 <strong>Совет:</strong> Используйте кнопки навигации выше для переключения между прототипами
+                    </div>
+                </div>
+            `;
+            
+            // Update active state in sidebar
+            document.querySelectorAll('.diagram-item').forEach(item => {
+                item.classList.remove('active');
+                // Match the current diagram ID (prototypes, prototype-landing, etc.)
+                if (item.dataset.diagram === currentDiagramId) {
+                    item.classList.add('active');
+                }
+            });
+        }
+        
+        // Function to load prototype in iframe
+        window.loadPrototype = function(url, newTab = false) {
+            if (newTab) {
+                window.open(url, '_blank');
+                return;
+            }
+            
+            const iframe = document.getElementById('prototype-frame');
+            if (iframe) {
+                iframe.src = url;
+            }
+        };
+        
+        function selectDiagram(diagramId) {
+            updateURL(diagramId);
+            loadDiagram(diagramId);
+        }
+        
+        // Enable interactive clicks in diagrams
+        function enableDiagramClicks() {
+            const svg = document.querySelector('.mermaid svg');
+            if (!svg) return;
+            
+            // Find all <a> elements created by Mermaid click directives
+            const links = svg.querySelectorAll('a');
+            links.forEach(link => {
+                const href = link.getAttribute('href') || link.getAttribute('xlink:href');
+                if (href) {
+                    // Handle both ?diagram= and #diagram- formats
+                    let diagramId = null;
+                    
+                    if (href.startsWith('?diagram=')) {
+                        diagramId = href.split('=')[1];
+                    } else if (href.startsWith('#diagram-')) {
+                        // Extract diagram ID from #diagram-XX format
+                        diagramId = href.replace('#diagram-', '');
+                    } else if (href === '#prototypes') {
+                        // Special handling for prototypes
+                        diagramId = 'prototypes';
+                    }
+                    
+                    if (diagramId) {
+                        link.style.cursor = 'pointer';
+                        link.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            selectDiagram(diagramId);
+                        });
+                    }
+                }
+            });
+            
+            // Also handle direct SVG elements with data attributes
+            const clickableNodes = svg.querySelectorAll('[data-diagram]');
+            clickableNodes.forEach(node => {
+                const diagramId = node.getAttribute('data-diagram');
+                if (diagramId) {
+                    node.style.cursor = 'pointer';
+                    node.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        selectDiagram(diagramId);
+                    });
+                }
+            });
+        }
+        
+        // Apply left alignment to text in diagram nodes
+        function applyLeftAlignment() {
+            const svg = document.querySelector('.mermaid svg');
+            if (!svg) return;
+            
+            // Find all foreignObject elements ONLY inside nodes (not in cluster/subgraph labels)
+            // Exclude elements that are part of cluster labels by checking parent classes
+            const foreignObjects = svg.querySelectorAll('foreignObject');
+            foreignObjects.forEach(fo => {
+                // Skip if this is a cluster/subgraph label
+                const parent = fo.closest('.cluster-label, .cluster, [class*="cluster"]');
+                if (parent && parent.classList.contains('cluster-label')) {
+                    return; // Skip cluster labels
+                }
+                
+                const div = fo.querySelector('div');
+                if (div) {
+                    div.style.textAlign = 'left';
+                    div.style.paddingLeft = '10px';
+                    div.style.paddingRight = '10px';
+                }
+            });
+            
+            // Also try to adjust text elements directly in nodes only
+            const textElements = svg.querySelectorAll('.nodeLabel');
+            textElements.forEach(text => {
+                const fo = text.querySelector('foreignObject');
+                if (fo) {
+                    const div = fo.querySelector('div');
+                    if (div) {
+                        div.style.textAlign = 'left';
+                        div.style.paddingLeft = '10px';
+                        div.style.paddingRight = '10px';
+                    }
+                }
+            });
+        }
+        
+        // Setup sidebar event listeners
+        document.querySelectorAll('.diagram-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const diagramId = this.dataset.diagram;
+                selectDiagram(diagramId);
+            });
+        });
+        
+        // Handle browser back/forward
+        window.addEventListener('popstate', loadDiagramFromURL);
+        
+        // Restore sidebar state from localStorage
+        const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+        if (sidebarCollapsed) {
+            document.getElementById('sidebar').classList.add('collapsed');
+        }
+        
+        // Load diagram from URL on page load (after DOM is ready)
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadDiagramFromURL);
+        } else {
+            // DOM already loaded
+            setTimeout(loadDiagramFromURL, 100);
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                if (e.key === '+' || e.key === '=') {
+                    e.preventDefault();
+                    zoomIn();
+                } else if (e.key === '-') {
+                    e.preventDefault();
+                    zoomOut();
+                } else if (e.key === '0') {
+                    e.preventDefault();
+                    resetZoom();
+                }
+            }
+        });
+        
+        // Mouse wheel zoom with Cmd/Ctrl
+        document.getElementById('diagram-container').addEventListener('wheel', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                e.preventDefault();
+                
+                const delta = e.deltaY || e.detail || e.wheelDelta;
+                
+                if (delta < 0) {
+                    currentZoom = Math.min(currentZoom + 0.05, 3);
+                } else {
+                    currentZoom = Math.max(currentZoom - 0.05, 0.5);
+                }
+                
+                applyZoom();
+            }
+        }, { passive: false });
+        
+        // Hide help on click outside
+        document.addEventListener('click', (e) => {
+            const helpText = document.getElementById('help-text');
+            const helpButton = document.querySelector('.help-toggle');
+            if (!helpButton.contains(e.target) && !helpText.contains(e.target)) {
+                helpText.classList.remove('show');
+            }
+        });
+        
+        // Panning functionality
+        const container = document.getElementById('diagram-container');
+        
+        container.addEventListener('mousedown', (e) => {
+            // Only pan if clicking on the container, not on diagram elements
+            if (e.target === container || e.target.closest('.mermaid-wrapper')) {
+                isPanning = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                container.classList.add('dragging');
+                e.preventDefault();
+            }
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!isPanning) return;
+            
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            applyZoom();
+        });
+        
+        document.addEventListener('mouseup', () => {
+            if (isPanning) {
+                isPanning = false;
+                container.classList.remove('dragging');
+            }
+        });
+        
+        // Prevent text selection while dragging
+        container.addEventListener('selectstart', (e) => {
+            if (isPanning) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "financial-ai-analytics-viewer",
+  "version": "1.0.0",
+  "description": "Live server with hot reload for diagram viewer",
+  "main": "live-server.js",
+  "scripts": {
+    "start": "node live-server.js",
+    "dev": "node live-server.js",
+    "stop": "./stop-server.sh",
+    "restart": "npm run stop && npm run start",
+    "screenshot": "node screenshot-diagram.js"
+  },
+  "keywords": [
+    "live-server",
+    "hot-reload",
+    "diagram-viewer"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.19.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.57.0"
+  }
+}

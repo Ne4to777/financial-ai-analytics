@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial AI Analytics - Diagram Viewer</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: white;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        
+        h1 {
+            color: #333;
+            margin: 0;
+            font-size: 1.3em;
+            display: inline-block;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 0.85em;
+            display: inline-block;
+            margin-left: 15px;
+        }
+        
+        .controls {
+            background: white;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        
+        .controls label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9em;
+        }
+        
+        .controls select {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+            background: white;
+            cursor: pointer;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .controls button {
+            padding: 6px 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .controls button:hover {
+            background: #5568d3;
+        }
+        
+        .zoom-controls {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        
+        .zoom-controls button {
+            width: 32px;
+            height: 32px;
+            font-size: 1.1em;
+            padding: 0;
+        }
+        
+        .zoom-level {
+            color: #666;
+            font-weight: 600;
+            min-width: 60px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        .diagram-container {
+            background: white;
+            padding: 20px;
+            overflow: hidden;
+            flex: 1;
+            position: relative;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .mermaid {
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .mermaid svg {
+            display: block;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1em;
+        }
+        
+        .help-toggle {
+            margin-left: auto;
+            background: #f0f0f0;
+            color: #666;
+            font-size: 0.85em;
+            padding: 4px 10px;
+        }
+        
+        .help-toggle:hover {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        .help-text {
+            display: none;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.85);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            z-index: 1000;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .help-text.show {
+            display: block;
+        }
+        
+        .help-text ul {
+            margin: 8px 0 0 0;
+            padding-left: 18px;
+        }
+        
+        .help-text li {
+            margin: 4px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+            }
+            
+            .controls select,
+            .controls button {
+                width: 100%;
+            }
+            
+            .help-text {
+                max-width: calc(100vw - 40px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Financial AI Analytics</h1>
+            <span class="subtitle">Diagram Viewer</span>
+        </div>
+        
+        <div class="controls">
+            <label for="diagram-select">Диаграмма:</label>
+            <select id="diagram-select">
+                <option value="">-- Выберите --</option>
+                <option value="project-structure">1. Общая структура</option>
+                <option value="system-architecture">2. Архитектура</option>
+                <option value="data-model">3. Модель данных</option>
+                <option value="data-flow">4. Поток данных</option>
+                <option value="flutter-structure">5. Flutter структура</option>
+                <option value="screens-mindmap">6. Экраны</option>
+                <option value="api-structure">7. API</option>
+                <option value="ai-analysis">8. AI Analysis</option>
+                <option value="tech-stack">9. Tech Stack</option>
+                <option value="roadmap">10. Roadmap</option>
+                <option value="security">11. Security</option>
+            </select>
+            
+            <div class="zoom-controls">
+                <button onclick="zoomOut()" title="Уменьшить">−</button>
+                <span class="zoom-level" id="zoom-level">100%</span>
+                <button onclick="zoomIn()" title="Увеличить">+</button>
+                <button onclick="resetZoom()" title="Сбросить масштаб">↺</button>
+                <button onclick="fitToScreen()" title="Подогнать под экран">⛶</button>
+            </div>
+            
+            <button class="help-toggle" onclick="toggleHelp()">? Помощь</button>
+        </div>
+        
+        <div class="diagram-container" id="diagram-container">
+            <div class="loading">
+                Выберите диаграмму ☝️
+            </div>
+        </div>
+        
+        <div class="help-text" id="help-text">
+            <strong>🔍 Управление:</strong>
+            <ul>
+                <li><strong>+/−</strong> - зум</li>
+                <li><strong>Ctrl+колесико</strong> - плавный зум</li>
+                <li><strong>↺</strong> - 100%</li>
+                <li><strong>⛶</strong> - подогнать под экран</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: { 
+                useMaxWidth: false,
+                htmlLabels: true
+            },
+            er: {
+                useMaxWidth: false
+            },
+            sequence: {
+                useMaxWidth: false
+            }
+        });
+        
+        let currentZoom = 1;
+        
+        // Диаграммы в формате Mermaid
+        const diagrams = {
+            'project-structure': `graph TB
+    root[Financial AI Analytics Platform]
+    root --> platforms[Платформы 6x]
+    root --> backend[Backend]
+    root --> features[Функционал]
+    platforms --> web[Web]
+    platforms --> desktop[Desktop]
+    platforms --> mobile[Mobile]`,
+            
+            'system-architecture': `graph TB
+    subgraph clients [Client Layer]
+        webApp[Web App]
+        desktopApp[Desktop]
+        mobileApp[Mobile]
+    end
+    subgraph backend [Backend]
+        api[REST API]
+        fileParser[File Parser]
+        aiService[AI Service]
+    end
+    clients --> api
+    api --> fileParser
+    api --> aiService`,
+            
+            // Добавьте остальные диаграммы здесь...
+        };
+        
+        function loadDiagram() {
+            const select = document.getElementById('diagram-select');
+            const container = document.getElementById('diagram-container');
+            const diagramCode = diagrams[select.value];
+            
+            if (!diagramCode) {
+                container.innerHTML = '<div class="loading">Выберите диаграмму из списка выше ☝️</div>';
+                return;
+            }
+            
+            container.innerHTML = '<div class="loading">Загрузка диаграммы...</div>';
+            
+            setTimeout(() => {
+                container.innerHTML = `<div class="mermaid">${diagramCode}</div>`;
+                mermaid.run({
+                    querySelector: '.mermaid'
+                }).then(() => {
+                    // Auto-fit to screen after diagram loads
+                    setTimeout(fitToScreen, 300);
+                }).catch(err => {
+                    console.error('Mermaid render error:', err);
+                });
+            }, 100);
+        }
+        
+        function zoomIn() {
+            currentZoom = Math.min(currentZoom + 0.1, 3);
+            applyZoom();
+        }
+        
+        function zoomOut() {
+            currentZoom = Math.max(currentZoom - 0.1, 0.5);
+            applyZoom();
+        }
+        
+        function resetZoom() {
+            currentZoom = 1;
+            applyZoom();
+        }
+        
+        function fitToScreen() {
+            const container = document.getElementById('diagram-container');
+            const mermaidDiv = document.querySelector('.mermaid');
+            const svg = document.querySelector('.mermaid svg');
+            
+            if (!svg || !mermaidDiv) {
+                console.log('SVG not found');
+                return;
+            }
+            
+            // Reset transform first to get true dimensions
+            mermaidDiv.style.transform = 'scale(1)';
+            currentZoom = 1;
+            
+            // Wait for layout to settle
+            setTimeout(() => {
+                // Get container dimensions (with padding)
+                const containerWidth = container.clientWidth - 60; // padding + margin
+                const containerHeight = container.clientHeight - 60;
+                
+                // Get SVG viewBox or actual dimensions
+                const viewBox = svg.getAttribute('viewBox');
+                let svgWidth, svgHeight;
+                
+                if (viewBox) {
+                    const parts = viewBox.split(/\s+/);
+                    svgWidth = parseFloat(parts[2]);
+                    svgHeight = parseFloat(parts[3]);
+                } else {
+                    // Fallback to getBBox
+                    const bbox = svg.getBBox();
+                    svgWidth = bbox.width;
+                    svgHeight = bbox.height;
+                }
+                
+                // If still no dimensions, use bounding rect
+                if (!svgWidth || !svgHeight) {
+                    const rect = svg.getBoundingClientRect();
+                    svgWidth = rect.width;
+                    svgHeight = rect.height;
+                }
+                
+                console.log('Container:', containerWidth, 'x', containerHeight);
+                console.log('SVG:', svgWidth, 'x', svgHeight);
+                
+                if (svgWidth === 0 || svgHeight === 0) {
+                    console.log('SVG has zero dimensions');
+                    currentZoom = 1;
+                    applyZoom();
+                    return;
+                }
+                
+                // Calculate scale to fit with some margin
+                const scaleX = containerWidth / svgWidth;
+                const scaleY = containerHeight / svgHeight;
+                
+                // Use smaller scale and add 5% margin
+                currentZoom = Math.min(scaleX, scaleY) * 0.95;
+                
+                // Limit zoom range
+                currentZoom = Math.min(currentZoom, 2.0); // max 200%
+                currentZoom = Math.max(currentZoom, 0.1); // min 10%
+                
+                console.log('Scale X:', scaleX, 'Scale Y:', scaleY);
+                console.log('Final zoom:', currentZoom);
+                
+                applyZoom();
+            }, 100);
+        }
+        
+        function applyZoom() {
+            const mermaidDiv = document.querySelector('.mermaid');
+            if (mermaidDiv) {
+                mermaidDiv.style.transform = `scale(${currentZoom})`;
+            }
+            document.getElementById('zoom-level').textContent = Math.round(currentZoom * 100) + '%';
+        }
+        
+        function toggleHelp() {
+            const helpText = document.getElementById('help-text');
+            helpText.classList.toggle('show');
+            setTimeout(() => {
+                if (helpText.classList.contains('show')) {
+                    helpText.classList.remove('show');
+                }
+            }, 5000);
+        }
+        
+        // Event listeners
+        document.getElementById('diagram-select').addEventListener('change', loadDiagram);
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                if (e.key === '+' || e.key === '=') {
+                    e.preventDefault();
+                    zoomIn();
+                } else if (e.key === '-') {
+                    e.preventDefault();
+                    zoomOut();
+                } else if (e.key === '0') {
+                    e.preventDefault();
+                    resetZoom();
+                }
+            }
+        });
+        
+        // Mouse wheel zoom with Cmd/Ctrl
+        document.getElementById('diagram-container').addEventListener('wheel', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                e.preventDefault();
+                
+                // Normalize wheel delta across browsers
+                const delta = e.deltaY || e.detail || e.wheelDelta;
+                
+                if (delta < 0) {
+                    // Scroll up = zoom in
+                    currentZoom = Math.min(currentZoom + 0.05, 3);
+                } else {
+                    // Scroll down = zoom out
+                    currentZoom = Math.max(currentZoom - 0.05, 0.5);
+                }
+                
+                applyZoom();
+            }
+        }, { passive: false });
+        
+        // Hide help on click outside
+        document.addEventListener('click', (e) => {
+            const helpText = document.getElementById('help-text');
+            const helpButton = document.querySelector('.help-toggle');
+            if (!helpButton.contains(e.target) && !helpText.contains(e.target)) {
+                helpText.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

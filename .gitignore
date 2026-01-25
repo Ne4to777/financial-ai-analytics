@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+mindmap/viewer/node_modules/
+
+# Build outputs
+dist/
+build/
+mindmap/viewer/exported-diagrams/
+*.bundle.js
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Screenshots (optional - uncomment if you don't want to commit them)
+# mindmap/viewer/screenshots/
+
+# Test coverage
+coverage/
+.nyc_output/

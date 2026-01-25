@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial AI Analytics - MVP Prototypes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            font-size: 42px;
+            color: #1a202c;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #718096;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .screens {
+            display: grid;
+            gap: 24px;
+        }
+        
+        .screen-card {
+            display: block;
+            padding: 32px;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .screen-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+        
+        .screen-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .screen-number {
+            display: inline-block;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            text-align: center;
+            line-height: 48px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+        
+        .screen-title {
+            font-size: 24px;
+            color: #1a202c;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .screen-desc {
+            font-size: 16px;
+            color: #718096;
+            line-height: 1.6;
+        }
+        
+        .arrow {
+            position: absolute;
+            right: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: #cbd5e0;
+            transition: all 0.3s ease;
+        }
+        
+        .screen-card:hover .arrow {
+            color: #667eea;
+            transform: translateY(-50%) translateX(4px);
+        }
+        
+        .note {
+            margin-top: 40px;
+            padding: 20px;
+            background: #fef5e7;
+            border-left: 4px solid #f39c12;
+            border-radius: 8px;
+        }
+        
+        .note strong {
+            color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Financial AI Analytics</h1>
+        <p class="subtitle">MVP Prototypes - Интерактивные прототипы экранов</p>
+        
+        <div class="screens">
+            <a href="01-landing.html" class="screen-card">
+                <div class="screen-number">1</div>
+                <div class="screen-title">Landing Page</div>
+                <div class="screen-desc">Главная страница с объяснением продукта и призывом к действию "Try it now"</div>
+                <div class="arrow">→</div>
+            </a>
+            
+            <a href="02-upload.html" class="screen-card">
+                <div class="screen-number">2</div>
+                <div class="screen-title">Upload Screen</div>
+                <div class="screen-desc">Экран загрузки CSV с drag & drop функционалом и примерами данных</div>
+                <div class="arrow">→</div>
+            </a>
+            
+            <a href="03-analysis.html" class="screen-card">
+                <div class="screen-number">3</div>
+                <div class="screen-title">Analysis Results</div>
+                <div class="screen-desc">Результаты анализа: метрики, риски, рекомендации, прогноз с CTA</div>
+                <div class="arrow">→</div>
+            </a>
+        </div>
+        
+        <div class="note">
+            <strong>⚠️ Примечание:</strong> Это интерактивные HTML прототипы для демонстрации UI/UX концепции. 
+            Данные mock, но структура и флоу соответствуют реальному MVP.
+        </div>
+    </div>
+</body>
+</html>
