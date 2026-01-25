@@ -24,7 +24,6 @@ echo ""
 
 echo "📋 Проверка диаграмм:"
 check_url "http://localhost:8000/diagrams/01-project-structure.md" "Диаграмма 01"
-check_url "http://localhost:8000/diagrams/02a-architecture-mvp.md" "Диаграмма 02a (MVP)"
 echo ""
 
 echo "🎨 Проверка прототипов:"

@@ -205,7 +205,6 @@ interface AnalysisResponse {
 
 ## 🔗 Ссылки
 
-- [Вернуться к архитектуре MVP](../diagrams/02a-architecture-mvp.md)
 - [Roadmap](../diagrams/10-roadmap.md)
 - [Все диаграммы](../viewer/view-diagram-full.html)
 
