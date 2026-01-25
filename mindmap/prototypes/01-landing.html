@@ -872,49 +872,14 @@
                 gap: 2.5rem;
             }
             
+            /* HIDE AI Insight Card on mobile - show content first */
             .hero-visual {
-                order: -1;
-            }
-            
-            /* COMPACT AI Insight Card for mobile */
-            .hero-visual > div {
-                padding: 1.25rem !important;
-                max-height: 420px;
-                overflow: hidden;
-                position: relative;
-            }
-            
-            /* Add fade gradient at bottom */
-            .hero-visual > div::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                height: 60px;
-                background: linear-gradient(to bottom, transparent, white);
-                pointer-events: none;
-            }
-            
-            /* Reduce chart height */
-            .hero-visual svg[viewBox*="300"] {
-                max-height: 140px;
-            }
-            
-            /* Show only first 2 recommendations */
-            .hero-visual ol li:nth-child(n+3) {
                 display: none;
             }
             
-            /* Compact table */
-            .hero-visual table {
-                font-size: 0.75rem;
-            }
-            
-            /* Compact footer stats */
-            .hero-visual > div > div:last-child {
-                font-size: 0.6875rem;
-                padding: 0.75rem 1.25rem;
+            /* Hero content takes priority */
+            .hero-content {
+                text-align: center;
             }
             
             .hero-content h1 {
@@ -1133,27 +1098,7 @@
                 height: 48px;
             }
             
-            /* AI Insight Card - COMPACT for mobile */
-            .hero-visual > div {
-                padding: 1rem !important;
-                max-height: 360px;
-                overflow: hidden;
-            }
-            
-            /* Hide less important parts */
-            .hero-visual table {
-                font-size: 0.6875rem;
-            }
-            
-            /* Compact chart */
-            .hero-visual svg[viewBox] {
-                max-height: 120px;
-            }
-            
-            /* Compact recommendations - show only 2 */
-            .hero-visual ol li:nth-child(n+3) {
-                display: none;
-            }
+            /* AI Insight Card is hidden on mobile - no need for compact styles */
             
             /* Social proof stars - make smaller */
             .hero-content svg[width="16"] {
