@@ -223,6 +223,11 @@
             align-items: center;
         }
         
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
         .hero-content h1 {
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
@@ -255,6 +260,8 @@
             gap: 1rem;
             flex-wrap: wrap;
             align-items: center;
+            position: relative;
+            z-index: 10;
         }
         
         .btn-primary {
@@ -277,6 +284,13 @@
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+        
+        .btn-primary,
+        .btn-secondary {
+            position: relative;
+            z-index: 10;
+            pointer-events: auto;
         }
         
         .btn-secondary {
@@ -730,6 +744,9 @@
             text-decoration: none;
             display: inline-block;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
+            pointer-events: auto;
         }
         
         .cta-button:hover {
@@ -871,7 +888,6 @@
                     <span class="logo-subtitle">Analytics</span>
                 </div>
             </a>
-            <a href="#landing-page" class="nav-cta">Главная</a>
         </div>
     </nav>
     
