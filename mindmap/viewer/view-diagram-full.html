@@ -534,12 +534,12 @@
             }
             
             if (diagramId === 'prototype-upload') {
-                showPrototypesViewer('../prototypes/02-upload.html');
+                showPrototypesViewer('../prototypes/01-landing.html?page=upload');
                 return;
             }
             
             if (diagramId === 'prototype-analysis') {
-                showPrototypesViewer('../prototypes/03-analysis.html');
+                showPrototypesViewer('../prototypes/01-landing.html?page=results');
                 return;
             }
             
@@ -769,8 +769,8 @@
             const prototypeUrls = {
                 index: '../prototypes/index.html',
                 landing: '../prototypes/01-landing.html',
-                upload: '../prototypes/02-upload.html',
-                analysis: '../prototypes/03-analysis.html'
+                upload: '../prototypes/01-landing.html?page=upload',
+                analysis: '../prototypes/01-landing.html?page=results'
             };
             
             // Use defaultUrl if provided, otherwise use index

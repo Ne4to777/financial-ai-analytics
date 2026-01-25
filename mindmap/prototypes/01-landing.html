@@ -1537,8 +1537,33 @@
             if (targetPage) {
                 targetPage.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Update URL without reloading
+                if (pageId !== 'landing') {
+                    window.history.pushState({ page: pageId }, '', '?page=' + pageId);
+                } else {
+                    window.history.pushState({ page: pageId }, '', window.location.pathname);
+                }
             }
         }
+        
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', (event) => {
+            if (event.state && event.state.page) {
+                showPage(event.state.page);
+            } else {
+                showPage('landing');
+            }
+        });
+        
+        // Check URL on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page');
+            if (page && document.getElementById(page + '-page')) {
+                showPage(page);
+            }
+        });
         
         // File Upload Handling
         const uploadArea = document.getElementById('uploadArea');
