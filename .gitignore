@@ -40,8 +40,10 @@ Thumbs.db
 *.temp
 .cache/
 
-# Screenshots (optional - uncomment if you don't want to commit them)
-# mindmap/viewer/screenshots/
+# Screenshots
+screenshots/
+mindmap/screenshots/
+mindmap/viewer/screenshots/
 
 # Test coverage
 coverage/
