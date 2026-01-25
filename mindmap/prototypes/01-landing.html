@@ -908,13 +908,13 @@
         <div class="hero-container-wrapper">
             <div class="hero-content animate-in">
                 <h1>
-                    <span class="highlight">AI-анализ</span><br/>
-                    ваших финансов<br/>
-                    за 3 минуты
+                    <span class="highlight">Управленческий отчёт</span><br/>
+                    за 10 минут<br/>
+                    вместо часов работы
                 </h1>
                 <p class="hero-subtitle">
-                    Загрузите отчёт, получите детальный анализ с рисками, рекомендациями и прогнозом. 
-                    Без регистрации, без сложных настроек.
+                    Загрузите CSV файлы начислений и оплат — получите полный финансовый анализ 
+                    с ключевыми метриками, контролем утечек и конкретными рекомендациями.
                 </p>
                 <div class="hero-cta-group">
                     <a href="#upload-page" class="btn-primary">
@@ -932,24 +932,31 @@
                         <div class="visual-dot"></div>
                     </div>
                     <div class="metric-row">
-                        <span class="metric-label">Выручка</span>
+                        <span class="metric-label">Начислено</span>
                         <div>
-                            <span class="metric-value">$145K</span>
-                            <span class="metric-change">↑ 12.3%</span>
+                            <span class="metric-value">2.4M ₽</span>
+                            <span class="metric-change">↑ 14%</span>
                         </div>
                     </div>
                     <div class="metric-row">
-                        <span class="metric-label">Прибыль</span>
+                        <span class="metric-label">Оплачено</span>
                         <div>
-                            <span class="metric-value">$21K</span>
-                            <span class="metric-change">↑ 32.7%</span>
+                            <span class="metric-value">2.2M ₽</span>
+                            <span class="metric-change">↑ 10%</span>
                         </div>
                     </div>
                     <div class="metric-row">
-                        <span class="metric-label">Маржа</span>
+                        <span class="metric-label">Средний чек</span>
                         <div>
-                            <span class="metric-value">14.5%</span>
-                            <span class="metric-change">↑ 2.4%</span>
+                            <span class="metric-value">8,500 ₽</span>
+                            <span class="metric-change">↑ 9%</span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Скидки</span>
+                        <div>
+                            <span class="metric-value">180K ₽</span>
+                            <span class="metric-change" style="color: #ef4444;">↑ 50%</span>
                         </div>
                     </div>
                 </div>
@@ -984,6 +991,114 @@
             <div class="stat-item">
                 <div class="stat-number">500+</div>
                 <div class="stat-label">Анализов выполнено</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Data Quality Section -->
+    <section style="padding: 6rem 2rem; background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);">
+        <div style="max-width: 1280px; margin: 0 auto;">
+            <div class="section-header">
+                <span class="section-tag">Контроль качества</span>
+                <h2 class="section-title">Data Quality проверки</h2>
+                <p class="section-subtitle">
+                    Система автоматически проверяет ваши данные перед расчётом метрик
+                </p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 4rem; align-items: start;">
+                <!-- Left: Checks list -->
+                <div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; color: var(--text-primary);">
+                        Что проверяется:
+                    </h3>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div style="display: flex; gap: 1rem; align-items: start;">
+                            <div style="width: 40px; height: 40px; min-width: 40px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">✓</div>
+                            <div>
+                                <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Формат полей</strong>
+                                <span style="color: var(--text-secondary); font-size: 0.9375rem;">Даты, суммы, типы данных, обязательные колонки</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem; align-items: start;">
+                            <div style="width: 40px; height: 40px; min-width: 40px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">✓</div>
+                            <div>
+                                <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Дубли и пустые значения</strong>
+                                <span style="color: var(--text-secondary); font-size: 0.9375rem;">Поиск дублирующихся записей и пропущенных данных</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem; align-items: start;">
+                            <div style="width: 40px; height: 40px; min-width: 40px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">✓</div>
+                            <div>
+                                <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Логические несоответствия</strong>
+                                <span style="color: var(--text-secondary); font-size: 0.9375rem;">Отрицательные суммы, некорректные даты, аномальные значения</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem; align-items: start;">
+                            <div style="width: 40px; height: 40px; min-width: 40px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">✓</div>
+                            <div>
+                                <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Неизвестные категории</strong>
+                                <span style="color: var(--text-secondary); font-size: 0.9375rem;">Услуги/товары без группы, несуществующие сотрудники</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem; align-items: start;">
+                            <div style="width: 40px; height: 40px; min-width: 40px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">✓</div>
+                            <div>
+                                <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Связность данных</strong>
+                                <span style="color: var(--text-secondary); font-size: 0.9375rem;">Сопоставление начислений и оплат, проверка балансов</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right: Example report -->
+                <div style="background: white; padding: 2rem; border-radius: 20px; box-shadow: var(--shadow-lg); border: 1px solid var(--border);">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--border);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary);">
+                            <path d="M9 11l3 3L22 4"></path>
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                        </svg>
+                        <h4 style="font-size: 1.125rem; font-weight: 700; margin: 0; color: var(--text-primary);">Data Quality Report</h4>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                        <!-- Success -->
+                        <div style="display: flex; align-items: start; gap: 0.75rem; padding: 1rem; background: #f0fdf4; border-radius: 12px; border-left: 4px solid #10b981;">
+                            <span style="font-size: 1.25rem;">✅</span>
+                            <div style="flex: 1;">
+                                <strong style="color: #15803d; display: block; margin-bottom: 0.25rem; font-size: 0.9375rem;">Файл валиден</strong>
+                                <span style="color: #166534; font-size: 0.875rem;">Обработано 1,247 строк без критических ошибок</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Warning -->
+                        <div style="display: flex; align-items: start; gap: 0.75rem; padding: 1rem; background: #fffbeb; border-radius: 12px; border-left: 4px solid #f59e0b;">
+                            <span style="font-size: 1.25rem;">⚠️</span>
+                            <div style="flex: 1;">
+                                <strong style="color: #d97706; display: block; margin-bottom: 0.25rem; font-size: 0.9375rem;">32 услуги без группы</strong>
+                                <span style="color: #92400e; font-size: 0.875rem;">Рекомендуется назначить категории для полного анализа</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Info -->
+                        <div style="display: flex; align-items: start; gap: 0.75rem; padding: 1rem; background: #eff6ff; border-radius: 12px; border-left: 4px solid #3b82f6;">
+                            <span style="font-size: 1.25rem;">ℹ️</span>
+                            <div style="flex: 1;">
+                                <strong style="color: #1e40af; display: block; margin-bottom: 0.25rem; font-size: 0.9375rem;">Разрыв начисл/оплач: 8.3%</strong>
+                                <span style="color: #1e3a8a; font-size: 0.875rem;">В пределах нормы, но контролируйте динамику</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center;">
+                        <span style="color: var(--text-muted); font-size: 0.875rem;">✨ Готово к расчёту метрик</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1229,34 +1344,213 @@
                 <span class="section-tag">Процесс</span>
                 <h2 class="section-title">Как это работает</h2>
                 <p class="section-subtitle">
-                    Три простых шага от загрузки данных до получения insights
+                    Простой процесс: загрузка файлов → проверка качества → автоматический расчёт метрик → отчёт
                 </p>
             </div>
             <div class="steps-grid">
                 <div class="step-item">
                     <div class="step-number">1</div>
-                    <h3 class="step-title">Загрузите CSV</h3>
+                    <h3 class="step-title">Загрузите 2-5 файлов CSV</h3>
                     <p class="step-description">
-                        Просто перетащите файл с финансовыми данными. 
-                        Поддержка 1С, Excel, SAP и других форматов
+                        <strong>Обязательно:</strong> Начисления + Оплаты<br/>
+                        <strong>Опционально:</strong> Скидки, Возвраты, Долги/Авансы<br/>
+                        <small style="color: var(--text-muted);">Поддержка форматов: CSV, XLSX</small>
                     </p>
                 </div>
                 <div class="step-item">
                     <div class="step-number">2</div>
-                    <h3 class="step-title">AI анализирует</h3>
+                    <h3 class="step-title">Data Quality проверка</h3>
                     <p class="step-description">
-                        Нейросеть обрабатывает данные, находит аномалии, 
-                        риски и возможности для оптимизации
+                        Автоматическая валидация: формат полей, дубли, 
+                        аномалии, логические несоответствия. 
+                        При ошибках — список рекомендаций
                     </p>
                 </div>
                 <div class="step-item">
                     <div class="step-number">3</div>
-                    <h3 class="step-title">Получите отчёт</h3>
+                    <h3 class="step-title">Расчёт метрик</h3>
                     <p class="step-description">
-                        Детальный анализ с метриками, рисками, рекомендациями 
-                        и прогнозом на ближайшие месяцы
+                        Детерминированный расчёт всех показателей: 
+                        Начислено/Оплачено, Разрыв, Скидки, Возвраты, 
+                        структура по категориям и сотрудникам
                     </p>
                 </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Получите отчёт за 10 минут</h3>
+                    <p class="step-description">
+                        Таблица KPI с динамикой, графики трендов, 
+                        выявленные риски и конкретные рекомендации. 
+                        Экспорт в PDF/Excel
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing Section -->
+    <section style="padding: 6rem 2rem; background: white;" id="pricing">
+        <div style="max-width: 1280px; margin: 0 auto;">
+            <div class="section-header">
+                <span class="section-tag">Тарифы</span>
+                <h2 class="section-title">Простые и понятные цены</h2>
+                <p class="section-subtitle">
+                    Выберите тариф в зависимости от объёма данных и набора метрик
+                </p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 4rem;">
+                <!-- Starter -->
+                <div style="background: var(--bg-alt); padding: 2.5rem; border-radius: 20px; border: 2px solid var(--border); transition: all 0.3s;">
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary);">Starter</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9375rem;">Для первого знакомства с системой</p>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div style="font-size: 3rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">
+                            Бесплатно
+                        </div>
+                        <span style="color: var(--text-muted); font-size: 0.875rem;">Первые 3 отчёта</span>
+                    </div>
+                    
+                    <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0; display: flex; flex-direction: column; gap: 0.75rem;">
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--primary); font-weight: 700;">✓</span>
+                            <span>Базовые метрики (Начислено/Оплачено)</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--primary); font-weight: 700;">✓</span>
+                            <span>До 50K строк в файле</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--primary); font-weight: 700;">✓</span>
+                            <span>Data Quality проверки</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--primary); font-weight: 700;">✓</span>
+                            <span>Экспорт в PDF</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-muted);">
+                            <span>−</span>
+                            <span>История отчётов</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#upload-page" class="btn-secondary" style="width: 100%; text-align: center; display: block; text-decoration: none;">
+                        Попробовать
+                    </a>
+                </div>
+                
+                <!-- Professional (Featured) -->
+                <div style="background: white; padding: 2.5rem; border-radius: 20px; border: 3px solid var(--primary); box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15); transform: scale(1.05); transition: all 0.3s; position: relative;">
+                    <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gradient-1); color: white; padding: 0.375rem 1.5rem; border-radius: 20px; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">
+                        Популярный
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary);">Professional</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9375rem;">Полный функционал для бизнеса</p>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: 0.5rem;">
+                            ₽9,900
+                        </div>
+                        <span style="color: var(--text-muted); font-size: 0.875rem;">в месяц</span>
+                    </div>
+                    
+                    <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0; display: flex; flex-direction: column; gap: 0.75rem;">
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--success); font-weight: 700;">✓</span>
+                            <span><strong>Все метрики</strong> (Скидки, Возвраты, Долги)</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--success); font-weight: 700;">✓</span>
+                            <span>До 200K строк в файле</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--success); font-weight: 700;">✓</span>
+                            <span>Неограниченное количество отчётов</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--success); font-weight: 700;">✓</span>
+                            <span>История за все периоды</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--success); font-weight: 700;">✓</span>
+                            <span>Структура по категориям и сотрудникам</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--success); font-weight: 700;">✓</span>
+                            <span>Экспорт в PDF + Excel</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--success); font-weight: 700;">✓</span>
+                            <span>Email поддержка</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#upload-page" class="btn-primary" style="width: 100%; text-align: center; display: block; text-decoration: none; justify-content: center;">
+                        Выбрать тариф
+                    </a>
+                </div>
+                
+                <!-- Enterprise -->
+                <div style="background: var(--bg-alt); padding: 2.5rem; border-radius: 20px; border: 2px solid var(--border); transition: all 0.3s;">
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary);">Enterprise</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9375rem;">Для крупного бизнеса и сетей</p>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div style="font-size: 3rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">
+                            Custom
+                        </div>
+                        <span style="color: var(--text-muted); font-size: 0.875rem;">индивидуально</span>
+                    </div>
+                    
+                    <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0; display: flex; flex-direction: column; gap: 0.75rem;">
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--primary); font-weight: 700;">✓</span>
+                            <span>Всё из Professional</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--primary); font-weight: 700;">✓</span>
+                            <span>Неограниченный объём данных</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--primary); font-weight: 700;">✓</span>
+                            <span>Кастомные метрики</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--primary); font-weight: 700;">✓</span>
+                            <span>API доступ</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--primary); font-weight: 700;">✓</span>
+                            <span>On-premise развертывание</span>
+                        </li>
+                        <li style="display: flex; align-items: start; gap: 0.5rem; color: var(--text-secondary);">
+                            <span style="color: var(--primary); font-weight: 700;">✓</span>
+                            <span>Выделенная поддержка 24/7</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#upload-page" class="btn-secondary" style="width: 100%; text-align: center; display: block; text-decoration: none;">
+                        Связаться с нами
+                    </a>
+                </div>
+            </div>
+            
+            <!-- FAQ / Additional info -->
+            <div style="margin-top: 4rem; text-align: center; padding: 2rem; background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%); border-radius: 16px;">
+                <p style="color: var(--text-secondary); font-size: 1rem; margin-bottom: 1rem;">
+                    💳 Принимаем карты РФ • 🔒 Безопасная оплата • 📄 Выставляем счета для юрлиц
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.875rem;">
+                    Есть вопросы? <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">Напишите нам</a>
+                </p>
             </div>
         </div>
     </section>
