@@ -35,6 +35,12 @@ Thumbs.db
 *.swo
 *~
 
+# AI Coding Assistant Skills
+.cursor/
+.shared/
+.windsurf/
+.continue/
+
 # Temporary files
 *.tmp
 *.temp
