@@ -2,6 +2,7 @@ import Fastify from 'fastify';
 import multipart from '@fastify/multipart';
 import cors from '@fastify/cors';
 import dotenv from 'dotenv';
+import uploadRoutes from './routes/upload.routes';
 
 // Load environment variables
 dotenv.config();
@@ -39,6 +40,9 @@ async function createServer() {
       files: 1, // Max 1 file per request
     },
   });
+
+  // Register routes
+  await fastify.register(uploadRoutes);
 
   // Health check endpoint
   fastify.get('/health', async () => {
