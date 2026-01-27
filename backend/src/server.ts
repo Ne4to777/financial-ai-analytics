@@ -3,6 +3,7 @@ import multipart from '@fastify/multipart';
 import cors from '@fastify/cors';
 import dotenv from 'dotenv';
 import uploadRoutes from './routes/upload.routes';
+import { errorHandler, notFoundHandler } from './middleware/error.middleware';
 
 // Load environment variables
 dotenv.config();
@@ -40,6 +41,10 @@ async function createServer() {
       files: 1, // Max 1 file per request
     },
   });
+
+  // Register error handlers
+  fastify.setErrorHandler(errorHandler);
+  fastify.setNotFoundHandler(notFoundHandler);
 
   // Register routes
   await fastify.register(uploadRoutes);
