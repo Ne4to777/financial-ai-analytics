@@ -124,13 +124,12 @@ describe('validateFileMetadata', () => {
       expect(result.errors[0]?.details?.mimetype).toBe('application/json');
     });
 
-    it('should reject application/octet-stream MIME type', () => {
+    it('should accept application/octet-stream MIME type (common fallback)', () => {
       const file = createMockFile('test.csv', 'application/octet-stream');
       const result = validateFileMetadata(file);
 
-      expect(result.valid).toBe(false);
-      expect(result.errors).toHaveLength(1);
-      expect(result.errors[0]?.code).toBe(FileValidationErrorCode.INVALID_MIME_TYPE);
+      expect(result.valid).toBe(true);
+      expect(result.errors).toHaveLength(0);
     });
 
     it('should handle uppercase MIME types', () => {
