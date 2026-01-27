@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { MultipartFile } from '@fastify/multipart';
+import { validateFileMetadata } from '../validators/file.validator';
 
 /**
  * File upload route handler
@@ -7,41 +7,55 @@ import { MultipartFile } from '@fastify/multipart';
 async function uploadHandler(request: FastifyRequest, reply: FastifyReply) {
   try {
     // Extract file from multipart request
-    const data = await request.file();
+    const file = await request.file();
 
-    if (!data) {
-      return reply.code(400).send({
+    // Validate file metadata (extension and MIME type)
+    const validationResult = validateFileMetadata(file);
+
+    if (!validationResult.valid) {
+      request.log.warn({
+        msg: 'File validation failed',
+        errors: validationResult.errors,
+      });
+
+      // Return first validation error
+      const firstError = validationResult.errors[0];
+      const statusCode = firstError?.code === 'FILE_TOO_LARGE' ? 413 : 
+                        firstError?.code === 'INVALID_MIME_TYPE' ? 415 : 400;
+
+      return reply.code(statusCode).send({
         success: false,
         error: {
-          code: 'NO_FILE',
-          message: 'No file uploaded. Please include a file in the request.',
+          code: firstError?.code,
+          message: firstError?.message,
+          details: firstError?.details,
         },
+        validationErrors: validationResult.errors,
       });
     }
 
-    // Extract file metadata
-    const file: MultipartFile = data;
-    const fileMetadata = {
-      filename: file.filename,
-      mimetype: file.mimetype,
-      encoding: file.encoding,
-      size: 0, // Will be calculated if needed
-    };
-
     // Log file information
     request.log.info({
-      msg: 'File received',
-      filename: file.filename,
-      mimetype: file.mimetype,
-      encoding: file.encoding,
-      fieldname: file.fieldname,
+      msg: 'File received and validated',
+      filename: file!.filename,
+      mimetype: file!.mimetype,
+      encoding: file!.encoding,
+      fieldname: file!.fieldname,
     });
+
+    // Extract file metadata
+    const fileMetadata = {
+      filename: file!.filename,
+      mimetype: file!.mimetype,
+      encoding: file!.encoding,
+      size: 0, // Will be calculated during processing
+    };
 
     // For now, just return metadata without processing
     // (File processing will be added in Task 1.3-1.6)
     return reply.code(200).send({
       success: true,
-      message: 'File received successfully',
+      message: 'File received and validated successfully',
       data: {
         file: fileMetadata,
         receivedAt: new Date().toISOString(),
