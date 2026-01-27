@@ -1,6 +1,8 @@
 import Papa from 'papaparse';
 import fs from 'fs/promises';
 import { Readable } from 'stream';
+import { TransactionSchema, type ValidatedTransaction } from '../validators/schema.validator';
+import type { RowValidationResult, FieldValidationError } from '../types/upload.types';
 
 /**
  * CSV parsing error codes
@@ -296,6 +298,113 @@ export class CSVService {
       valid: missingColumns.length === 0,
       missingColumns,
       extraColumns,
+    };
+  }
+
+  /**
+   * Validate a single row against the Transaction schema
+   * 
+   * @param rowData - Raw CSV row data
+   * @param rowNumber - Row number (1-based)
+   * @returns Row validation result
+   */
+  validateRow(
+    rowData: Record<string, unknown>,
+    rowNumber: number
+  ): RowValidationResult {
+    const result = TransactionSchema.safeParse(rowData);
+
+    if (result.success) {
+      return {
+        row: rowNumber,
+        valid: true,
+        data: result.data as ValidatedTransaction,
+        rawData: rowData,
+      };
+    }
+
+    // Map Zod errors to our format
+    const errors: FieldValidationError[] = result.error.issues.map((issue) => ({
+      path: issue.path.map(String),
+      message: issue.message,
+      code: issue.code,
+    }));
+
+    return {
+      row: rowNumber,
+      valid: false,
+      errors,
+      rawData: rowData,
+    };
+  }
+
+  /**
+   * Validate all rows in parsed CSV data
+   * 
+   * @param parsed - Parsed CSV data
+   * @returns Array of validation results for each row
+   */
+  validateRows(parsed: ParsedCSV): RowValidationResult[] {
+    return parsed.rows.map((row, index) => 
+      this.validateRow(row, index + 1) // 1-based row numbering
+    );
+  }
+
+  /**
+   * Get validation statistics
+   * 
+   * @param validationResults - Array of row validation results
+   * @returns Validation statistics
+   */
+  getValidationStats(validationResults: RowValidationResult[]): {
+    total: number;
+    valid: number;
+    invalid: number;
+    successRate: number;
+    errorsByField: Record<string, number>;
+    commonErrors: Array<{ field: string; count: number; message: string }>;
+  } {
+    const total = validationResults.length;
+    const valid = validationResults.filter((r) => r.valid).length;
+    const invalid = total - valid;
+    const successRate = total > 0 ? Math.round((valid / total) * 10000) / 100 : 0;
+
+    // Count errors by field
+    const errorsByField: Record<string, number> = {};
+    const errorMessages: Array<{ field: string; message: string }> = [];
+
+    for (const result of validationResults) {
+      if (!result.valid && result.errors) {
+        for (const error of result.errors) {
+          const field = error.path[0] || 'unknown';
+          errorsByField[field] = (errorsByField[field] || 0) + 1;
+          errorMessages.push({ field, message: error.message });
+        }
+      }
+    }
+
+    // Find common errors (most frequent error messages per field)
+    const errorMessageCounts = new Map<string, number>();
+    for (const { field, message } of errorMessages) {
+      const key = `${field}:${message}`;
+      errorMessageCounts.set(key, (errorMessageCounts.get(key) || 0) + 1);
+    }
+
+    const commonErrors = Array.from(errorMessageCounts.entries())
+      .map(([key, count]) => {
+        const [field, message] = key.split(':');
+        return { field: field || 'unknown', count, message: message || '' };
+      })
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 5); // Top 5 most common errors
+
+    return {
+      total,
+      valid,
+      invalid,
+      successRate,
+      errorsByField,
+      commonErrors,
     };
   }
 

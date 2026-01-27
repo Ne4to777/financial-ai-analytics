@@ -63,6 +63,36 @@ export interface Transaction {
 }
 
 /**
+ * Validated transaction with normalized values
+ */
+export interface ValidatedTransaction {
+  date: string; // ISO format
+  amount: number;
+  category: string;
+  description?: string;
+}
+
+/**
+ * Validation error for a specific field
+ */
+export interface FieldValidationError {
+  path: string[];
+  message: string;
+  code: string;
+}
+
+/**
+ * Row validation result
+ */
+export interface RowValidationResult {
+  row: number; // 1-based row number
+  valid: boolean;
+  data?: ValidatedTransaction; // Validated and normalized data
+  errors?: FieldValidationError[]; // Field-level errors
+  rawData: Record<string, unknown>; // Original CSV row data
+}
+
+/**
  * Validation error for a specific field/row
  */
 export interface ValidationError {
