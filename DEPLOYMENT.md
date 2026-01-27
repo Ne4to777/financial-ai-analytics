@@ -90,10 +90,11 @@ LOG_LEVEL=info
 
 **Why Railway:**
 - ✅ Zero-config deployment
-- ✅ Free tier available
+- ✅ Free tier: $1/month credit (Free Trial: $5 for 30 days)
 - ✅ Automatic HTTPS
 - ✅ Easy environment variables
 - ✅ GitHub integration
+- ✅ Pay-as-you-go after free credit
 
 **Steps:**
 
@@ -140,10 +141,11 @@ LOG_LEVEL=info
 ### Option 2: Render
 
 **Why Render:**
-- ✅ Free tier available
+- ✅ Free tier: 512MB RAM (sleeps after 15min inactivity)
 - ✅ Auto-deploy from GitHub
 - ✅ Built-in SSL
 - ✅ Easy scaling
+- ✅ No credit card required for free tier
 
 **Steps:**
 
@@ -441,6 +443,24 @@ pm2 restart csv-api
 ```bash
 sudo chmod +x /var/www/deploy.sh
 ```
+
+---
+
+## 💰 Platform Pricing Comparison
+
+| Platform | Free Tier | Resources | Limitations | Best For |
+|----------|-----------|-----------|-------------|----------|
+| **Railway** | $1/month credit<br>($5 for 30 days trial) | 1 vCPU<br>0.5GB RAM<br>0.5GB storage | Pay-as-you-go after credit | Quick prototypes<br>Pay for what you use |
+| **Render** | ✅ Forever free | 512MB RAM<br>Shared CPU | Sleeps after 15min<br>Cold start ~50ms | Side projects<br>Low-traffic apps |
+| **Vercel** | ✅ Forever free | Serverless<br>Auto-scaling | 100GB bandwidth/month<br>10s execution limit | Serverless APIs<br>High traffic spikes |
+| **Docker** | Depends on host | Host-dependent | Infrastructure management | Full control<br>Self-hosted |
+| **VPS** | From $5/month | 1GB+ RAM<br>1+ vCPU | Manual setup & maintenance | Production<br>Custom requirements |
+
+**Recommendations:**
+- **Starting out?** → Railway (free trial $5) or Render (forever free)
+- **Need serverless?** → Vercel
+- **Production ready?** → Railway (paid) or VPS
+- **Full control?** → Docker on VPS
 
 ---
 
