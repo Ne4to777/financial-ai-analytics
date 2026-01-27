@@ -4,6 +4,7 @@ import { validateFileMetadata } from '../validators/file.validator';
 import { storageService } from '../services/storage.service';
 import { csvService } from '../services/csv.service';
 import { statsService } from '../services/stats.service';
+import { databaseService } from '../services/database.service';
 import { validateBusinessRules } from '../validators/business.rules';
 import {
   UploadSuccessResponse,
@@ -191,9 +192,52 @@ async function uploadHandler(request: FastifyRequest, reply: FastifyReply) {
       categories: advancedStats.categories.total,
     });
 
-    // Step 9: Build success response
-    const uploadId = uuidv4();
+    // Step 9: Save to database
     const processingTime = Date.now() - startTime;
+    let uploadId: string;
+
+    try {
+      const uploadRecord = await databaseService.saveUploadWithTransactions(
+        {
+          filename: storedFile.filename,
+          original_filename: file!.filename,
+          file_path: storedFile.path,
+          file_size: storedFile.size,
+          mimetype: file!.mimetype,
+          status: 'completed',
+          total_rows: validationStats.total,
+          valid_rows: validationStats.valid,
+          invalid_rows: validationStats.invalid,
+          total_warnings: businessRulesResult.stats.totalWarnings,
+          processing_time_ms: processingTime,
+        },
+        validationResults,
+        businessRulesResult,
+        advancedStats
+      );
+
+      uploadId = uploadRecord.id!;
+
+      request.log.info({
+        msg: 'Data saved to database',
+        uploadId,
+        totalRows: validationStats.total,
+        validRows: validationStats.valid,
+      });
+    } catch (error) {
+      request.log.error({ err: error }, 'Failed to save to database');
+
+      // Database save failed, but file is already processed
+      // Return partial success with generated ID
+      uploadId = uuidv4();
+
+      request.log.warn({
+        msg: 'Using fallback upload ID (database save failed)',
+        uploadId,
+      });
+    }
+
+    // Step 10: Build success response
 
     // Build preview with validation status
     const previewRows = parsedCSV.rows.slice(0, 5).map((row, index) => {
