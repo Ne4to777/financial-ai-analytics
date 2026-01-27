@@ -174,6 +174,38 @@ export interface UploadSuccessResponse {
         bySeverity: Record<string, number>;
       };
     };
+    advancedStatistics?: {
+      dateRange: {
+        earliest: string | null;
+        latest: string | null;
+        spanDays: number;
+      };
+      amounts: {
+        total: number;
+        average: number;
+        min: number;
+        max: number;
+        positiveCount: number;
+        negativeCount: number;
+        positiveTotal: number;
+        negativeTotal: number;
+      };
+      categories: {
+        total: number;
+        topCategories: Array<{
+          category: string;
+          count: number;
+          percentage: number;
+          totalAmount: number;
+        }>;
+      };
+      summary: {
+        income: number;
+        expenses: number;
+        netBalance: number;
+        averageDailyTransactions: number;
+      };
+    };
     receivedAt: string;
     processingTime: number;
   };

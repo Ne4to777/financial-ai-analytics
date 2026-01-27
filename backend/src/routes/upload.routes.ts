@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { validateFileMetadata } from '../validators/file.validator';
 import { storageService } from '../services/storage.service';
 import { csvService } from '../services/csv.service';
+import { statsService } from '../services/stats.service';
 import { validateBusinessRules } from '../validators/business.rules';
 import {
   UploadSuccessResponse,
@@ -179,7 +180,18 @@ async function uploadHandler(request: FastifyRequest, reply: FastifyReply) {
       totalWarnings: businessRulesResult.stats.totalWarnings,
     });
 
-    // Step 8: Build success response
+    // Step 8: Calculate advanced statistics
+    const advancedStats = statsService.calculateStatistics(validationResults);
+    const incomeExpenseSummary = statsService.getIncomeExpenseSummary(advancedStats);
+
+    request.log.info({
+      msg: 'Statistics calculated',
+      dateRange: `${advancedStats.dateRange.earliest} to ${advancedStats.dateRange.latest}`,
+      totalAmount: advancedStats.amounts.total,
+      categories: advancedStats.categories.total,
+    });
+
+    // Step 9: Build success response
     const uploadId = uuidv4();
     const processingTime = Date.now() - startTime;
 
@@ -231,6 +243,20 @@ async function uploadHandler(request: FastifyRequest, reply: FastifyReply) {
           businessRuleStats: {
             byCode: businessRulesResult.stats.byCode,
             bySeverity: businessRulesResult.stats.bySeverity,
+          },
+        },
+        advancedStatistics: {
+          dateRange: advancedStats.dateRange,
+          amounts: advancedStats.amounts,
+          categories: {
+            total: advancedStats.categories.total,
+            topCategories: statsService.getTopCategories(advancedStats, 10), // Top 10 categories
+          },
+          summary: {
+            income: incomeExpenseSummary.income,
+            expenses: incomeExpenseSummary.expenses,
+            netBalance: incomeExpenseSummary.netBalance,
+            averageDailyTransactions: statsService.getAverageDailyTransactions(advancedStats),
           },
         },
         receivedAt: new Date().toISOString(),
