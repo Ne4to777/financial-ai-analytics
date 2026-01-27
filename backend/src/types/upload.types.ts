@@ -155,6 +155,25 @@ export interface UploadSuccessResponse {
       invalidRows: number;
       warnings: number;
     };
+    validation?: {
+      successRate: number;
+      errorsByField: Record<string, number>;
+      commonErrors: Array<{ field: string; count: number; message: string }>;
+      businessRuleWarnings: Array<{
+        row?: number;
+        code: string;
+        severity: string;
+        message: string;
+        field?: string;
+        value?: unknown;
+        suggestion?: string;
+        relatedRows?: number[];
+      }>;
+      businessRuleStats: {
+        byCode: Record<string, number>;
+        bySeverity: Record<string, number>;
+      };
+    };
     receivedAt: string;
     processingTime: number;
   };

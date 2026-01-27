@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { validateFileMetadata } from '../validators/file.validator';
 import { storageService } from '../services/storage.service';
 import { csvService } from '../services/csv.service';
+import { validateBusinessRules } from '../validators/business.rules';
 import {
   UploadSuccessResponse,
   UploadErrorResponse,
@@ -158,12 +159,42 @@ async function uploadHandler(request: FastifyRequest, reply: FastifyReply) {
       return reply.code(HTTPStatusCode.UNPROCESSABLE_ENTITY).send(errorResponse);
     }
 
-    // Step 6: Get CSV statistics
-    const stats = csvService.getStats(parsedCSV);
+    // Step 6: Validate rows
+    const validationResults = csvService.validateRows(parsedCSV);
+    const validationStats = csvService.getValidationStats(validationResults);
 
-    // Step 7: Build success response
+    request.log.info({
+      msg: 'Row validation completed',
+      totalRows: validationStats.total,
+      validRows: validationStats.valid,
+      invalidRows: validationStats.invalid,
+      successRate: validationStats.successRate,
+    });
+
+    // Step 7: Run business rules validation (on valid rows only)
+    const businessRulesResult = validateBusinessRules(validationResults);
+
+    request.log.info({
+      msg: 'Business rules validation completed',
+      totalWarnings: businessRulesResult.stats.totalWarnings,
+    });
+
+    // Step 8: Build success response
     const uploadId = uuidv4();
     const processingTime = Date.now() - startTime;
+
+    // Build preview with validation status
+    const previewRows = parsedCSV.rows.slice(0, 5).map((row, index) => {
+      const validationResult = validationResults[index];
+      return {
+        ...row,
+        _validation: {
+          row: index + 1,
+          valid: validationResult?.valid ?? false,
+          errors: validationResult?.errors ?? [],
+        },
+      };
+    });
 
     const successResponse: UploadSuccessResponse = {
       success: true,
@@ -185,12 +216,22 @@ async function uploadHandler(request: FastifyRequest, reply: FastifyReply) {
           hasErrors: parsedCSV.errors.length > 0,
           errorCount: parsedCSV.errors.length,
         },
-        preview: parsedCSV.rows.slice(0, 5), // First 5 rows
+        preview: previewRows,
         statistics: {
-          totalRows: stats.totalRows,
-          validRows: stats.totalRows, // TODO: Add validation in Phase 2
-          invalidRows: 0, // TODO: Add validation in Phase 2
-          warnings: parsedCSV.errors.length,
+          totalRows: validationStats.total,
+          validRows: validationStats.valid,
+          invalidRows: validationStats.invalid,
+          warnings: businessRulesResult.stats.totalWarnings,
+        },
+        validation: {
+          successRate: validationStats.successRate,
+          errorsByField: validationStats.errorsByField,
+          commonErrors: validationStats.commonErrors,
+          businessRuleWarnings: businessRulesResult.warnings.slice(0, 10), // Top 10 warnings
+          businessRuleStats: {
+            byCode: businessRulesResult.stats.byCode,
+            bySeverity: businessRulesResult.stats.bySeverity,
+          },
         },
         receivedAt: new Date().toISOString(),
         processingTime,
