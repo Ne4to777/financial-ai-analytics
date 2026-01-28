@@ -25,5 +25,5 @@ head -5 test.csv
 echo "..."
 echo ""
 echo "You can now test with:"
-echo "  curl -X POST http://localhost:3001/api/upload -F \"file=@test.csv\""
+echo "  curl -X POST http://localhost:3001/upload -F \"file=@test.csv\""
 echo ""

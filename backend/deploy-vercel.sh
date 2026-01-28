@@ -143,7 +143,7 @@ else
     
     echo ""
     echo "4. Test upload:"
-    echo "   curl -X POST $DEPLOYMENT_URL/api/upload \\"
+    echo "   curl -X POST $DEPLOYMENT_URL/upload \\"
     echo "     -F \"file=@test.csv\""
 fi
 

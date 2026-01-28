@@ -159,7 +159,7 @@ async function createServer() {
         description: 'Upload, parse, validate, and store CSV files',
         endpoints: {
           health: 'GET /health',
-          upload: 'POST /api/upload',
+          upload: 'POST /upload',
           docs: 'GET /docs',
         },
       };

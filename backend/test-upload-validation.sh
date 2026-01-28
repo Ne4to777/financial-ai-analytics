@@ -69,7 +69,7 @@ test_upload() {
   echo -e "${BLUE}Testing: $test_name${NC}"
   echo "File: $file"
   
-  response=$(curl -s -X POST http://localhost:3001/api/upload \
+  response=$(curl -s -X POST http://localhost:3001/upload \
     -F "file=@$file" \
     -H "Accept: application/json")
   

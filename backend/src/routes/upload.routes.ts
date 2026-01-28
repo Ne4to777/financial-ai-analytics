@@ -350,9 +350,9 @@ async function uploadHandler(request: FastifyRequest, reply: FastifyReply) {
  * Register upload routes
  */
 export default async function uploadRoutes(fastify: FastifyInstance) {
-  // POST /api/upload - Upload CSV file
+  // POST /upload - Upload CSV file
   fastify.post(
-    '/api/upload',
+    '/upload',
     {
       schema: {
         description: 'Upload and process a CSV file',

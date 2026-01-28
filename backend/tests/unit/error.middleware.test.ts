@@ -159,7 +159,7 @@ describe('Error Middleware', () => {
     it('should include request details in log', async () => {
       const request = createMockRequest({
         method: 'POST',
-        url: '/api/upload',
+        url: '/upload',
         headers: { 'content-type': 'application/json' },
         body: { data: 'test' },
       });
@@ -173,7 +173,7 @@ describe('Error Middleware', () => {
         expect.objectContaining({
           request: expect.objectContaining({
             method: 'POST',
-            url: '/api/upload',
+            url: '/upload',
           }),
         }),
         'Test error'
