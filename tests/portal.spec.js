@@ -11,18 +11,14 @@ test.describe('Developer Portal', () => {
     await expect(page.locator('.status-badge.online')).toContainText('Production Live');
   });
 
-  test('should display stats cards', async ({ page }) => {
-    const stats = page.locator('.stat-card');
-    await expect(stats).toHaveCount(4);
-    
-    // Check stat values
-    await expect(stats.nth(0).locator('.stat-value')).toContainText('100%');
-    await expect(stats.nth(1).locator('.stat-value')).toContainText('5/5');
-  });
-
   test('should display quick access buttons', async ({ page }) => {
-    await expect(page.locator('.btn-primary')).toContainText('API Documentation');
-    await expect(page.locator('.btn-secondary').first()).toContainText('Health Check');
+    const buttons = page.locator('.btn');
+    await expect(buttons).toHaveCount(3);
+    
+    // Check button text
+    await expect(buttons.nth(0)).toContainText('API Documentation');
+    await expect(buttons.nth(1)).toContainText('Health Check');
+    await expect(buttons.nth(2)).toContainText('GitHub Repository');
   });
 
   test('should display all resource cards', async ({ page }) => {
@@ -64,29 +60,6 @@ test.describe('Developer Portal', () => {
     
     // Should be dark (close to #0a0a0b)
     expect(bgColor).toMatch(/rgb\(10, 10, 11\)/);
-  });
-
-  test('should not have hover animation on stat cards', async ({ page }) => {
-    const statCard = page.locator('.stat-card').first();
-    
-    // Get initial transform
-    const initialTransform = await statCard.evaluate((el) =>
-      window.getComputedStyle(el).transform
-    );
-    
-    // Hover
-    await statCard.hover();
-    
-    // Wait a bit for potential animation
-    await page.waitForTimeout(500);
-    
-    // Get transform after hover
-    const afterTransform = await statCard.evaluate((el) =>
-      window.getComputedStyle(el).transform
-    );
-    
-    // Should NOT change (no translateY)
-    expect(initialTransform).toBe(afterTransform);
   });
 
   test('should have hover effects on clickable cards', async ({ page }) => {
