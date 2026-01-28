@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Analytics - Developer Portal</title>
+    <title>Financial Analytics - Control Panel</title>
     <style>
         * {
             margin: 0;
@@ -12,231 +12,220 @@
         }
 
         :root {
-            --primary: #3b82f6;
-            --primary-light: #60a5fa;
-            --primary-dark: #2563eb;
-            --accent: #8b5cf6;
-            --accent-light: #a78bfa;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
+            /* Cockpit color scheme */
+            --bg-primary: #0a0a0a;
+            --bg-panel: #111111;
+            --bg-section: #161616;
+            --bg-hover: #1a1a1a;
             
-            /* Dark theme colors */
-            --bg-primary: #0a0a0b;
-            --bg-secondary: #111113;
-            --bg-tertiary: #1a1a1d;
-            --bg-elevated: #1f1f23;
-            --bg-card: rgba(31, 31, 35, 0.8);
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --text-muted: #606060;
             
-            --text-primary: #f9fafb;
-            --text-secondary: #d1d5db;
-            --text-tertiary: #9ca3af;
-            --text-muted: #6b7280;
+            --border: #2a2a2a;
+            --border-light: #1f1f1f;
             
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --border-default: rgba(255, 255, 255, 0.12);
-            --border-strong: rgba(255, 255, 255, 0.18);
-            
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
-            --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.6);
-            --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.3);
+            --accent-blue: #4a9eff;
+            --accent-green: #00d084;
+            --accent-orange: #ff8c42;
+            --accent-red: #ff4757;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
             background: var(--bg-primary);
-            background-image: 
-                radial-gradient(ellipse at 20% 10%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 90%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 80%);
             min-height: 100vh;
-            padding: 2rem;
+            padding: 0.75rem;
             color: var(--text-primary);
+            font-size: 12px;
+            line-height: 1.4;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1800px;
             margin: 0 auto;
         }
 
+        /* Header - compact */
         header {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-default);
-            border-radius: 20px;
-            padding: 2rem 2.5rem;
-            margin-bottom: 2.5rem;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent);
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 0.625rem 0.875rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .header-content {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
             gap: 1rem;
         }
 
         h1 {
-            font-size: 2.25rem;
-            background: linear-gradient(135deg, var(--text-primary), var(--primary-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            letter-spacing: -0.02em;
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .subtitle {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            margin-top: 0.5rem;
-            font-weight: 500;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 400;
         }
 
         .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.625rem 1.25rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            border: 1px solid var(--border-default);
-        }
-
-        .status-badge.online {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.15));
-            color: #6ee7b7;
-            border-color: rgba(16, 185, 129, 0.3);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+            gap: 0.3rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 2px;
+            font-size: 10px;
+            font-weight: 500;
+            border: 1px solid var(--accent-green);
+            background: var(--bg-section);
+            color: var(--accent-green);
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
             background: currentColor;
-            animation: pulse 2s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .quick-links {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
         }
 
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 2px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.1s;
+            font-size: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-section);
+            color: var(--text-secondary);
+        }
+
+        .btn:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-blue);
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            color: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-blue);
+            color: var(--bg-primary);
+        }
+
+        /* Section title */
+        .section-title {
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text-muted);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            padding-left: 0.4rem;
+        }
+
+        /* Grid - compact, 4 columns */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 0.6rem;
+            margin-bottom: 0.75rem;
         }
 
+        /* Card - minimal */
         .card {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-default);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: var(--shadow-md);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), var(--accent), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 0.75rem;
+            transition: border-color 0.1s;
         }
 
         .card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg), var(--shadow-glow);
-            border-color: var(--border-strong);
-        }
-
-        .card:hover::before {
-            opacity: 1;
+            border-color: var(--accent-blue);
         }
 
         .card-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            gap: 0.5rem;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-light);
         }
 
         .card-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
-            border: 1px solid var(--border-subtle);
-            backdrop-filter: blur(10px);
+            font-size: 10px;
+            background: var(--bg-section);
+            border: 1px solid var(--border);
+            flex-shrink: 0;
         }
 
-        .icon-blue { 
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.1));
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
-        }
-        .icon-green { 
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.1));
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
-        }
-        .icon-purple { 
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.1));
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
-        }
-        .icon-orange { 
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.1));
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
-        }
+        .icon-blue { border-color: var(--accent-blue); color: var(--accent-blue); }
+        .icon-green { border-color: var(--accent-green); color: var(--accent-green); }
+        .icon-purple { border-color: #a78bfa; color: #a78bfa; }
+        .icon-orange { border-color: var(--accent-orange); color: var(--accent-orange); }
 
         .card-title {
-            font-size: 1.35rem;
+            font-size: 12px;
             font-weight: 600;
             color: var(--text-primary);
-            letter-spacing: -0.01em;
+            letter-spacing: 0.2px;
         }
 
-        .card-description {
-            color: var(--text-secondary);
-            font-size: 0.9375rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
+        .badge {
+            font-size: 9px;
+            padding: 0.15rem 0.4rem;
+            border-radius: 2px;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            background: var(--bg-section);
+            margin-left: auto;
         }
 
+        .badge-success { border-color: var(--accent-green); color: var(--accent-green); }
+        .badge-info { border-color: var(--accent-blue); color: var(--accent-blue); }
+        .badge-warning { border-color: var(--accent-orange); color: var(--accent-orange); }
+
+        /* Links */
         .link-list {
             list-style: none;
         }
 
         .link-item {
-            margin-bottom: 0.625rem;
+            margin-bottom: 0.2rem;
         }
-        
+
         .link-item:last-child {
             margin-bottom: 0;
         }
@@ -244,242 +233,74 @@
         .link-item a {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            color: var(--primary-light);
+            gap: 0.4rem;
+            color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 500;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0.3rem 0.4rem;
+            border-radius: 2px;
+            transition: all 0.1s;
+            font-size: 11px;
             border: 1px solid transparent;
         }
 
         .link-item a:hover {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: var(--border-subtle);
+            background: var(--bg-section);
+            border-color: var(--border);
             color: var(--text-primary);
-            transform: translateX(4px);
         }
 
         .link-icon {
-            font-size: 1rem;
+            font-size: 10px;
+            opacity: 0.6;
         }
 
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
-            position: relative;
-            padding-bottom: 0.75rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            border-radius: 2px;
-        }
-
-        .quick-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.625rem;
-            padding: 0.875rem 1.75rem;
-            border-radius: 10px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 0.9375rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border: 1px solid var(--primary-light);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
-        }
-
-        .btn-secondary {
-            background: var(--bg-elevated);
-            color: var(--text-primary);
-            border: 1px solid var(--border-default);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--border-strong);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-
+        /* Footer - minimal */
         footer {
             text-align: center;
-            color: var(--text-secondary);
-            margin-top: 3rem;
-            padding: 2rem;
-            border-top: 1px solid var(--border-subtle);
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border-radius: 16px;
-        }
-
-        footer p {
-            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg-panel);
+            border-radius: 3px;
+            font-size: 10px;
         }
 
         footer a {
-            color: var(--primary-light);
+            color: var(--accent-blue);
             text-decoration: none;
-            transition: color 0.2s;
         }
 
         footer a:hover {
-            color: var(--text-primary);
             text-decoration: underline;
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
-            }
-
-            h1 {
-                font-size: 1.75rem;
-            }
-
-            .subtitle {
-                font-size: 0.9375rem;
-            }
-
-            header {
-                padding: 1.5rem;
+                padding: 0.5rem;
+                font-size: 11px;
             }
 
             .grid {
                 grid-template-columns: 1fr;
+                gap: 0.5rem;
             }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .card {
-                padding: 1.75rem;
-            }
-
-            .stat-value {
-                font-size: 2rem;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
+            .quick-links {
+                width: 100%;
             }
 
             .btn {
-                padding: 0.75rem 1.5rem;
-                font-size: 0.875rem;
+                flex: 1;
+                justify-content: center;
             }
         }
 
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-strong);
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
-        }
-
-        /* Selection styling */
-        ::selection {
-            background: rgba(59, 130, 246, 0.3);
-            color: var(--text-primary);
-        }
-
-        .health-indicator {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--success);
-            margin-right: 0.5rem;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.375rem 0.875rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border: 1px solid;
-        }
-
-        .badge-success { 
-            background: rgba(16, 185, 129, 0.15); 
-            color: #6ee7b7;
-            border-color: rgba(16, 185, 129, 0.3);
-        }
-        .badge-info { 
-            background: rgba(59, 130, 246, 0.15); 
-            color: #93c5fd;
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-        .badge-warning { 
-            background: rgba(245, 158, 11, 0.15); 
-            color: #fbbf24;
-            border-color: rgba(245, 158, 11, 0.3);
+        @media (min-width: 1400px) {
+            .grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
     </style>
 </head>
@@ -487,62 +308,55 @@
     <div class="container">
         <header>
             <div class="header-content">
-                <div>
-                    <h1>💼 Financial Analytics Platform</h1>
-                    <p class="subtitle">Developer Portal & Project Hub</p>
-                </div>
-                <div class="status-badge online">
+                <h1>💼 FIN-ANALYTICS</h1>
+                <div class="subtitle">/ DEV PORTAL</div>
+                <div class="status-badge">
                     <span class="status-dot"></span>
-                    <span>Production Live</span>
+                    <span>PROD</span>
                 </div>
             </div>
             <div class="quick-links">
                 <a href="https://backend-mocha-nine-95.vercel.app/docs" target="_blank" class="btn btn-primary">
-                    📚 API Documentation
+                    DOCS
                 </a>
-                <a href="https://backend-mocha-nine-95.vercel.app/health" target="_blank" class="btn btn-secondary">
-                    🏥 Health Check
+                <a href="https://backend-mocha-nine-95.vercel.app/health" target="_blank" class="btn">
+                    HEALTH
                 </a>
-                <a href="https://github.com/Ne4to777/financial-ai-analytics" target="_blank" class="btn btn-secondary">
-                    🔗 GitHub Repository
+                <a href="https://github.com/Ne4to777/financial-ai-analytics" target="_blank" class="btn">
+                    GITHUB
                 </a>
             </div>
         </header>
 
-        <h2 class="section-title">🚀 Quick Access</h2>
+        <h2 class="section-title">▸ RESOURCES</h2>
 
         <div class="grid">
             <!-- API & Documentation -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon icon-blue">📡</div>
-                    <div>
-                        <h3 class="card-title">API & Docs</h3>
-                        <span class="badge badge-success">Live</span>
-                    </div>
+                    <h3 class="card-title">API & DOCS</h3>
+                    <span class="badge badge-success">LIVE</span>
                 </div>
-                <p class="card-description">
-                    RESTful API для загрузки и анализа CSV файлов с финансовыми транзакциями
-                </p>
                 <ul class="link-list">
                     <li class="link-item">
                         <a href="https://backend-mocha-nine-95.vercel.app/docs" target="_blank">
-                            <span class="link-icon">📖</span> Swagger UI
+                            <span class="link-icon">→</span> Swagger UI
                         </a>
                     </li>
                     <li class="link-item">
                         <a href="/md-viewer.html?file=/backend/API.md" target="_blank">
-                            <span class="link-icon">📝</span> API Documentation
+                            <span class="link-icon">→</span> API Docs
                         </a>
                     </li>
                     <li class="link-item">
                         <a href="https://backend-mocha-nine-95.vercel.app/health" target="_blank">
-                            <span class="link-icon">❤️</span> Health Check
+                            <span class="link-icon">→</span> Health Check
                         </a>
                     </li>
                     <li class="link-item">
                         <a href="https://backend-mocha-nine-95.vercel.app/upload" target="_blank">
-                            <span class="link-icon">⬆️</span> Upload Endpoint
+                            <span class="link-icon">→</span> Upload Endpoint
                         </a>
                     </li>
                 </ul>
@@ -552,33 +366,28 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon icon-purple">🏗️</div>
-                    <div>
-                        <h3 class="card-title">Architecture</h3>
-                        <span class="badge badge-info">3 Tiers</span>
-                    </div>
+                    <h3 class="card-title">ARCHITECTURE</h3>
+                    <span class="badge badge-info">3 TIERS</span>
                 </div>
-                <p class="card-description">
-                    Архитектурные диаграммы и план развития системы
-                </p>
                 <ul class="link-list">
                     <li class="link-item">
                         <a href="/md-viewer.html?file=/mindmap/diagrams/02a-architecture-mvp.md" target="_blank">
-                            <span class="link-icon">🎯</span> MVP Architecture
+                            <span class="link-icon">→</span> MVP Architecture
                         </a>
                     </li>
                     <li class="link-item">
                         <a href="/md-viewer.html?file=/mindmap/diagrams/02b-architecture-tier2.md" target="_blank">
-                            <span class="link-icon">⚡</span> Tier 2 (Production)
+                            <span class="link-icon">→</span> Tier 2 (Production)
                         </a>
                     </li>
                     <li class="link-item">
                         <a href="/md-viewer.html?file=/mindmap/diagrams/02c-architecture-tier3.md" target="_blank">
-                            <span class="link-icon">🚀</span> Tier 3 (Enterprise)
+                            <span class="link-icon">→</span> Tier 3 (Enterprise)
                         </a>
                     </li>
                     <li class="link-item">
                         <a href="/md-viewer.html?file=/mindmap/diagrams/03-data-model.md" target="_blank">
-                            <span class="link-icon">🗄️</span> Data Model
+                            <span class="link-icon">→</span> Data Model
                         </a>
                     </li>
                 </ul>
@@ -588,33 +397,28 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon icon-green">💻</div>
-                    <div>
-                        <h3 class="card-title">Development</h3>
-                        <span class="badge badge-success">TypeScript</span>
-                    </div>
+                    <h3 class="card-title">DEVELOPMENT</h3>
+                    <span class="badge badge-success">TS</span>
                 </div>
-                <p class="card-description">
-                    Локальная разработка, тестирование и deployment
-                </p>
                 <ul class="link-list">
                     <li class="link-item">
                         <a href="/md-viewer.html?file=/README.md" target="_blank">
-                            <span class="link-icon">📋</span> Project README
+                            <span class="link-icon">→</span> Project README
                         </a>
                     </li>
                     <li class="link-item">
                         <a href="/md-viewer.html?file=/backend/README.md" target="_blank">
-                            <span class="link-icon">⚙️</span> Backend Setup
+                            <span class="link-icon">→</span> Backend Setup
                         </a>
                     </li>
                     <li class="link-item">
                         <a href="/md-viewer.html?file=/DEPLOYMENT.md" target="_blank">
-                            <span class="link-icon">🚢</span> Deployment Guide
+                            <span class="link-icon">→</span> Deployment Guide
                         </a>
                     </li>
                     <li class="link-item">
                         <a href="/md-viewer.html?file=/VERCEL_DEPLOY.md" target="_blank">
-                            <span class="link-icon">▲</span> Vercel Setup
+                            <span class="link-icon">→</span> Vercel Setup
                         </a>
                     </li>
                 </ul>
@@ -624,188 +428,28 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon icon-orange">🎨</div>
-                    <div>
-                        <h3 class="card-title">UI Prototypes</h3>
-                        <span class="badge badge-info">HTML</span>
-                    </div>
+                    <h3 class="card-title">UI PROTOTYPES</h3>
+                    <span class="badge badge-info">HTML</span>
                 </div>
-                <p class="card-description">
-                    Интерактивные прототипы пользовательских экранов
-                </p>
                 <ul class="link-list">
                     <li class="link-item">
-                        <a href="/mindmap/prototypes/01-landing.html" target="_blank">
-                            <span class="link-icon">🏠</span> Landing Page
+                        <a href="/prototypes/dashboard.html" target="_blank">
+                            <span class="link-icon">→</span> Dashboard
                         </a>
                     </li>
                     <li class="link-item">
-                        <a href="/mindmap/prototypes/index.html" target="_blank">
-                            <span class="link-icon">📱</span> All Prototypes
+                        <a href="/prototypes/upload.html" target="_blank">
+                            <span class="link-icon">→</span> Upload UI
                         </a>
                     </li>
                     <li class="link-item">
-                        <a href="/md-viewer.html?file=/DESIGN_RECOMMENDATIONS.md" target="_blank">
-                            <span class="link-icon">✨</span> Design Guidelines
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Database -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon icon-blue">🗃️</div>
-                    <div>
-                        <h3 class="card-title">Database</h3>
-                        <span class="badge badge-success">Supabase</span>
-                    </div>
-                </div>
-                <p class="card-description">
-                    Схема базы данных и миграции для хранения транзакций
-                </p>
-                <ul class="link-list">
-                    <li class="link-item">
-                        <a href="https://ggxbqcctwforkngwhqpl.supabase.co" target="_blank">
-                            <span class="link-icon">🔗</span> Supabase Dashboard
+                        <a href="/prototypes/transactions.html" target="_blank">
+                            <span class="link-icon">→</span> Transactions
                         </a>
                     </li>
                     <li class="link-item">
-                        <a href="/backend/database/migrations/001_create_uploads_table.sql" target="_blank">
-                            <span class="link-icon">📄</span> Uploads Table
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="/backend/database/migrations/002_create_transactions_table.sql" target="_blank">
-                            <span class="link-icon">📄</span> Transactions Table
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="/md-viewer.html?file=/backend/SUPABASE_SETUP_GUIDE.md" target="_blank">
-                            <span class="link-icon">📘</span> Setup Guide
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Testing -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon icon-green">🧪</div>
-                    <div>
-                        <h3 class="card-title">Testing</h3>
-                        <span class="badge badge-success">Vitest</span>
-                    </div>
-                </div>
-                <p class="card-description">
-                    Unit, integration тесты и тестовые данные
-                </p>
-                <ul class="link-list">
-                    <li class="link-item">
-                        <a href="/md-viewer.html?file=/backend/tests/README.md" target="_blank">
-                            <span class="link-icon">📋</span> Testing Guide
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="/md-viewer.html?file=/test-data/README.md" target="_blank">
-                            <span class="link-icon">📊</span> Test Data
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="/backend/test-upload-e2e.sh" target="_blank">
-                            <span class="link-icon">🔄</span> E2E Test Script
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Planning & Tasks -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon icon-purple">📋</div>
-                    <div>
-                        <h3 class="card-title">Planning</h3>
-                        <span class="badge badge-info">PRD</span>
-                    </div>
-                </div>
-                <p class="card-description">
-                    Product Requirements и планирование задач
-                </p>
-                <ul class="link-list">
-                    <li class="link-item">
-                        <a href="/md-viewer.html?file=/tasks/prd-csv-processing-api.md" target="_blank">
-                            <span class="link-icon">📄</span> Product Requirements
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="/md-viewer.html?file=/tasks/tasks-csv-processing-api.md" target="_blank">
-                            <span class="link-icon">✅</span> Task Breakdown
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="/md-viewer.html?file=/mindmap/diagrams/10-roadmap.md" target="_blank">
-                            <span class="link-icon">🗺️</span> Product Roadmap
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Deployment -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon icon-orange">🚀</div>
-                    <div>
-                        <h3 class="card-title">Deployment</h3>
-                        <span class="badge badge-success">Vercel</span>
-                    </div>
-                </div>
-                <p class="card-description">
-                    Production deployment и мониторинг
-                </p>
-                <ul class="link-list">
-                    <li class="link-item">
-                        <a href="https://vercel.com/ne4to777s-projects/backend" target="_blank">
-                            <span class="link-icon">▲</span> Vercel Dashboard
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="/backend/deploy-vercel.sh" target="_blank">
-                            <span class="link-icon">📜</span> Deploy Script
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="/md-viewer.html?file=/GITHUB_PAGES_SETUP.md" target="_blank">
-                            <span class="link-icon">📄</span> Pages Setup
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Skills & Tools -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon icon-purple">🛠️</div>
-                    <div>
-                        <h3 class="card-title">AI Skills</h3>
-                        <span class="badge badge-info">Cursor</span>
-                    </div>
-                </div>
-                <p class="card-description">
-                    Установленные AI skills для разработки
-                </p>
-                <ul class="link-list">
-                    <li class="link-item">
-                        <a href="/md-viewer.html?file=/SKILLS_INSTALLED.md" target="_blank">
-                            <span class="link-icon">📦</span> Installed Skills
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="/md-viewer.html?file=/CURSOR_SKILLS_GUIDE.md" target="_blank">
-                            <span class="link-icon">📚</span> Skills Guide
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="/.cursorrules" target="_blank">
-                            <span class="link-icon">⚙️</span> Cursor Rules
+                        <a href="/prototypes/analytics.html" target="_blank">
+                            <span class="link-icon">→</span> Analytics
                         </a>
                     </li>
                 </ul>
@@ -815,201 +459,256 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon icon-blue">📊</div>
-                    <div>
-                        <h3 class="card-title">Diagrams</h3>
-                        <span class="badge badge-info">Mermaid</span>
-                    </div>
+                    <h3 class="card-title">DIAGRAMS</h3>
+                    <span class="badge badge-info">MERMAID</span>
                 </div>
-                <p class="card-description">
-                    Визуализация процессов и структуры проекта
-                </p>
                 <ul class="link-list">
                     <li class="link-item">
-                        <a href="/md-viewer.html?file=/mindmap/diagrams/01-project-structure.md" target="_blank">
-                            <span class="link-icon">🌳</span> Project Structure
+                        <a href="/md-viewer.html?file=/mindmap/diagrams/01-project-overview.md" target="_blank">
+                            <span class="link-icon">→</span> Project Overview
                         </a>
                     </li>
                     <li class="link-item">
-                        <a href="/md-viewer.html?file=/mindmap/diagrams/08-ai-analysis-process.md" target="_blank">
-                            <span class="link-icon">🤖</span> AI Analysis Flow
+                        <a href="/md-viewer.html?file=/mindmap/diagrams/04-api-flow.md" target="_blank">
+                            <span class="link-icon">→</span> API Flow
                         </a>
                     </li>
                     <li class="link-item">
-                        <a href="/md-viewer.html?file=/mindmap/diagrams/09-tech-stack.md" target="_blank">
-                            <span class="link-icon">💎</span> Tech Stack
+                        <a href="/md-viewer.html?file=/mindmap/diagrams/05-validation-rules.md" target="_blank">
+                            <span class="link-icon">→</span> Validation Rules
                         </a>
                     </li>
                     <li class="link-item">
-                        <a href="/mindmap/viewer/" target="_blank">
-                            <span class="link-icon">👁️</span> Diagram Viewer
+                        <a href="/md-viewer.html?file=/mindmap/README.md" target="_blank">
+                            <span class="link-icon">→</span> All Diagrams
                         </a>
                     </li>
                 </ul>
             </div>
 
-            <!-- Team Resources -->
+            <!-- Testing -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon icon-orange">👥</div>
-                    <div>
-                        <h3 class="card-title">Team</h3>
-                        <span class="badge badge-info">Shared</span>
-                    </div>
+                    <div class="card-icon icon-green">🧪</div>
+                    <h3 class="card-title">TESTING</h3>
+                    <span class="badge badge-success">100%</span>
                 </div>
-                <p class="card-description">
-                    Командный доступ и onboarding материалы
-                </p>
                 <ul class="link-list">
                     <li class="link-item">
-                        <a href="/md-viewer.html?file=/TEAM_ACCESS.md" target="_blank">
-                            <span class="link-icon">🔑</span> Team Access Guide
+                        <a href="/md-viewer.html?file=/backend/TESTING.md" target="_blank">
+                            <span class="link-icon">→</span> Test Documentation
                         </a>
                     </li>
                     <li class="link-item">
-                        <a href="/md-viewer.html?file=/mindmap/QUICK_START.md" target="_blank">
-                            <span class="link-icon">⚡</span> Quick Start
+                        <a href="/md-viewer.html?file=/backend/COVERAGE.md" target="_blank">
+                            <span class="link-icon">→</span> Coverage Report
                         </a>
                     </li>
                     <li class="link-item">
-                        <a href="/md-viewer.html?file=/mindmap/diagrams/00-navigation.md" target="_blank">
-                            <span class="link-icon">🧭</span> Navigation Guide
+                        <a href="#" target="_blank">
+                            <span class="link-icon">→</span> Integration Tests
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#" target="_blank">
+                            <span class="link-icon">→</span> E2E Tests
                         </a>
                     </li>
                 </ul>
             </div>
 
-            <!-- Business -->
+            <!-- Database -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon icon-green">💼</div>
-                    <div>
-                        <h3 class="card-title">Business</h3>
-                        <span class="badge badge-info">Strategy</span>
-                    </div>
+                    <div class="card-icon icon-purple">🗄️</div>
+                    <h3 class="card-title">DATABASE</h3>
+                    <span class="badge badge-info">SUPABASE</span>
                 </div>
-                <p class="card-description">
-                    Бизнес-метрики и конкурентные преимущества
-                </p>
                 <ul class="link-list">
                     <li class="link-item">
-                        <a href="/md-viewer.html?file=/mindmap/diagrams/13-business-value.md" target="_blank">
-                            <span class="link-icon">💰</span> Business Value
+                        <a href="/md-viewer.html?file=/backend/DATABASE.md" target="_blank">
+                            <span class="link-icon">→</span> Schema & Migrations
                         </a>
                     </li>
                     <li class="link-item">
-                        <a href="/md-viewer.html?file=/mindmap/diagrams/14-proof-points.md" target="_blank">
-                            <span class="link-icon">✅</span> Proof Points
+                        <a href="/md-viewer.html?file=/mindmap/diagrams/03-data-model.md" target="_blank">
+                            <span class="link-icon">→</span> Data Model
                         </a>
                     </li>
                     <li class="link-item">
-                        <a href="/md-viewer.html?file=/mindmap/diagrams/17-competitive-advantages.md" target="_blank">
-                            <span class="link-icon">🏆</span> Competitive Edge
+                        <a href="https://supabase.com/dashboard/project/_" target="_blank">
+                            <span class="link-icon">→</span> Dashboard
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#" target="_blank">
+                            <span class="link-icon">→</span> Backup & Recovery
                         </a>
                     </li>
                 </ul>
             </div>
 
-            <!-- Security & Compliance -->
+            <!-- Monitoring -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-orange">📈</div>
+                    <h3 class="card-title">MONITORING</h3>
+                    <span class="badge badge-warning">SETUP</span>
+                </div>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="https://vercel.com/dashboard" target="_blank">
+                            <span class="link-icon">→</span> Vercel Dashboard
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="https://backend-mocha-nine-95.vercel.app/health" target="_blank">
+                            <span class="link-icon">→</span> Health Status
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#" target="_blank">
+                            <span class="link-icon">→</span> Error Tracking
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#" target="_blank">
+                            <span class="link-icon">→</span> Performance Metrics
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Local Development -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-green">⚙️</div>
+                    <h3 class="card-title">LOCAL DEV</h3>
+                    <span class="badge badge-success">READY</span>
+                </div>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="/md-viewer.html?file=/backend/README.md#setup" target="_blank">
+                            <span class="link-icon">→</span> Setup Guide
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="http://localhost:3000/docs" target="_blank">
+                            <span class="link-icon">→</span> Local API Docs
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="http://localhost:3000/health" target="_blank">
+                            <span class="link-icon">→</span> Local Health Check
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="/md-viewer.html?file=/backend/TROUBLESHOOTING.md" target="_blank">
+                            <span class="link-icon">→</span> Troubleshooting
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- CI/CD -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-blue">🚀</div>
+                    <h3 class="card-title">CI/CD</h3>
+                    <span class="badge badge-info">GITHUB</span>
+                </div>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="https://github.com/Ne4to777/financial-ai-analytics/actions" target="_blank">
+                            <span class="link-icon">→</span> GitHub Actions
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="/md-viewer.html?file=/DEPLOYMENT.md" target="_blank">
+                            <span class="link-icon">→</span> Deploy Guide
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="/md-viewer.html?file=/VERCEL_DEPLOY.md" target="_blank">
+                            <span class="link-icon">→</span> Vercel Config
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="https://github.com/Ne4to777/financial-ai-analytics/releases" target="_blank">
+                            <span class="link-icon">→</span> Releases
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Security -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon icon-orange">🔒</div>
-                    <div>
-                        <h3 class="card-title">Security</h3>
-                        <span class="badge badge-warning">Critical</span>
-                    </div>
+                    <h3 class="card-title">SECURITY</h3>
+                    <span class="badge badge-warning">REVIEW</span>
                 </div>
-                <p class="card-description">
-                    Безопасность, комплаенс и best practices
-                </p>
                 <ul class="link-list">
                     <li class="link-item">
-                        <a href="/md-viewer.html?file=/mindmap/diagrams/11-security.md" target="_blank">
-                            <span class="link-icon">🛡️</span> Security Overview
+                        <a href="/md-viewer.html?file=/SECURITY.md" target="_blank">
+                            <span class="link-icon">→</span> Security Policy
                         </a>
                     </li>
                     <li class="link-item">
-                        <a href="/md-viewer.html?file=/mindmap/diagrams/16-security-compliance.md" target="_blank">
-                            <span class="link-icon">📜</span> Compliance
+                        <a href="/md-viewer.html?file=/backend/ENV.md" target="_blank">
+                            <span class="link-icon">→</span> Environment Vars
                         </a>
                     </li>
                     <li class="link-item">
-                        <a href="/backend/.env.example" target="_blank">
-                            <span class="link-icon">🔑</span> Environment Variables
+                        <a href="#" target="_blank">
+                            <span class="link-icon">→</span> API Keys
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#" target="_blank">
+                            <span class="link-icon">→</span> Audit Log
                         </a>
                     </li>
                 </ul>
             </div>
-        </div>
 
-        <h2 class="section-title">⚡ Quick Commands</h2>
-
-        <div class="grid">
+            <!-- Resources -->
             <div class="card">
-                <h3 class="card-title" style="margin-bottom: 1rem;">Local Development</h3>
-                <pre style="background: var(--gray-50); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.875rem; color: var(--gray-800);">
-cd backend
-npm install
-npm run dev
-
-# Test API locally
-curl http://localhost:3001/health</pre>
-            </div>
-
-            <div class="card">
-                <h3 class="card-title" style="margin-bottom: 1rem;">Run Tests</h3>
-                <pre style="background: var(--gray-50); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.875rem; color: var(--gray-800);">
-cd backend
-npm test
-
-# With coverage
-npm run test:coverage</pre>
-            </div>
-
-            <div class="card">
-                <h3 class="card-title" style="margin-bottom: 1rem;">Deploy to Production</h3>
-                <pre style="background: var(--gray-50); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.875rem; color: var(--gray-800);">
-cd backend
-npm run build
-vercel --prod --yes
-
-# Or test locally first
-vercel dev --listen 3001</pre>
-            </div>
-
-            <div class="card">
-                <h3 class="card-title" style="margin-bottom: 1rem;">View Diagrams</h3>
-                <pre style="background: var(--gray-50); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.875rem; color: var(--gray-800);">
-cd mindmap/viewer
-npm install
-npm start
-
-# Opens: http://localhost:8080</pre>
+                <div class="card-header">
+                    <div class="card-icon icon-purple">📚</div>
+                    <h3 class="card-title">RESOURCES</h3>
+                    <span class="badge badge-info">DOCS</span>
+                </div>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="/md-viewer.html?file=/mindmap/README.md" target="_blank">
+                            <span class="link-icon">→</span> Mindmap Index
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="/md-viewer.html?file=/CHANGELOG.md" target="_blank">
+                            <span class="link-icon">→</span> Changelog
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="/md-viewer.html?file=/CONTRIBUTING.md" target="_blank">
+                            <span class="link-icon">→</span> Contributing
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="/md-viewer.html?file=/LICENSE" target="_blank">
+                            <span class="link-icon">→</span> License
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
 
         <footer>
-            <p>🔨 Built with TypeScript + Fastify + Supabase | Deployed on Vercel</p>
-            <p style="margin-top: 0.5rem; font-size: 0.875rem;">
-                <a href="https://github.com/Ne4to777/financial-ai-analytics" target="_blank" style="color: white; text-decoration: underline;">
-                    View on GitHub
-                </a>
-            </p>
+            <p>TS + Fastify + Supabase + Vercel | 
+            <a href="https://github.com/Ne4to777/financial-ai-analytics" target="_blank">Repository</a> | 
+            v1.0.0</p>
         </footer>
     </div>
-
-    <script>
-        // Check API health on page load
-        async function checkHealth() {
-            try {
-                const response = await fetch('https://backend-mocha-nine-95.vercel.app/health');
-                const data = await response.json();
-                console.log('✅ API Health:', data);
-            } catch (error) {
-                console.error('❌ API Health Check Failed:', error);
-            }
-        }
-        
-        checkHealth();
-    </script>
 </body>
 </html>
