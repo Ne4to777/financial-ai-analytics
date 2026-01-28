@@ -14,7 +14,7 @@
             box-sizing: border-box;
         }
 
-        :root {
+        :root {в
             --primary: #2563eb;
             --primary-dark: #1e40af;
             --success: #10b981;
@@ -394,6 +394,27 @@
             border-radius: 4px;
         }
 
+        /* Hide icon placeholders in mermaid diagrams */
+        .mermaid .nodeLabel .fa,
+        .mermaid .nodeLabel .fas,
+        .mermaid .nodeLabel .far,
+        .mermaid .nodeLabel .fab,
+        .mermaid text tspan[class*="fa-"],
+        .mermaid foreignObject > div > span[class*="fa"] {
+            display: none !important;
+        }
+
+        /* Fix for emoji and icon rendering */
+        .mermaid .nodeLabel {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* Remove empty rectangles/artifacts */
+        .mermaid rect[width="0"],
+        .mermaid rect[height="0"] {
+            display: none;
+        }
+
         /* Loading state for diagrams */
         .diagram-loading {
             display: flex;
@@ -432,6 +453,7 @@
         mermaid.initialize({ 
             startOnLoad: false,
             theme: 'default',
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
             themeVariables: {
                 primaryColor: '#2563eb',
                 primaryTextColor: '#fff',
@@ -455,7 +477,8 @@
                 nodeSpacing: 50,
                 rankSpacing: 50,
                 diagramPadding: 20,
-                useMaxWidth: true
+                useMaxWidth: true,
+                htmlLabels: true
             },
             sequence: {
                 diagramMarginX: 50,
@@ -524,6 +547,34 @@
                 await mermaid.run({
                     nodes: Array.from(mermaidElements),
                     suppressErrors: false
+                });
+
+                // Post-process: Remove icon placeholders and clean up artifacts
+                mermaidElements.forEach(el => {
+                    const svg = el.querySelector('svg');
+                    if (svg) {
+                        // Remove FontAwesome icon elements
+                        svg.querySelectorAll('text tspan[class*="fa"]').forEach(icon => icon.remove());
+                        svg.querySelectorAll('foreignObject > div > span[class*="fa"]').forEach(icon => icon.remove());
+                        
+                        // Remove empty or tiny rectangles (artifacts)
+                        svg.querySelectorAll('rect').forEach(rect => {
+                            const width = parseFloat(rect.getAttribute('width') || '0');
+                            const height = parseFloat(rect.getAttribute('height') || '0');
+                            if (width === 0 || height === 0 || (width < 5 && height < 5)) {
+                                rect.remove();
+                            }
+                        });
+
+                        // Clean up text content - remove icon markers like 📱, 📊 etc if they cause issues
+                        svg.querySelectorAll('text').forEach(text => {
+                            const content = text.textContent || '';
+                            // Remove standalone icon characters that appear as boxes
+                            if (content.match(/^[\u{1F300}-\u{1F9FF}]$/u) && text.getBBox().width < 10) {
+                                text.remove();
+                            }
+                        });
+                    }
                 });
             } catch (error) {
                 console.error('Mermaid rendering error:', error);
