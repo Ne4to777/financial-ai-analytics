@@ -197,8 +197,8 @@ async function start() {
   }
 }
 
-// Start server if running directly
-if (require.main === module) {
+// Start server if running directly (ES Module check)
+if (import.meta.url === `file://${process.argv[1]}`) {
   start();
 }
 
