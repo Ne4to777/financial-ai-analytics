@@ -3,7 +3,7 @@
  * Run with: npm run dev src/config/test-connection.ts
  */
 
-import { testSupabaseConnection, supabaseConfig } from './supabase';
+import { testSupabaseConnection, supabaseConfig } from './supabase.js';
 
 async function main() {
   console.log('🔍 Testing Supabase connection...\n');

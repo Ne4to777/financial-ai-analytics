@@ -20,7 +20,7 @@ BASE_URL="http://localhost:3001"
 
 # Test 1: Upload valid CSV
 echo "✅ Test 1: Upload valid CSV file..."
-curl -s -X POST "$BASE_URL/api/upload" \
+curl -s -X POST "$BASE_URL/upload" \
   -F "file=@tests/fixtures/valid.csv" \
   | jq '.success, .data.uploadId, .data.csv.totalRows' || echo "❌ Test 1 failed"
 
@@ -28,7 +28,7 @@ echo ""
 
 # Test 2: Upload file with missing columns
 echo "❌ Test 2: Upload CSV with missing columns (should fail)..."
-curl -s -X POST "$BASE_URL/api/upload" \
+curl -s -X POST "$BASE_URL/upload" \
   -F "file=@tests/fixtures/missing-columns.csv" \
   | jq '.success, .error.code' || echo "❌ Test 2 failed"
 
@@ -37,7 +37,7 @@ echo ""
 # Test 3: Upload non-CSV file
 echo "❌ Test 3: Upload non-CSV file (should fail)..."
 echo "This is not CSV" > /tmp/test.txt
-curl -s -X POST "$BASE_URL/api/upload" \
+curl -s -X POST "$BASE_URL/upload" \
   -F "file=@/tmp/test.txt" \
   | jq '.success, .error.code' || echo "❌ Test 3 failed"
 

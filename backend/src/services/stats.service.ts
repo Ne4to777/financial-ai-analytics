@@ -4,7 +4,7 @@
  * Calculates advanced statistics for validated transaction data
  */
 
-import type { RowValidationResult, ValidatedTransaction } from '../types/upload.types';
+import type { RowValidationResult, ValidatedTransaction } from '../types/upload.types.js';
 
 /**
  * Transaction statistics

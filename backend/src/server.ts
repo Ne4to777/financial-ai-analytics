@@ -4,8 +4,8 @@ import cors from '@fastify/cors';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import dotenv from 'dotenv';
-import uploadRoutes from './routes/upload.routes';
-import { errorHandler, notFoundHandler } from './middleware/error.middleware';
+import uploadRoutes from './routes/upload.routes.js';
+import { errorHandler, notFoundHandler } from './middleware/error.middleware.js';
 
 // Load environment variables
 dotenv.config();
@@ -159,7 +159,7 @@ async function createServer() {
         description: 'Upload, parse, validate, and store CSV files',
         endpoints: {
           health: 'GET /health',
-          upload: 'POST /api/upload',
+          upload: 'POST /upload',
           docs: 'GET /docs',
         },
       };
@@ -197,8 +197,8 @@ async function start() {
   }
 }
 
-// Start server if running directly
-if (require.main === module) {
+// Start server if running directly (ES Module check)
+if (import.meta.url === `file://${process.argv[1]}`) {
   start();
 }
 

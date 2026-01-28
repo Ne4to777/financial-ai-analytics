@@ -6,6 +6,27 @@
 
 ---
 
+## 🎯 Developer Portal - Единая точка входа
+
+**👉 [Developer Portal](https://ne4to777.github.io/financial-ai-analytics/portal.html)** - централизованный хаб для быстрого доступа к:
+- 📡 **API Documentation** (Swagger UI) - Production API с Live endpoints
+- 🏗️ **Architecture** - 3-tier диаграммы (MVP → Production → Enterprise)
+- 💻 **Development** - Setup guides, deployment скрипты
+- 🎨 **UI Prototypes** - Интерактивные прототипы экранов
+- 🗃️ **Database** - Supabase dashboard, миграции, схема
+- 🧪 **Testing** - Unit/Integration тесты, test data
+- 📋 **Planning** - PRD, Tasks, Roadmap
+- 🚀 **Deployment** - Vercel dashboard, status, scripts
+
+**Локальный доступ:**
+```bash
+# Запустить портал локально
+python3 -m http.server 8000
+# Открыть: http://localhost:8000/portal.html
+```
+
+---
+
 ## 📊 Для команды: Доступ к диаграммам проекта
 
 👉 **[Интерактивные диаграммы проекта](https://ne4to777.github.io/financial-ai-analytics/)** - 22 архитектурные диаграммы с навигацией

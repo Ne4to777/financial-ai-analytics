@@ -5,7 +5,7 @@
  */
 
 // Upload types
-export * from './upload.types';
+export * from './upload.types.js';
 
 // Re-export commonly used types for convenience
 export type {
@@ -18,7 +18,7 @@ export type {
   UploadErrorResponse,
   CSVRow,
   ParsedCSVMetadata,
-} from './upload.types';
+} from './upload.types.js';
 
 export {
   APIErrorCode,
@@ -28,4 +28,4 @@ export {
   ALL_COLUMNS,
   isUploadSuccess,
   isUploadError,
-} from './upload.types';
+} from './upload.types.js';

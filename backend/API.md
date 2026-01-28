@@ -50,7 +50,7 @@ Get API information and available endpoints.
   "description": "Upload, parse, validate, and store CSV files",
   "endpoints": {
     "health": "GET /health",
-    "upload": "POST /api/upload",
+    "upload": "POST /upload",
     "docs": "GET /docs"
   }
 }
@@ -60,7 +60,7 @@ Get API information and available endpoints.
 
 ### 3. Upload CSV File
 
-**POST** `/api/upload`
+**POST** `/upload`
 
 Upload and process a CSV file containing transaction data.
 
@@ -319,7 +319,7 @@ Warnings don't prevent upload but are included in the response for review.
 ### cURL Example
 
 ```bash
-curl -X POST http://localhost:3001/api/upload \
+curl -X POST http://localhost:3001/upload \
   -F "file=@transactions.csv" \
   -H "Content-Type: multipart/form-data"
 ```
@@ -330,7 +330,7 @@ curl -X POST http://localhost:3001/api/upload \
 const formData = new FormData();
 formData.append('file', fileInput.files[0]);
 
-const response = await fetch('http://localhost:3001/api/upload', {
+const response = await fetch('http://localhost:3001/upload', {
   method: 'POST',
   body: formData,
 });
@@ -345,7 +345,7 @@ console.log(result);
 import requests
 
 files = {'file': open('transactions.csv', 'rb')}
-response = requests.post('http://localhost:3001/api/upload', files=files)
+response = requests.post('http://localhost:3001/upload', files=files)
 print(response.json())
 ```
 

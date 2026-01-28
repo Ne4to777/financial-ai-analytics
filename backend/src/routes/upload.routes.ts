@@ -1,18 +1,18 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { v4 as uuidv4 } from 'uuid';
-import { validateFileMetadata } from '../validators/file.validator';
-import { storageService } from '../services/storage.service';
-import { csvService } from '../services/csv.service';
-import { statsService } from '../services/stats.service';
-import { databaseService } from '../services/database.service';
-import { validateBusinessRules } from '../validators/business.rules';
+import { validateFileMetadata } from '../validators/file.validator.js';
+import { storageService } from '../services/storage.service.js';
+import { csvService } from '../services/csv.service.js';
+import { statsService } from '../services/stats.service.js';
+import { databaseService } from '../services/database.service.js';
+import { validateBusinessRules } from '../validators/business.rules.js';
 import {
   UploadSuccessResponse,
   UploadErrorResponse,
   APIErrorCode,
   HTTPStatusCode,
   REQUIRED_COLUMNS,
-} from '../types';
+} from '../types/index.js';
 
 /**
  * File upload route handler
@@ -350,9 +350,9 @@ async function uploadHandler(request: FastifyRequest, reply: FastifyReply) {
  * Register upload routes
  */
 export default async function uploadRoutes(fastify: FastifyInstance) {
-  // POST /api/upload - Upload CSV file
+  // POST /upload - Upload CSV file
   fastify.post(
-    '/api/upload',
+    '/upload',
     {
       schema: {
         description: 'Upload and process a CSV file',

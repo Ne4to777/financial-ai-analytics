@@ -1,8 +1,8 @@
 import Papa from 'papaparse';
 import fs from 'fs/promises';
 import { Readable } from 'stream';
-import { TransactionSchema, type ValidatedTransaction } from '../validators/schema.validator';
-import type { RowValidationResult, FieldValidationError } from '../types/upload.types';
+import { TransactionSchema, type ValidatedTransaction } from '../validators/schema.validator.js';
+import type { RowValidationResult, FieldValidationError } from '../types/upload.types.js';
 
 /**
  * CSV parsing error codes

@@ -16,14 +16,14 @@ describe('Upload API Integration', () => {
     await app.close();
   });
 
-  describe('POST /api/upload', () => {
+  describe('POST /upload', () => {
     it('should successfully upload and process valid CSV file', async () => {
       const csvFilePath = path.join(__dirname, '../fixtures/valid.csv');
       const csvContent = await fs.readFile(csvFilePath);
 
       const response = await app.inject({
         method: 'POST',
-        url: '/api/upload',
+        url: '/upload',
         headers: {
           'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary',
         },
@@ -62,7 +62,7 @@ describe('Upload API Integration', () => {
 
       const response = await app.inject({
         method: 'POST',
-        url: '/api/upload',
+        url: '/upload',
         headers: {
           'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary',
         },
@@ -93,7 +93,7 @@ describe('Upload API Integration', () => {
 
       const response = await app.inject({
         method: 'POST',
-        url: '/api/upload',
+        url: '/upload',
         headers: {
           'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary',
         },
@@ -123,7 +123,7 @@ describe('Upload API Integration', () => {
 
       const response = await app.inject({
         method: 'POST',
-        url: '/api/upload',
+        url: '/upload',
         headers: {
           'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary',
         },
@@ -150,7 +150,7 @@ describe('Upload API Integration', () => {
     it('should reject non-CSV file type', async () => {
       const response = await app.inject({
         method: 'POST',
-        url: '/api/upload',
+        url: '/upload',
         headers: {
           'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary',
         },
@@ -178,7 +178,7 @@ describe('Upload API Integration', () => {
 
       const response = await app.inject({
         method: 'POST',
-        url: '/api/upload',
+        url: '/upload',
         headers: {
           'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary',
         },

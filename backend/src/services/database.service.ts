@@ -5,10 +5,10 @@
  */
 
 import { SupabaseClient } from '@supabase/supabase-js';
-import { getSupabaseClient } from '../config/supabase';
-import type { TransactionStatistics } from './stats.service';
-import type { RowValidationResult } from '../types/upload.types';
-import type { BusinessRulesResult } from '../validators/business.rules';
+import { getSupabaseClient } from '../config/supabase.js';
+import type { TransactionStatistics } from './stats.service.js';
+import type { RowValidationResult } from '../types/upload.types.js';
+import type { BusinessRulesResult } from '../validators/business.rules.js';
 
 /**
  * Database error codes
