@@ -1,5 +1,11 @@
 {
+  "scripts": {
+    "test:portal": "playwright test tests/portal.spec.js",
+    "test:portal:ui": "playwright test tests/portal.spec.js --ui",
+    "test:portal:debug": "playwright test tests/portal.spec.js --debug",
+    "test:report": "playwright show-report"
+  },
   "devDependencies": {
-    "playwright": "^1.57.0"
+    "@playwright/test": "^1.40.0"
   }
 }
