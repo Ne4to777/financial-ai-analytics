@@ -4,8 +4,8 @@ import cors from '@fastify/cors';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import dotenv from 'dotenv';
-import uploadRoutes from './routes/upload.routes';
-import { errorHandler, notFoundHandler } from './middleware/error.middleware';
+import uploadRoutes from './routes/upload.routes.js';
+import { errorHandler, notFoundHandler } from './middleware/error.middleware.js';
 
 // Load environment variables
 dotenv.config();
