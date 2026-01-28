@@ -199,3 +199,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   }
 }
+
+// Export createApp for direct usage if needed
+export { createApp, getApp };

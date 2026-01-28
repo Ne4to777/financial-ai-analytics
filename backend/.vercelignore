@@ -9,10 +9,11 @@ tests
 *.log
 .git
 .gitignore
-README.md
 coverage
 .nyc_output
 uploads/*
 !uploads/.gitkeep
-tsconfig.json
 vitest.config.ts
+*.sh
+test-supabase-connection.mjs
+package-lock.json
