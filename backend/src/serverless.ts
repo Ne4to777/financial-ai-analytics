@@ -128,7 +128,7 @@ async function createApp(): Promise<FastifyInstance> {
       description: 'Upload and validate CSV transaction files',
       endpoints: {
         health: 'GET /health',
-        upload: 'POST /api/upload',
+        upload: 'POST /upload',
         docs: 'GET /docs',
       },
     };
@@ -159,7 +159,7 @@ async function createApp(): Promise<FastifyInstance> {
   });
 
   // Register upload routes
-  await app.register(uploadRoutes, { prefix: '/api' });
+  await app.register(uploadRoutes);
 
   // Register error handlers
   app.setErrorHandler(errorHandler);
