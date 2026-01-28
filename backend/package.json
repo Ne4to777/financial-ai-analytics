@@ -1,6 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "CSV Processing API - Upload, parse, validate, and store financial CSV files",
   "main": "dist/server.js",
   "scripts": {
