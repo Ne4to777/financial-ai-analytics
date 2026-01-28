@@ -43,27 +43,21 @@
         .container {
             max-width: 100%;
             margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        @media (min-width: 1400px) {
-            .container {
-                padding: 0 2rem;
-            }
+            padding: 0;
         }
 
         .header {
             background: white;
             border-radius: 16px;
             padding: 1.5rem 2rem;
-            margin-bottom: 2rem;
+            margin: 0 2rem 2rem 2rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
             flex-wrap: wrap;
-            max-width: 100%;
+            max-width: calc(100% - 4rem);
         }
 
         .back-btn {
@@ -107,26 +101,35 @@
         }
 
         .content {
+            background: transparent;
+            min-height: 400px;
+            padding: 0 2rem 2rem 2rem;
+        }
+
+        /* Markdown body with centered narrow content */
+        .markdown-body {
             background: white;
             border-radius: 16px;
             padding: 3rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            min-height: 400px;
-            max-width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
         }
 
-        /* Make text content readable while allowing diagrams full width */
+        /* Make text content narrow for readability */
         .markdown-body > *:not(.mermaid-container) {
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+            max-width: 100%;
         }
 
-        /* Mermaid containers take full width */
+        /* Mermaid containers break out of narrow content */
         .markdown-body .mermaid-container {
-            max-width: 100%;
-            margin-left: 0;
-            margin-right: 0;
+            width: 100vw;
+            max-width: 100vw;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
         .loading {
@@ -356,15 +359,20 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 0.5rem;
+                padding: 0.5rem 0;
             }
 
-            .container {
-                padding: 0 0.5rem;
+            .header {
+                margin: 0 1rem 2rem 1rem;
+                padding: 1rem;
             }
 
             .content {
-                padding: 1rem;
+                padding: 0 1rem 2rem 1rem;
+            }
+
+            .markdown-body {
+                padding: 2rem 1.5rem;
             }
 
             .markdown-body h1 {
@@ -380,12 +388,9 @@
                 font-size: 0.75rem;
             }
 
-            .header {
-                padding: 1rem;
-            }
-
             .mermaid-container {
-                padding: 1rem;
+                padding: 2rem 1rem;
+                margin: 2rem 0;
             }
 
             .zoom-controls {
@@ -399,25 +404,25 @@
                 height: 32px;
                 font-size: 1rem;
             }
+
+            .zoom-info {
+                font-size: 0.75rem;
+                min-width: 40px;
+            }
         }
 
         /* Mermaid diagram support */
         .mermaid-container {
             background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            margin: 2rem 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border: 2px solid var(--gray-200);
+            padding: 3rem 2rem;
+            border-radius: 0;
+            margin: 3rem 0;
+            box-shadow: none;
+            border-top: 2px solid var(--gray-200);
+            border-bottom: 2px solid var(--gray-200);
             overflow: hidden;
             position: relative;
-            min-height: 400px;
-        }
-
-        @media (min-width: 1600px) {
-            .mermaid-container {
-                min-height: 600px;
-            }
+            min-height: auto;
         }
 
         /* Zoom controls */
@@ -475,7 +480,27 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 200px;
+            min-height: auto;
+        }
+
+        /* Better spacing for large screens */
+        @media (min-width: 1400px) {
+            .header {
+                margin: 0 4rem 2rem 4rem;
+            }
+
+            .content {
+                padding: 0 4rem 2rem 4rem;
+            }
+
+            .markdown-body {
+                max-width: 1000px;
+                padding: 4rem;
+            }
+
+            .mermaid-container {
+                padding: 4rem 3rem;
+            }
         }
 
         /* Mermaid diagram styling overrides */
@@ -896,12 +921,13 @@
                                     controlIconsEnabled: false,
                                     fit: true,
                                     center: true,
-                                    minZoom: 0.5,
+                                    minZoom: 0.3,
                                     maxZoom: 5,
                                     zoomScaleSensitivity: 0.3,
                                     dblClickZoomEnabled: true,
                                     mouseWheelZoomEnabled: true,
                                     preventMouseEventsDefault: true,
+                                    contain: false,
                                     beforePan: function(oldPan, newPan) {
                                         // Allow panning
                                         return {x: newPan.x, y: newPan.y};
