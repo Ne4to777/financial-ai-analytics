@@ -12,7 +12,7 @@ import {
   mapError,
   isOperationalError,
   HTTPStatus,
-} from '../utils/errors';
+} from '../utils/errors.js';
 
 /**
  * Check if running in production

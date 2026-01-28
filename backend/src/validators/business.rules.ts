@@ -5,7 +5,7 @@
  * Used to flag suspicious or unusual data patterns without blocking upload.
  */
 
-import type { ValidatedTransaction, RowValidationResult } from '../types/upload.types';
+import type { ValidatedTransaction, RowValidationResult } from '../types/upload.types.js';
 
 /**
  * Warning severity levels
