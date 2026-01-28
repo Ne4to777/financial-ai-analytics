@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.8/dist/purify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -365,7 +366,59 @@
             margin: 2rem 0;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             border: 2px solid var(--gray-200);
-            overflow-x: auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Zoom controls */
+        .zoom-controls {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+            background: white;
+            border-radius: 8px;
+            padding: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .zoom-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .zoom-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .zoom-btn:active {
+            transform: translateY(0);
+        }
+
+        .zoom-info {
+            display: flex;
+            align-items: center;
+            padding: 0 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            min-width: 50px;
+            justify-content: center;
         }
 
         .mermaid {
@@ -436,6 +489,28 @@
             min-height: 200px;
             color: var(--gray-500);
             font-style: italic;
+        }
+
+        /* Zoom hint */
+        .zoom-hint {
+            text-align: center;
+            color: var(--gray-500);
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: var(--gray-50);
+            border-radius: 6px;
+        }
+
+        .zoom-hint kbd {
+            display: inline-block;
+            padding: 0.125rem 0.375rem;
+            background: white;
+            border: 1px solid var(--gray-300);
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            margin: 0 0.125rem;
         }
     </style>
 </head>
@@ -633,6 +708,58 @@
             }, true); // Use capture phase to intercept before mermaid's handler
         }
 
+        function setupZoomControls(container, panZoomInstance, index) {
+            // Create zoom controls
+            const controls = document.createElement('div');
+            controls.className = 'zoom-controls';
+            controls.innerHTML = `
+                <button class="zoom-btn" data-action="zoom-in" title="Zoom In (or scroll up)">+</button>
+                <div class="zoom-info">100%</div>
+                <button class="zoom-btn" data-action="zoom-out" title="Zoom Out (or scroll down)">−</button>
+                <button class="zoom-btn" data-action="reset" title="Reset View">⟲</button>
+            `;
+            
+            container.appendChild(controls);
+            
+            // Add hint if it's the first diagram
+            if (index === 0) {
+                const hint = document.createElement('div');
+                hint.className = 'zoom-hint';
+                hint.innerHTML = '💡 <kbd>Scroll</kbd> to zoom • <kbd>Drag</kbd> to pan • <kbd>Double-click</kbd> to zoom in';
+                container.appendChild(hint);
+            }
+            
+            const zoomInfo = controls.querySelector('.zoom-info');
+            
+            // Update zoom level display
+            const updateZoomLevel = () => {
+                const zoom = Math.round(panZoomInstance.getZoom() * 100);
+                zoomInfo.textContent = `${zoom}%`;
+            };
+            
+            // Zoom in
+            controls.querySelector('[data-action="zoom-in"]').addEventListener('click', () => {
+                panZoomInstance.zoomIn();
+                updateZoomLevel();
+            });
+            
+            // Zoom out
+            controls.querySelector('[data-action="zoom-out"]').addEventListener('click', () => {
+                panZoomInstance.zoomOut();
+                updateZoomLevel();
+            });
+            
+            // Reset
+            controls.querySelector('[data-action="reset"]').addEventListener('click', () => {
+                panZoomInstance.resetZoom();
+                panZoomInstance.resetPan();
+                updateZoomLevel();
+            });
+            
+            // Update on zoom change
+            panZoomInstance.setOnZoom(() => updateZoomLevel());
+        }
+
         async function renderMermaidDiagrams() {
             const mermaidElements = document.querySelectorAll('.mermaid');
             if (mermaidElements.length === 0) return;
@@ -645,7 +772,7 @@
                 });
 
                 // Post-process: Clean up rendered diagrams
-                mermaidElements.forEach(el => {
+                mermaidElements.forEach((el, index) => {
                     const svg = el.querySelector('svg');
                     if (svg) {
                         // Remove all text nodes containing emoji or special characters that render as boxes
@@ -703,6 +830,48 @@
                                 g.remove();
                             }
                         });
+
+                        // Initialize zoom and pan for this diagram
+                        const container = el.closest('.mermaid-container');
+                        if (container && svg) {
+                            try {
+                                // Add unique ID if not present
+                                if (!svg.id) {
+                                    svg.id = `mermaid-svg-${index}`;
+                                }
+                                
+                                // Initialize svg-pan-zoom
+                                const panZoomInstance = svgPanZoom(svg, {
+                                    zoomEnabled: true,
+                                    controlIconsEnabled: false,
+                                    fit: true,
+                                    center: true,
+                                    minZoom: 0.5,
+                                    maxZoom: 5,
+                                    zoomScaleSensitivity: 0.3,
+                                    dblClickZoomEnabled: true,
+                                    mouseWheelZoomEnabled: true,
+                                    preventMouseEventsDefault: true,
+                                    beforePan: function(oldPan, newPan) {
+                                        // Allow panning
+                                        return {x: newPan.x, y: newPan.y};
+                                    }
+                                });
+                                
+                                // Add zoom controls
+                                setupZoomControls(container, panZoomInstance, index);
+                                
+                                // Resize handler
+                                const resizeObserver = new ResizeObserver(() => {
+                                    panZoomInstance.resize();
+                                    panZoomInstance.fit();
+                                    panZoomInstance.center();
+                                });
+                                resizeObserver.observe(container);
+                            } catch (err) {
+                                console.error('Error initializing zoom for diagram:', err);
+                            }
+                        }
                     }
                 });
 
