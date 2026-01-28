@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Mono', Monaco, 'Inconsolata', 'Roboto Mono', monospace;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            padding: 2rem;
+            font-size: 12px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #4a9eff;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .preview-card {
+            background: #111111;
+            border: 1px solid #2a2a2a;
+            border-radius: 3px;
+            padding: 1.5rem;
+        }
+
+        .preview-title {
+            color: #4a9eff;
+            font-size: 11px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .icon-display {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #0a0a0a;
+            border-radius: 2px;
+        }
+
+        .icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+            padding: 0.5rem;
+            border-radius: 2px;
+        }
+
+        .icon-wrapper img {
+            display: block;
+        }
+
+        .icon-info {
+            flex: 1;
+        }
+
+        .icon-size {
+            color: #00ff88;
+            font-size: 10px;
+            margin-bottom: 0.3rem;
+        }
+
+        .icon-usage {
+            color: #888;
+            font-size: 10px;
+        }
+
+        .code {
+            background: #0a0a0a;
+            border: 1px solid #2a2a2a;
+            border-radius: 2px;
+            padding: 0.75rem;
+            font-size: 10px;
+            color: #4a9eff;
+            overflow-x: auto;
+            margin-top: 0.5rem;
+        }
+
+        .contexts {
+            margin-top: 2rem;
+        }
+
+        .context-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .context-card {
+            background: #111111;
+            border: 1px solid #2a2a2a;
+            border-radius: 3px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .context-title {
+            color: #888;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .context-bg {
+            padding: 1rem;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bg-light {
+            background: #ffffff;
+        }
+
+        .bg-dark {
+            background: #0a0a0a;
+        }
+
+        .bg-browser {
+            background: #202124;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Favicon Suite - Cockpit Style</h1>
+
+        <div class="grid">
+            <div class="preview-card">
+                <div class="preview-title">Main Icon (64x64)</div>
+                <div class="icon-display">
+                    <div class="icon-wrapper">
+                        <img src="/favicon.svg" width="64" height="64" alt="Main favicon">
+                    </div>
+                    <div class="icon-info">
+                        <div class="icon-size">64×64 SVG</div>
+                        <div class="icon-usage">Main browser tab icon</div>
+                    </div>
+                </div>
+                <div class="code">&lt;link rel="icon" type="image/svg+xml" href="/favicon.svg"&gt;</div>
+            </div>
+
+            <div class="preview-card">
+                <div class="preview-title">Tab Icon (32x32)</div>
+                <div class="icon-display">
+                    <div class="icon-wrapper">
+                        <img src="/favicon-32x32.svg" width="32" height="32" alt="32x32 favicon">
+                    </div>
+                    <div class="icon-info">
+                        <div class="icon-size">32×32 SVG</div>
+                        <div class="icon-usage">Optimized for browser tabs</div>
+                    </div>
+                </div>
+                <div class="code">&lt;link rel="icon" sizes="32x32" href="/favicon-32x32.svg"&gt;</div>
+            </div>
+
+            <div class="preview-card">
+                <div class="preview-title">Apple Touch Icon (180x180)</div>
+                <div class="icon-display">
+                    <div class="icon-wrapper">
+                        <img src="/apple-touch-icon.svg" width="64" height="64" alt="Apple touch icon">
+                    </div>
+                    <div class="icon-info">
+                        <div class="icon-size">180×180 SVG</div>
+                        <div class="icon-usage">iOS/macOS home screen</div>
+                    </div>
+                </div>
+                <div class="code">&lt;link rel="apple-touch-icon" href="/apple-touch-icon.svg"&gt;</div>
+            </div>
+        </div>
+
+        <div class="contexts">
+            <h1>🖥️ Display Contexts</h1>
+            <div class="context-grid">
+                <div class="context-card">
+                    <div class="context-title">Browser Tab (Dark)</div>
+                    <div class="context-bg bg-dark">
+                        <img src="/favicon-32x32.svg" width="32" height="32" alt="Dark context">
+                    </div>
+                </div>
+
+                <div class="context-card">
+                    <div class="context-title">Browser Tab (Light)</div>
+                    <div class="context-bg bg-light">
+                        <img src="/favicon-32x32.svg" width="32" height="32" alt="Light context">
+                    </div>
+                </div>
+
+                <div class="context-card">
+                    <div class="context-title">Chrome Tab</div>
+                    <div class="context-bg bg-browser">
+                        <img src="/favicon-32x32.svg" width="32" height="32" alt="Browser context">
+                    </div>
+                </div>
+
+                <div class="context-card">
+                    <div class="context-title">iOS Home Screen</div>
+                    <div class="context-bg bg-dark">
+                        <img src="/apple-touch-icon.svg" width="60" height="60" alt="iOS context">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; padding: 1.5rem; background: #111111; border: 1px solid #2a2a2a; border-radius: 3px;">
+            <div style="color: #4a9eff; font-size: 11px; text-transform: uppercase; margin-bottom: 1rem;">Design Features</div>
+            <ul style="list-style: none; color: #888; font-size: 10px; line-height: 1.6;">
+                <li>• Radar/HUD crosshair design matching cockpit aesthetic</li>
+                <li>• Color scheme: #4a9eff (accent), #00ff88 (status), #0a0a0a (background)</li>
+                <li>• SVG format for perfect scaling at any resolution</li>
+                <li>• Geometric shapes: crosshair, circles, corner markers</li>
+                <li>• Technical/military targeting system visual language</li>
+                <li>• Consistent across all sizes and contexts</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
