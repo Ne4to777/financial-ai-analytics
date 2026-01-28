@@ -6,65 +6,7 @@
     <title>Document Viewer</title>
     <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.8/dist/purify.min.js"></script>
-    <script type="module">
-        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-        window.mermaid = mermaid;
-        mermaid.initialize({ 
-            startOnLoad: false,
-            theme: 'default',
-            themeVariables: {
-                primaryColor: '#2563eb',
-                primaryTextColor: '#fff',
-                primaryBorderColor: '#1e40af',
-                lineColor: '#6b7280',
-                secondaryColor: '#10b981',
-                tertiaryColor: '#f59e0b',
-                background: '#ffffff',
-                mainBkg: '#dbeafe',
-                secondBkg: '#dcfce7',
-                tertiaryBkg: '#fef3c7',
-                textColor: '#1f2937',
-                border1: '#e5e7eb',
-                border2: '#d1d5db',
-                fontSize: '16px',
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-            },
-            flowchart: {
-                curve: 'basis',
-                padding: 20,
-                nodeSpacing: 50,
-                rankSpacing: 50,
-                diagramPadding: 20,
-                useMaxWidth: true
-            },
-            sequence: {
-                diagramMarginX: 50,
-                diagramMarginY: 10,
-                actorMargin: 50,
-                width: 150,
-                height: 65,
-                boxMargin: 10,
-                boxTextMargin: 5,
-                noteMargin: 10,
-                messageMargin: 35,
-                mirrorActors: true,
-                useMaxWidth: true
-            },
-            gantt: {
-                titleTopMargin: 25,
-                barHeight: 20,
-                barGap: 4,
-                topPadding: 50,
-                leftPadding: 75,
-                gridLineStartPadding: 35,
-                fontSize: 11,
-                fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
-                numberSectionStyles: 4,
-                axisFormat: '%Y-%m-%d',
-                useMaxWidth: true
-            }
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -486,6 +428,63 @@
     </div>
 
     <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: false,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#2563eb',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#1e40af',
+                lineColor: '#6b7280',
+                secondaryColor: '#10b981',
+                tertiaryColor: '#f59e0b',
+                background: '#ffffff',
+                mainBkg: '#dbeafe',
+                secondBkg: '#dcfce7',
+                tertiaryBkg: '#fef3c7',
+                textColor: '#1f2937',
+                border1: '#e5e7eb',
+                border2: '#d1d5db',
+                fontSize: '16px',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+            },
+            flowchart: {
+                curve: 'basis',
+                padding: 20,
+                nodeSpacing: 50,
+                rankSpacing: 50,
+                diagramPadding: 20,
+                useMaxWidth: true
+            },
+            sequence: {
+                diagramMarginX: 50,
+                diagramMarginY: 10,
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                useMaxWidth: true
+            },
+            gantt: {
+                titleTopMargin: 25,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75,
+                gridLineStartPadding: 35,
+                fontSize: 11,
+                fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
+                numberSectionStyles: 4,
+                axisFormat: '%Y-%m-%d',
+                useMaxWidth: true
+            }
+        });
+
         // Configure marked with custom renderer for mermaid
         const renderer = new marked.Renderer();
         const originalCodeRenderer = renderer.code.bind(renderer);
@@ -522,8 +521,8 @@
 
             try {
                 // Render all mermaid diagrams
-                await window.mermaid.run({
-                    nodes: mermaidElements,
+                await mermaid.run({
+                    nodes: Array.from(mermaidElements),
                     suppressErrors: false
                 });
             } catch (error) {
