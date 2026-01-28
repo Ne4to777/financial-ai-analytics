@@ -41,8 +41,15 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 1400px) {
+            .container {
+                padding: 0 2rem;
+            }
         }
 
         .header {
@@ -56,6 +63,7 @@
             justify-content: space-between;
             gap: 1rem;
             flex-wrap: wrap;
+            max-width: 100%;
         }
 
         .back-btn {
@@ -104,6 +112,21 @@
             padding: 3rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             min-height: 400px;
+            max-width: 100%;
+        }
+
+        /* Make text content readable while allowing diagrams full width */
+        .markdown-body > *:not(.mermaid-container) {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Mermaid containers take full width */
+        .markdown-body .mermaid-container {
+            max-width: 100%;
+            margin-left: 0;
+            margin-right: 0;
         }
 
         .loading {
@@ -333,11 +356,15 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
+                padding: 0.5rem;
+            }
+
+            .container {
+                padding: 0 0.5rem;
             }
 
             .content {
-                padding: 1.5rem;
+                padding: 1rem;
             }
 
             .markdown-body h1 {
@@ -356,6 +383,22 @@
             .header {
                 padding: 1rem;
             }
+
+            .mermaid-container {
+                padding: 1rem;
+            }
+
+            .zoom-controls {
+                top: 0.5rem;
+                right: 0.5rem;
+                padding: 0.25rem;
+            }
+
+            .zoom-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
         }
 
         /* Mermaid diagram support */
@@ -368,6 +411,13 @@
             border: 2px solid var(--gray-200);
             overflow: hidden;
             position: relative;
+            min-height: 400px;
+        }
+
+        @media (min-width: 1600px) {
+            .mermaid-container {
+                min-height: 600px;
+            }
         }
 
         /* Zoom controls */
