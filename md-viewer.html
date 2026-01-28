@@ -14,7 +14,7 @@
             box-sizing: border-box;
         }
 
-        :root {в
+        :root {
             --primary: #2563eb;
             --primary-dark: #1e40af;
             --success: #10b981;
@@ -538,6 +538,79 @@
             }
         }
 
+        function setupDiagramNavigation() {
+            // Intercept clicks on diagram links
+            document.addEventListener('click', (e) => {
+                const target = e.target;
+                
+                // Check if it's a click inside a mermaid diagram
+                if (target.closest('.mermaid')) {
+                    // Find if there's an <a> element in the click path
+                    const link = target.closest('a');
+                    if (link && link.href) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        const href = link.getAttribute('href');
+                        
+                        // Handle different link types
+                        if (href.startsWith('?diagram=')) {
+                            // Internal diagram navigation: ?diagram=02 -> 02-xxx.md
+                            const diagramNum = href.replace('?diagram=', '').padStart(2, '0');
+                            
+                            // Map diagram numbers to actual filenames
+                            const diagramMap = {
+                                '00': '00-navigation.md',
+                                '01': '01-project-structure.md',
+                                '02': '02-system-architecture.md',
+                                '02a': '02a-architecture-mvp.md',
+                                '02b': '02b-architecture-tier2.md',
+                                '02c': '02c-architecture-tier3.md',
+                                '03': '03-data-model.md',
+                                '05': '05-flutter-structure.md',
+                                '07': '07-api-structure.md',
+                                '08': '08-ai-analysis-process.md',
+                                '09': '09-tech-stack.md',
+                                '10': '10-roadmap.md',
+                                '11': '11-security.md',
+                                '12': '12-performance.md',
+                                '13': '13-business-value.md',
+                                '14': '14-proof-points.md',
+                                '15': '15-integrations.md',
+                                '16': '16-security-compliance.md',
+                                '17': '17-competitive-advantages.md',
+                                '18': '18-implementation-support.md'
+                            };
+                            
+                            const filename = diagramMap[diagramNum] || diagramMap[href.replace('?diagram=', '')];
+                            if (filename) {
+                                window.location.href = `/md-viewer.html?file=/mindmap/diagrams/${filename}`;
+                            } else {
+                                console.warn('Diagram file not found:', diagramNum);
+                            }
+                        } else if (href.endsWith('.md')) {
+                            // Direct markdown file link
+                            const fullPath = href.startsWith('/') ? href : `/mindmap/diagrams/${href}`;
+                            window.open(`/md-viewer.html?file=${fullPath}`, '_blank');
+                        } else if (href.startsWith('http://') || href.startsWith('https://')) {
+                            // External link
+                            window.open(href, '_blank', 'noopener,noreferrer');
+                        } else if (href.startsWith('#')) {
+                            // Anchor link - scroll to element
+                            const targetId = href.substring(1);
+                            const targetElement = document.getElementById(targetId);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        } else {
+                            // Other internal links
+                            window.location.href = href;
+                        }
+                    }
+                }
+            }, true); // Use capture phase to intercept before mermaid's handler
+        }
+
         async function renderMermaidDiagrams() {
             const mermaidElements = document.querySelectorAll('.mermaid');
             if (mermaidElements.length === 0) return;
@@ -549,33 +622,8 @@
                     suppressErrors: false
                 });
 
-                // Post-process: Remove icon placeholders and clean up artifacts
-                mermaidElements.forEach(el => {
-                    const svg = el.querySelector('svg');
-                    if (svg) {
-                        // Remove FontAwesome icon elements
-                        svg.querySelectorAll('text tspan[class*="fa"]').forEach(icon => icon.remove());
-                        svg.querySelectorAll('foreignObject > div > span[class*="fa"]').forEach(icon => icon.remove());
-                        
-                        // Remove empty or tiny rectangles (artifacts)
-                        svg.querySelectorAll('rect').forEach(rect => {
-                            const width = parseFloat(rect.getAttribute('width') || '0');
-                            const height = parseFloat(rect.getAttribute('height') || '0');
-                            if (width === 0 || height === 0 || (width < 5 && height < 5)) {
-                                rect.remove();
-                            }
-                        });
-
-                        // Clean up text content - remove icon markers like 📱, 📊 etc if they cause issues
-                        svg.querySelectorAll('text').forEach(text => {
-                            const content = text.textContent || '';
-                            // Remove standalone icon characters that appear as boxes
-                            if (content.match(/^[\u{1F300}-\u{1F9FF}]$/u) && text.getBBox().width < 10) {
-                                text.remove();
-                            }
-                        });
-                    }
-                });
+                // Setup navigation after diagrams are rendered
+                setupDiagramNavigation();
             } catch (error) {
                 console.error('Mermaid rendering error:', error);
                 // Show error in diagram containers
