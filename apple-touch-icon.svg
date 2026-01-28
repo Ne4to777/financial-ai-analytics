@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <rect width="180" height="180" fill="#0a0a0a" rx="40"/>
+  
+  <!-- Outer frame -->
+  <rect x="30" y="30" width="120" height="120" fill="none" stroke="#4a9eff" stroke-width="3"/>
+  
+  <!-- Center crosshair -->
+  <circle cx="90" cy="90" r="30" fill="none" stroke="#4a9eff" stroke-width="3"/>
+  <circle cx="90" cy="90" r="15" fill="none" stroke="#4a9eff" stroke-width="2"/>
+  <circle cx="90" cy="90" r="5" fill="#4a9eff"/>
+  
+  <!-- Crosshair lines -->
+  <line x1="90" y1="40" x2="90" y2="65" stroke="#4a9eff" stroke-width="2"/>
+  <line x1="90" y1="115" x2="90" y2="140" stroke="#4a9eff" stroke-width="2"/>
+  <line x1="40" y1="90" x2="65" y2="90" stroke="#4a9eff" stroke-width="2"/>
+  <line x1="115" y1="90" x2="140" y2="90" stroke="#4a9eff" stroke-width="2"/>
+  
+  <!-- Corner markers -->
+  <path d="M 35 35 L 45 35 M 35 35 L 35 45" stroke="#00ff88" stroke-width="3" fill="none"/>
+  <path d="M 145 35 L 135 35 M 145 35 L 145 45" stroke="#00ff88" stroke-width="3" fill="none"/>
+  <path d="M 35 145 L 45 145 M 35 145 L 35 135" stroke="#00ff88" stroke-width="3" fill="none"/>
+  <path d="M 145 145 L 135 145 M 145 145 L 145 135" stroke="#00ff88" stroke-width="3" fill="none"/>
+  
+  <!-- Radar sweep effect -->
+  <path d="M 90 90 L 90 60 A 30 30 0 0 1 116.213 76.6 Z" fill="#4a9eff" opacity="0.2"/>
+  
+  <!-- Status indicators -->
+  <rect x="37" y="37" width="6" height="6" fill="#00ff88"/>
+  <rect x="137" y="37" width="6" height="6" fill="#00ff88"/>
+</svg>

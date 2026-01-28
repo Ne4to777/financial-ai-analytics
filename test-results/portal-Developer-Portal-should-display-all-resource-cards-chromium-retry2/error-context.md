@@ -4,360 +4,315 @@
 - generic [ref=e2]:
   - banner [ref=e3]:
     - generic [ref=e4]:
-      - generic [ref=e5]:
-        - heading "💼 Financial Analytics Platform" [level=1] [ref=e6]
-        - paragraph [ref=e7]: Developer Portal & Project Hub
-      - generic [ref=e10]: Production Live
-    - generic [ref=e11]:
-      - link "📚 API Documentation" [ref=e12] [cursor=pointer]:
-        - /url: https://backend-mocha-nine-95.vercel.app/docs
-      - link "🏥 Health Check" [ref=e13] [cursor=pointer]:
-        - /url: https://backend-mocha-nine-95.vercel.app/health
-      - link "🔗 GitHub Repository" [ref=e14] [cursor=pointer]:
-        - /url: https://github.com/Ne4to777/financial-ai-analytics
-  - heading "🚀 Quick Access" [level=2] [ref=e15]
-  - generic [ref=e16]:
-    - generic [ref=e17]:
-      - generic [ref=e18]:
-        - generic [ref=e19]: 📡
-        - generic [ref=e20]:
-          - heading "API & Docs" [level=3] [ref=e21]
-          - generic [ref=e22]: Live
-      - paragraph [ref=e23]: RESTful API для загрузки и анализа CSV файлов с финансовыми транзакциями
-      - list [ref=e24]:
-        - listitem [ref=e25]:
-          - link "📖 Swagger UI" [ref=e26] [cursor=pointer]:
+      - heading "💼 FIN-ANALYTICS" [level=1] [ref=e5]
+      - generic [ref=e6]: / DEV PORTAL
+      - generic [ref=e9]: PROD
+  - heading "▸ RESOURCES" [level=2] [ref=e10]
+  - generic [ref=e11]:
+    - generic [ref=e12]:
+      - generic [ref=e13]:
+        - generic [ref=e14]: 📡
+        - heading "API & DOCS" [level=3] [ref=e15]
+      - list [ref=e16]:
+        - listitem [ref=e17]:
+          - link "→ Swagger UI" [ref=e18] [cursor=pointer]:
             - /url: https://backend-mocha-nine-95.vercel.app/docs
-            - generic [ref=e27]: 📖
+            - generic [ref=e19]: →
             - text: Swagger UI
-        - listitem [ref=e28]:
-          - link "📝 API Documentation" [ref=e29] [cursor=pointer]:
+        - listitem [ref=e20]:
+          - link "→ API Docs" [ref=e21] [cursor=pointer]:
             - /url: /md-viewer.html?file=/backend/API.md
-            - generic [ref=e30]: 📝
-            - text: API Documentation
-        - listitem [ref=e31]:
-          - link "❤️ Health Check" [ref=e32] [cursor=pointer]:
+            - generic [ref=e22]: →
+            - text: API Docs
+        - listitem [ref=e23]:
+          - link "→ Health Check" [ref=e24] [cursor=pointer]:
             - /url: https://backend-mocha-nine-95.vercel.app/health
-            - generic [ref=e33]: ❤️
+            - generic [ref=e25]: →
             - text: Health Check
-        - listitem [ref=e34]:
-          - link "⬆️ Upload Endpoint" [ref=e35] [cursor=pointer]:
+        - listitem [ref=e26]:
+          - link "→ Upload Endpoint" [ref=e27] [cursor=pointer]:
             - /url: https://backend-mocha-nine-95.vercel.app/upload
-            - generic [ref=e36]: ⬆️
+            - generic [ref=e28]: →
             - text: Upload Endpoint
-    - generic [ref=e37]:
-      - generic [ref=e38]:
-        - generic [ref=e39]: 🏗️
-        - generic [ref=e40]:
-          - heading "Architecture" [level=3] [ref=e41]
-          - generic [ref=e42]: 3 Tiers
-      - paragraph [ref=e43]: Архитектурные диаграммы и план развития системы
-      - list [ref=e44]:
-        - listitem [ref=e45]:
-          - link "🎯 MVP Architecture" [ref=e46] [cursor=pointer]:
+    - generic [ref=e29]:
+      - generic [ref=e30]:
+        - generic [ref=e31]: 🏗️
+        - heading "ARCHITECTURE" [level=3] [ref=e32]
+      - list [ref=e33]:
+        - listitem [ref=e34]:
+          - link "→ MVP Architecture" [ref=e35] [cursor=pointer]:
             - /url: /md-viewer.html?file=/mindmap/diagrams/02a-architecture-mvp.md
-            - generic [ref=e47]: 🎯
+            - generic [ref=e36]: →
             - text: MVP Architecture
-        - listitem [ref=e48]:
-          - link "⚡ Tier 2 (Production)" [ref=e49] [cursor=pointer]:
+        - listitem [ref=e37]:
+          - link "→ Tier 2 (Production)" [ref=e38] [cursor=pointer]:
             - /url: /md-viewer.html?file=/mindmap/diagrams/02b-architecture-tier2.md
-            - generic [ref=e50]: ⚡
+            - generic [ref=e39]: →
             - text: Tier 2 (Production)
-        - listitem [ref=e51]:
-          - link "🚀 Tier 3 (Enterprise)" [ref=e52] [cursor=pointer]:
+        - listitem [ref=e40]:
+          - link "→ Tier 3 (Enterprise)" [ref=e41] [cursor=pointer]:
             - /url: /md-viewer.html?file=/mindmap/diagrams/02c-architecture-tier3.md
-            - generic [ref=e53]: 🚀
+            - generic [ref=e42]: →
             - text: Tier 3 (Enterprise)
-        - listitem [ref=e54]:
-          - link "🗄️ Data Model" [ref=e55] [cursor=pointer]:
+        - listitem [ref=e43]:
+          - link "→ Data Model" [ref=e44] [cursor=pointer]:
             - /url: /md-viewer.html?file=/mindmap/diagrams/03-data-model.md
-            - generic [ref=e56]: 🗄️
+            - generic [ref=e45]: →
             - text: Data Model
-    - generic [ref=e57]:
-      - generic [ref=e58]:
-        - generic [ref=e59]: 💻
-        - generic [ref=e60]:
-          - heading "Development" [level=3] [ref=e61]
-          - generic [ref=e62]: TypeScript
-      - paragraph [ref=e63]: Локальная разработка, тестирование и deployment
-      - list [ref=e64]:
-        - listitem [ref=e65]:
-          - link "📋 Project README" [ref=e66] [cursor=pointer]:
+    - generic [ref=e46]:
+      - generic [ref=e47]:
+        - generic [ref=e48]: 💻
+        - heading "DEVELOPMENT" [level=3] [ref=e49]
+      - list [ref=e50]:
+        - listitem [ref=e51]:
+          - link "→ Project README" [ref=e52] [cursor=pointer]:
             - /url: /md-viewer.html?file=/README.md
-            - generic [ref=e67]: 📋
+            - generic [ref=e53]: →
             - text: Project README
-        - listitem [ref=e68]:
-          - link "⚙️ Backend Setup" [ref=e69] [cursor=pointer]:
+        - listitem [ref=e54]:
+          - link "→ Backend Setup" [ref=e55] [cursor=pointer]:
             - /url: /md-viewer.html?file=/backend/README.md
-            - generic [ref=e70]: ⚙️
+            - generic [ref=e56]: →
             - text: Backend Setup
-        - listitem [ref=e71]:
-          - link "🚢 Deployment Guide" [ref=e72] [cursor=pointer]:
+        - listitem [ref=e57]:
+          - link "→ Deployment Guide" [ref=e58] [cursor=pointer]:
             - /url: /md-viewer.html?file=/DEPLOYMENT.md
-            - generic [ref=e73]: 🚢
+            - generic [ref=e59]: →
             - text: Deployment Guide
-        - listitem [ref=e74]:
-          - link "▲ Vercel Setup" [ref=e75] [cursor=pointer]:
+        - listitem [ref=e60]:
+          - link "→ Vercel Setup" [ref=e61] [cursor=pointer]:
             - /url: /md-viewer.html?file=/VERCEL_DEPLOY.md
-            - generic [ref=e76]: ▲
+            - generic [ref=e62]: →
             - text: Vercel Setup
-    - generic [ref=e77]:
-      - generic [ref=e78]:
-        - generic [ref=e79]: 🎨
-        - generic [ref=e80]:
-          - heading "UI Prototypes" [level=3] [ref=e81]
-          - generic [ref=e82]: HTML
-      - paragraph [ref=e83]: Интерактивные прототипы пользовательских экранов
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e65]: 🎨
+        - heading "UI PROTOTYPES" [level=3] [ref=e66]
+      - list [ref=e67]:
+        - listitem [ref=e68]:
+          - link "→ Dashboard" [ref=e69] [cursor=pointer]:
+            - /url: /prototypes/dashboard.html
+            - generic [ref=e70]: →
+            - text: Dashboard
+        - listitem [ref=e71]:
+          - link "→ Upload UI" [ref=e72] [cursor=pointer]:
+            - /url: /prototypes/upload.html
+            - generic [ref=e73]: →
+            - text: Upload UI
+        - listitem [ref=e74]:
+          - link "→ Transactions" [ref=e75] [cursor=pointer]:
+            - /url: /prototypes/transactions.html
+            - generic [ref=e76]: →
+            - text: Transactions
+        - listitem [ref=e77]:
+          - link "→ Analytics" [ref=e78] [cursor=pointer]:
+            - /url: /prototypes/analytics.html
+            - generic [ref=e79]: →
+            - text: Analytics
+    - generic [ref=e80]:
+      - generic [ref=e81]:
+        - generic [ref=e82]: 📊
+        - heading "DIAGRAMS" [level=3] [ref=e83]
       - list [ref=e84]:
         - listitem [ref=e85]:
-          - link "🏠 Landing Page" [ref=e86] [cursor=pointer]:
-            - /url: /mindmap/prototypes/01-landing.html
-            - generic [ref=e87]: 🏠
-            - text: Landing Page
+          - link "→ Project Overview" [ref=e86] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/mindmap/diagrams/01-project-overview.md
+            - generic [ref=e87]: →
+            - text: Project Overview
         - listitem [ref=e88]:
-          - link "📱 All Prototypes" [ref=e89] [cursor=pointer]:
-            - /url: /mindmap/prototypes/index.html
-            - generic [ref=e90]: 📱
-            - text: All Prototypes
+          - link "→ API Flow" [ref=e89] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/mindmap/diagrams/04-api-flow.md
+            - generic [ref=e90]: →
+            - text: API Flow
         - listitem [ref=e91]:
-          - link "✨ Design Guidelines" [ref=e92] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/DESIGN_RECOMMENDATIONS.md
-            - generic [ref=e93]: ✨
-            - text: Design Guidelines
-    - generic [ref=e94]:
-      - generic [ref=e95]:
-        - generic [ref=e96]: 🗃️
-        - generic [ref=e97]:
-          - heading "Database" [level=3] [ref=e98]
-          - generic [ref=e99]: Supabase
-      - paragraph [ref=e100]: Схема базы данных и миграции для хранения транзакций
+          - link "→ Validation Rules" [ref=e92] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/mindmap/diagrams/05-validation-rules.md
+            - generic [ref=e93]: →
+            - text: Validation Rules
+        - listitem [ref=e94]:
+          - link "→ All Diagrams" [ref=e95] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/mindmap/README.md
+            - generic [ref=e96]: →
+            - text: All Diagrams
+    - generic [ref=e97]:
+      - generic [ref=e98]:
+        - generic [ref=e99]: 🧪
+        - heading "TESTING" [level=3] [ref=e100]
       - list [ref=e101]:
         - listitem [ref=e102]:
-          - link "🔗 Supabase Dashboard" [ref=e103] [cursor=pointer]:
-            - /url: https://ggxbqcctwforkngwhqpl.supabase.co
-            - generic [ref=e104]: 🔗
-            - text: Supabase Dashboard
+          - link "→ Test Documentation" [ref=e103] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/backend/TESTING.md
+            - generic [ref=e104]: →
+            - text: Test Documentation
         - listitem [ref=e105]:
-          - link "📄 Uploads Table" [ref=e106] [cursor=pointer]:
-            - /url: /backend/database/migrations/001_create_uploads_table.sql
-            - generic [ref=e107]: 📄
-            - text: Uploads Table
+          - link "→ Coverage Report" [ref=e106] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/backend/COVERAGE.md
+            - generic [ref=e107]: →
+            - text: Coverage Report
         - listitem [ref=e108]:
-          - link "📄 Transactions Table" [ref=e109] [cursor=pointer]:
-            - /url: /backend/database/migrations/002_create_transactions_table.sql
-            - generic [ref=e110]: 📄
-            - text: Transactions Table
+          - link "→ Integration Tests" [ref=e109] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e110]: →
+            - text: Integration Tests
         - listitem [ref=e111]:
-          - link "📘 Setup Guide" [ref=e112] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/backend/SUPABASE_SETUP_GUIDE.md
-            - generic [ref=e113]: 📘
-            - text: Setup Guide
+          - link "→ E2E Tests" [ref=e112] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e113]: →
+            - text: E2E Tests
     - generic [ref=e114]:
       - generic [ref=e115]:
-        - generic [ref=e116]: 🧪
-        - generic [ref=e117]:
-          - heading "Testing" [level=3] [ref=e118]
-          - generic [ref=e119]: Vitest
-      - paragraph [ref=e120]: Unit, integration тесты и тестовые данные
-      - list [ref=e121]:
+        - generic [ref=e116]: 🗄️
+        - heading "DATABASE" [level=3] [ref=e117]
+      - list [ref=e118]:
+        - listitem [ref=e119]:
+          - link "→ Schema & Migrations" [ref=e120] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/backend/DATABASE.md
+            - generic [ref=e121]: →
+            - text: Schema & Migrations
         - listitem [ref=e122]:
-          - link "📋 Testing Guide" [ref=e123] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/backend/tests/README.md
-            - generic [ref=e124]: 📋
-            - text: Testing Guide
+          - link "→ Data Model" [ref=e123] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/mindmap/diagrams/03-data-model.md
+            - generic [ref=e124]: →
+            - text: Data Model
         - listitem [ref=e125]:
-          - link "📊 Test Data" [ref=e126] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/test-data/README.md
-            - generic [ref=e127]: 📊
-            - text: Test Data
+          - link "→ Dashboard" [ref=e126] [cursor=pointer]:
+            - /url: https://supabase.com/dashboard/project/_
+            - generic [ref=e127]: →
+            - text: Dashboard
         - listitem [ref=e128]:
-          - link "🔄 E2E Test Script" [ref=e129] [cursor=pointer]:
-            - /url: /backend/test-upload-e2e.sh
-            - generic [ref=e130]: 🔄
-            - text: E2E Test Script
+          - link "→ Backup & Recovery" [ref=e129] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e130]: →
+            - text: Backup & Recovery
     - generic [ref=e131]:
       - generic [ref=e132]:
-        - generic [ref=e133]: 📋
-        - generic [ref=e134]:
-          - heading "Planning" [level=3] [ref=e135]
-          - generic [ref=e136]: PRD
-      - paragraph [ref=e137]: Product Requirements и планирование задач
-      - list [ref=e138]:
+        - generic [ref=e133]: 📈
+        - heading "MONITORING" [level=3] [ref=e134]
+      - list [ref=e135]:
+        - listitem [ref=e136]:
+          - link "→ Vercel Dashboard" [ref=e137] [cursor=pointer]:
+            - /url: https://vercel.com/dashboard
+            - generic [ref=e138]: →
+            - text: Vercel Dashboard
         - listitem [ref=e139]:
-          - link "📄 Product Requirements" [ref=e140] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/tasks/prd-csv-processing-api.md
-            - generic [ref=e141]: 📄
-            - text: Product Requirements
+          - link "→ Health Status" [ref=e140] [cursor=pointer]:
+            - /url: https://backend-mocha-nine-95.vercel.app/health
+            - generic [ref=e141]: →
+            - text: Health Status
         - listitem [ref=e142]:
-          - link "✅ Task Breakdown" [ref=e143] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/tasks/tasks-csv-processing-api.md
-            - generic [ref=e144]: ✅
-            - text: Task Breakdown
+          - link "→ Error Tracking" [ref=e143] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e144]: →
+            - text: Error Tracking
         - listitem [ref=e145]:
-          - link "🗺️ Product Roadmap" [ref=e146] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/mindmap/diagrams/10-roadmap.md
-            - generic [ref=e147]: 🗺️
-            - text: Product Roadmap
+          - link "→ Performance Metrics" [ref=e146] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e147]: →
+            - text: Performance Metrics
     - generic [ref=e148]:
       - generic [ref=e149]:
-        - generic [ref=e150]: 🚀
-        - generic [ref=e151]:
-          - heading "Deployment" [level=3] [ref=e152]
-          - generic [ref=e153]: Vercel
-      - paragraph [ref=e154]: Production deployment и мониторинг
-      - list [ref=e155]:
+        - generic [ref=e150]: ⚙️
+        - heading "LOCAL DEV" [level=3] [ref=e151]
+      - list [ref=e152]:
+        - listitem [ref=e153]:
+          - link "→ Setup Guide" [ref=e154] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/backend/README.md#setup
+            - generic [ref=e155]: →
+            - text: Setup Guide
         - listitem [ref=e156]:
-          - link "▲ Vercel Dashboard" [ref=e157] [cursor=pointer]:
-            - /url: https://vercel.com/ne4to777s-projects/backend
-            - generic [ref=e158]: ▲
-            - text: Vercel Dashboard
+          - link "→ Local API Docs" [ref=e157] [cursor=pointer]:
+            - /url: http://localhost:3000/docs
+            - generic [ref=e158]: →
+            - text: Local API Docs
         - listitem [ref=e159]:
-          - link "📜 Deploy Script" [ref=e160] [cursor=pointer]:
-            - /url: /backend/deploy-vercel.sh
-            - generic [ref=e161]: 📜
-            - text: Deploy Script
+          - link "→ Local Health Check" [ref=e160] [cursor=pointer]:
+            - /url: http://localhost:3000/health
+            - generic [ref=e161]: →
+            - text: Local Health Check
         - listitem [ref=e162]:
-          - link "📄 Pages Setup" [ref=e163] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/GITHUB_PAGES_SETUP.md
-            - generic [ref=e164]: 📄
-            - text: Pages Setup
+          - link "→ Troubleshooting" [ref=e163] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/backend/TROUBLESHOOTING.md
+            - generic [ref=e164]: →
+            - text: Troubleshooting
     - generic [ref=e165]:
       - generic [ref=e166]:
-        - generic [ref=e167]: 🛠️
-        - generic [ref=e168]:
-          - heading "AI Skills" [level=3] [ref=e169]
-          - generic [ref=e170]: Cursor
-      - paragraph [ref=e171]: Установленные AI skills для разработки
-      - list [ref=e172]:
+        - generic [ref=e167]: 🚀
+        - heading "CI/CD" [level=3] [ref=e168]
+      - list [ref=e169]:
+        - listitem [ref=e170]:
+          - link "→ GitHub Actions" [ref=e171] [cursor=pointer]:
+            - /url: https://github.com/Ne4to777/financial-ai-analytics/actions
+            - generic [ref=e172]: →
+            - text: GitHub Actions
         - listitem [ref=e173]:
-          - link "📦 Installed Skills" [ref=e174] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/SKILLS_INSTALLED.md
-            - generic [ref=e175]: 📦
-            - text: Installed Skills
+          - link "→ Deploy Guide" [ref=e174] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/DEPLOYMENT.md
+            - generic [ref=e175]: →
+            - text: Deploy Guide
         - listitem [ref=e176]:
-          - link "📚 Skills Guide" [ref=e177] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/CURSOR_SKILLS_GUIDE.md
-            - generic [ref=e178]: 📚
-            - text: Skills Guide
+          - link "→ Vercel Config" [ref=e177] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/VERCEL_DEPLOY.md
+            - generic [ref=e178]: →
+            - text: Vercel Config
         - listitem [ref=e179]:
-          - link "⚙️ Cursor Rules" [ref=e180] [cursor=pointer]:
-            - /url: /.cursorrules
-            - generic [ref=e181]: ⚙️
-            - text: Cursor Rules
+          - link "→ Releases" [ref=e180] [cursor=pointer]:
+            - /url: https://github.com/Ne4to777/financial-ai-analytics/releases
+            - generic [ref=e181]: →
+            - text: Releases
     - generic [ref=e182]:
       - generic [ref=e183]:
-        - generic [ref=e184]: 📊
-        - generic [ref=e185]:
-          - heading "Diagrams" [level=3] [ref=e186]
-          - generic [ref=e187]: Mermaid
-      - paragraph [ref=e188]: Визуализация процессов и структуры проекта
-      - list [ref=e189]:
+        - generic [ref=e184]: 🔒
+        - heading "SECURITY" [level=3] [ref=e185]
+      - list [ref=e186]:
+        - listitem [ref=e187]:
+          - link "→ Security Policy" [ref=e188] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/SECURITY.md
+            - generic [ref=e189]: →
+            - text: Security Policy
         - listitem [ref=e190]:
-          - link "🌳 Project Structure" [ref=e191] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/mindmap/diagrams/01-project-structure.md
-            - generic [ref=e192]: 🌳
-            - text: Project Structure
+          - link "→ Environment Vars" [ref=e191] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/backend/ENV.md
+            - generic [ref=e192]: →
+            - text: Environment Vars
         - listitem [ref=e193]:
-          - link "🤖 AI Analysis Flow" [ref=e194] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/mindmap/diagrams/08-ai-analysis-process.md
-            - generic [ref=e195]: 🤖
-            - text: AI Analysis Flow
+          - link "→ API Keys" [ref=e194] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e195]: →
+            - text: API Keys
         - listitem [ref=e196]:
-          - link "💎 Tech Stack" [ref=e197] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/mindmap/diagrams/09-tech-stack.md
-            - generic [ref=e198]: 💎
-            - text: Tech Stack
-        - listitem [ref=e199]:
-          - link "👁️ Diagram Viewer" [ref=e200] [cursor=pointer]:
-            - /url: /mindmap/viewer/
-            - generic [ref=e201]: 👁️
-            - text: Diagram Viewer
-    - generic [ref=e202]:
-      - generic [ref=e203]:
-        - generic [ref=e204]: 👥
-        - generic [ref=e205]:
-          - heading "Team" [level=3] [ref=e206]
-          - generic [ref=e207]: Shared
-      - paragraph [ref=e208]: Командный доступ и onboarding материалы
-      - list [ref=e209]:
+          - link "→ Audit Log" [ref=e197] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e198]: →
+            - text: Audit Log
+    - generic [ref=e199]:
+      - generic [ref=e200]:
+        - generic [ref=e201]: 📚
+        - heading "RESOURCES" [level=3] [ref=e202]
+      - list [ref=e203]:
+        - listitem [ref=e204]:
+          - link "→ Mindmap Index" [ref=e205] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/mindmap/README.md
+            - generic [ref=e206]: →
+            - text: Mindmap Index
+        - listitem [ref=e207]:
+          - link "→ Changelog" [ref=e208] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/CHANGELOG.md
+            - generic [ref=e209]: →
+            - text: Changelog
         - listitem [ref=e210]:
-          - link "🔑 Team Access Guide" [ref=e211] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/TEAM_ACCESS.md
-            - generic [ref=e212]: 🔑
-            - text: Team Access Guide
+          - link "→ Contributing" [ref=e211] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/CONTRIBUTING.md
+            - generic [ref=e212]: →
+            - text: Contributing
         - listitem [ref=e213]:
-          - link "⚡ Quick Start" [ref=e214] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/mindmap/QUICK_START.md
-            - generic [ref=e215]: ⚡
-            - text: Quick Start
-        - listitem [ref=e216]:
-          - link "🧭 Navigation Guide" [ref=e217] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/mindmap/diagrams/00-navigation.md
-            - generic [ref=e218]: 🧭
-            - text: Navigation Guide
-    - generic [ref=e219]:
-      - generic [ref=e220]:
-        - generic [ref=e221]: 💼
-        - generic [ref=e222]:
-          - heading "Business" [level=3] [ref=e223]
-          - generic [ref=e224]: Strategy
-      - paragraph [ref=e225]: Бизнес-метрики и конкурентные преимущества
-      - list [ref=e226]:
-        - listitem [ref=e227]:
-          - link "💰 Business Value" [ref=e228] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/mindmap/diagrams/13-business-value.md
-            - generic [ref=e229]: 💰
-            - text: Business Value
-        - listitem [ref=e230]:
-          - link "✅ Proof Points" [ref=e231] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/mindmap/diagrams/14-proof-points.md
-            - generic [ref=e232]: ✅
-            - text: Proof Points
-        - listitem [ref=e233]:
-          - link "🏆 Competitive Edge" [ref=e234] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/mindmap/diagrams/17-competitive-advantages.md
-            - generic [ref=e235]: 🏆
-            - text: Competitive Edge
-    - generic [ref=e236]:
-      - generic [ref=e237]:
-        - generic [ref=e238]: 🔒
-        - generic [ref=e239]:
-          - heading "Security" [level=3] [ref=e240]
-          - generic [ref=e241]: Critical
-      - paragraph [ref=e242]: Безопасность, комплаенс и best practices
-      - list [ref=e243]:
-        - listitem [ref=e244]:
-          - link "🛡️ Security Overview" [ref=e245] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/mindmap/diagrams/11-security.md
-            - generic [ref=e246]: 🛡️
-            - text: Security Overview
-        - listitem [ref=e247]:
-          - link "📜 Compliance" [ref=e248] [cursor=pointer]:
-            - /url: /md-viewer.html?file=/mindmap/diagrams/16-security-compliance.md
-            - generic [ref=e249]: 📜
-            - text: Compliance
-        - listitem [ref=e250]:
-          - link "🔑 Environment Variables" [ref=e251] [cursor=pointer]:
-            - /url: /backend/.env.example
-            - generic [ref=e252]: 🔑
-            - text: Environment Variables
-  - heading "⚡ Quick Commands" [level=2] [ref=e253]
-  - generic [ref=e254]:
-    - generic [ref=e255]:
-      - heading "Local Development" [level=3] [ref=e256]
-      - generic [ref=e257]: "cd backend npm install npm run dev # Test API locally curl http://localhost:3001/health"
-    - generic [ref=e258]:
-      - heading "Run Tests" [level=3] [ref=e259]
-      - generic [ref=e260]: "cd backend npm test # With coverage npm run test:coverage"
-    - generic [ref=e261]:
-      - heading "Deploy to Production" [level=3] [ref=e262]
-      - generic [ref=e263]: "cd backend npm run build vercel --prod --yes # Or test locally first vercel dev --listen 3001"
-    - generic [ref=e264]:
-      - heading "View Diagrams" [level=3] [ref=e265]
-      - generic [ref=e266]: "cd mindmap/viewer npm install npm start # Opens: http://localhost:8080"
-  - contentinfo [ref=e267]:
-    - paragraph [ref=e268]: 🔨 Built with TypeScript + Fastify + Supabase | Deployed on Vercel
-    - paragraph [ref=e269]:
-      - link "View on GitHub" [ref=e270] [cursor=pointer]:
+          - link "→ License" [ref=e214] [cursor=pointer]:
+            - /url: /md-viewer.html?file=/LICENSE
+            - generic [ref=e215]: →
+            - text: License
+  - contentinfo [ref=e216]:
+    - paragraph [ref=e217]:
+      - text: TS + Fastify + Supabase + Vercel |
+      - link "Repository" [ref=e218] [cursor=pointer]:
         - /url: https://github.com/Ne4to777/financial-ai-analytics
+      - text: "| v1.0.0"
 ```
