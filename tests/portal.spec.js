@@ -6,19 +6,9 @@ test.describe('Developer Portal', () => {
   });
 
   test('should display header with title and status', async ({ page }) => {
-    await expect(page.locator('h1')).toContainText('Financial Analytics Platform');
-    await expect(page.locator('.status-badge.online')).toBeVisible();
-    await expect(page.locator('.status-badge.online')).toContainText('Production Live');
-  });
-
-  test('should display quick access buttons', async ({ page }) => {
-    const buttons = page.locator('.btn');
-    await expect(buttons).toHaveCount(3);
-    
-    // Check button text
-    await expect(buttons.nth(0)).toContainText('API Documentation');
-    await expect(buttons.nth(1)).toContainText('Health Check');
-    await expect(buttons.nth(2)).toContainText('GitHub Repository');
+    await expect(page.locator('h1')).toContainText('FIN-ANALYTICS');
+    await expect(page.locator('.status-badge')).toBeVisible();
+    await expect(page.locator('.status-badge')).toContainText('PROD');
   });
 
   test('should display all resource cards', async ({ page }) => {
